@@ -1,7 +1,9 @@
 package com.example.bugfire.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
@@ -11,6 +13,7 @@ import com.example.bugfire.ui.home.HomeFragment;
 import com.example.bugfire.ui.message.MessageFragment;
 import com.example.bugfire.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +24,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,34 +54,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener= new BottomNavigationView.OnNavigationItemSelectedListener() {
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    Fragment fragment = new HomeFragment();
-//                    loadFragment(fragment);
-//                    return true;
-//
-//                case R.id.navigation_dashboard:
-//                    Fragment fragment1 = new DashboardFragment();
-//                    loadFragment(fragment1);
-//                    return true;
-//
-//                case R.id.navigation_notifications:
-//                    Fragment fragment2 = new NotificationsFragment();
-//                    loadFragment(fragment2);
-//                    return true;
-//
-//                case R.id.navigation_messages:
-//                    Fragment fragment3 = new MessageFragment();
-//                    loadFragment(fragment3);
-//                    return true;
-//            }
-//            return false;
-//        }
-//    };
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -87,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Fragment fragment = new HomeFragment();
                 loadFragment(fragment);
                 Toast.makeText(getApplicationContext(), "New Feeds",Toast.LENGTH_LONG).show();
+
+//                Intent intent = new Intent(getApplicationContext(), HomeFragment.class);
+//                intent.putExtra("fragment","Stories");
                 return true;
 
             case R.id.navigation_dashboard:
@@ -108,5 +86,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

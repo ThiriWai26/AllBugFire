@@ -32,6 +32,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:typeface="normal" />
+
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 

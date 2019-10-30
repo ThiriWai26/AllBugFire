@@ -7,14 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.MobileAdapter;
+import com.example.bugfire.holder.MobileHolder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MobileGamesFragment extends Fragment {
+public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobileItemClickListener{
 
+    private RecyclerView recyclerView;
+    private MobileAdapter adapter;
 
     public MobileGamesFragment() {
         // Required empty public constructor
@@ -25,7 +31,17 @@ public class MobileGamesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mobile_games, container, false);
+        View view = inflater.inflate(R.layout.fragment_mobile_games, container, false);
+
+        recyclerView = view.findViewById(R.id.mobileRecyclerView);
+        adapter = new MobileAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        return view;
     }
 
+    @Override
+    public void onMobileClick() {
+
+    }
 }
