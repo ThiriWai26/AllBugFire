@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".activity.NewsDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp">
+
+        <LinearLayout
+            android:id="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/featurephoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@drawable/img_ceb_vision"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/margin_lg"
+                    android:layout_below="@id/pic"
+                    android:orientation="vertical"
+                    tools:ignore="NotSibling">
+
+                    <TextView
+                        android:id="@+id/tvname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NormalTextInputLayout"
+                        android:text="Dota 2, Strategy" />
+
+                    <TextView
+                        android:id="@+id/tvtitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_md"
+                        android:text="Ceb ‌ြေပာတဲ့ vision အ‌ြေကာင်းအရေးြကီးပုံ"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/tvtime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/NormalTextInputLayout"
+                        android:layout_marginTop="@dimen/margin_md"
+                        android:text="11:20AM, March 20, 2019"
+                        android:justificationMode="inter_word"/>
+
+                    <TextView
+                        android:id="@+id/tvabout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/NormalTextInputLayout"
+                        android:layout_marginTop="@dimen/margin_md"
+                        android:lineSpacingExtra="@dimen/margin_md"
+                        android:text="                 တကယ့် Battle ဖြစ်ကြပြီဟေ့ဆို စက္ကန့် သုံးဆယ်လောက်အတွင်းမှာ Spell နှစ်ဆယ်လောက် ထွက်လာပြီး တချက်ကလေး မှားလိုက်ရုံနဲ့ ငါးပါးသာမက သံဃာစင်ကြီးပါ မှောက်တော့တာပဲ ဒါကို Player တွေလည်း သိတယ် ဒါကြောင့် သူတို့ အာရုံစိုက်မှုအစုံဟာ ဒီ Battle အတွင်းမှာ ရောက်နိုင်သမျှ ရောက်နေရတယ် ။ ဒီလို အခြေအနေဆိုတာ ပွဲတစ်ခုလုံးကို အဆုံးအဖြတ်ပေးနိုင်တယ်ဆိုတာ သိတာကိုး ။ Pro Player တွေအတွက် Team Fight ဆိုတာ အဓိက အရေးကြီးဆုံး အရာတွေထဲက တစ်ခုပဲ ။ တတ်နိုင်သမျှ ပွဲကို analyse လုပ်တယ် အခြေအနေကို ဆန်းစစ်တယ် ဘယ်လို အနေအထားမျိုးမှာ မှားနိုင်တယ် မှားသွားနိုင်တယ်ဆိုတာမျိုးကို သေသေချာချာ စိစစ်ပြီးမှ အနိုင်ရလာဒ်ရဖို့ ကြိုးစားယူရတယ် ။
+
+            ဒီလို ဖြစ်လာဖို့ အတွက် ကျွန်တော့် အမြင်အရတော့ အရေးကြီးတဲ့ အကြောင်းအရာ နှစ်ခု အပေါ်မှာ မူတည်တယ် ဒါတွေကတော့ Vision နဲ့ Initiation ပဲ ။ဒီနေ့တော့ ကျွန်တော် Vision အကြောင်း အရင် ပြောပြမယ် ။
+
+            ပထမဆုံး အနေနဲ့ Vision ဟာ Dota ရဲ့ mechanic မှာ ဘယ်လို အသုံးဝင်လဲဆိုတာ အရင် ရှင်းပြမယ် ။ Vision ကို ward တွေ Hero တွေ / Unit တွေနဲ့ တခါတရံ Spell သုံးရာက ရရှိနိုင်တယ် ။ Enemy ရဲ့ Position ယူပုံကို မြင်ရင် သူတို့ ဘယ်လို clash မယ်ဆိုတာ ကြိုသိနိုင်တဲ့ အတွက် အရေးအင်မတန်ကြီးတယ် ။ သူတို့ Battle ကို ဘယ်လို ဆိုင်မယ်ဆိုတာ ကြိုသိတာဟာ နည်းတဲ့ အားသာချက်ကြီးလား ? ပြေးဝင်လာမယ့် Hero တွေနဲ့ ခေါင်းတိုးလာမှာလား ဒါမှမဟုတ် နောက်ကနေပဲ ကိုယ်တွေကို ဝင်ဆိုင်ဖို့ ကြိုးစားနေတာလား ဒါမျိုးသိရုံနဲ့ ကျွန်တော်တို့ဟာ Battle တစ်ခုလုံကို ပြောင်းပြန်လှန်ပစ်လိုက်လို့ရပြီ
+
+            တကယ်တော့ ဘယ် Team Fight ဟာ နိုင်မယ်ဆိုတာမျိုး အတိအကျ ခန့်မှန်းလို့မရပါဘူး ။ ဒါပေမယ့် Vision သာတဲ့သူကတော့ အခွင့်အရေးပိုရတာပေါ့ ။ ဘယ် Hero ကို အရင် ရှင်းရမလဲ ? သူတို့ ဘက်က Battle ဆိုင်ဖို့ အသင့် ဖြစ်နေတာ သေချာရဲ့လား ? ဒါမျိုးတွေဟာ သိပ်အရေးကြီးလာတယ် ။
+
+            The Wards War:
+
+            Ward War နဲ့ပတ်သတ်ပြီးတော့ ထွေထူး ပြောစရာမလိုပါဘူး Ward တွေဟာ Vision ကို ပေးတဲ့အတွက် Dota မှာ အင်မတန် အရေးကြီးပါတယ် ။ ဒါကြောင့်လည်း Ward War တွေ စ ကြတာပေါ့ ဒီလို Ward ထောင်ရာမှာတော့ နှစ်ပိုင်း ခွဲခြားလို့ရပါတယ် ။ ပထမ တစ်ပိုင်းက ကိုယ် လုပ်ချင်တဲ့ ရည်မှန်းချက်ကို ဖြစ်တည်ဖို့ အတွက် ပြုလုပ်တဲ့ War ပါ ။ ဥပမာ အပေါ်လမ်း First Tower ကို လိုချင်တဲ့အတွက် Tower တစ်လုံးကို ကျော်ပြီး ward ထောင်ပေးထားတာမျိုး ပေါ့ ။ offensive ward လို ခေါ်ဆို သုံးနှုန်းမယ်ဆိုရင်လည်း ရပါတယ် ။ ဒုတိယ တစ်ပိုင်းကတော့ Defensive ward ပါ ။ ကိုယ့် ဘက်က နိမ့်နေရင် သို့မဟုတ် ကိုယ့် ဘက်ကို အ gank မခံရအောင် ထိန်းထားနိုင်မယ့် ward မျိုးတွေ ဖြစ်ပါတယ် ။ ဒီလို ward ထောင်ရာမှာ တခါတရံတော့ ward တစ်ချောင်းမှာ ရသင့်တဲ့ vision အကြီးကြီးမရပေမယ့် vision သေးသေးလေးနဲ့တင် အသုံးဝင်နိုင်ပြီး enemy team က မရိပ်မိနိုင်တဲ့ ward လေးတွေကို သစ်ပင်တွေကြားမှာ ထောင်တာမျိုးဟာလည်း အင်မတန် အသုံးဝင်ပါတယ် ။ ward war မှာ တခြားတစ်ဖက်ကို လှည့်စားဖို့ အတွက် တခါတရံ သူတို့ လုံး၀ ထင်မှတ်မထားတဲ့ ရှင်းရှင်းလင်းလင်း လမ်းအလယ်ခေါင်ကြီးမှာ ထောင်တာမျိုးဟာလည်း အင်မတန် အကျိုးရှိပါတယ် ။
+
+            The choice of the “battlespot”
+
+            တကယ်တော့ အသင်းတွေဟာ အမြဲတမ်း ဘယ် နေရာမှာ ဆိုင်မယ်ဆိုပြီး ရွေးချယ်ခွင့်မရှိပါဘူး invisible rune ရလို့ လိုက် ဆိုင်ဖို့ ကြိုးစားကောင်း ကြိုးစားမယ် တခါတရံ smoke နဲ့ လိုက်ရှာရင်း လိုက်ဆိုင်တာမျိုးလည်းရှိနိုင်မှာပဲ လူတိုင်းကတော့ သူတို့ Vision အသာရမယ့်နေရာ High Ground နေရာမျိုးမှာ ဆိုင်ချင်တဲ့သူချည်းပါပဲ ။ တချို့ Hero တွေ အတွက်ကတေ့ နေရာပေါ်မူတည်ပြီး အသာရနိုင်ပါတယ် ။ ဥပမာ slark ဆို တောထဲမှာ ဆိုင်ရင် ပိုအားသာတာမျိုး နေရာကျဉ်းတဲ့နေရာဆို Dark Seer အတွက် ပိုအားသာတာမျိုးပေါ့ ဒီလို အချိန်မှာ Vision ကောင်းကောင်း ရတဲ့နေရာမှာ ဆိုင်နိုင်မယ်ဆိုရင် ကိုယ့် အသင်း အတွက် နေရာ အနေအထားပေါ် မူတည်ပြီး နိမ့်နေမယ်ဆိုရင်တောင် Battle ကို ကြည့်ကျပ်ပြီး ဝင်နိုင်မယ့် အားသာချက်ကြောင့် အနိုင်ရနိုင်ပါတယ် ။
+
+            Heros and Items
+
+            အခုဆို Vision ဟာ ဘယ်လောက် အရေးကြီးတယ်ဆိုတာ ခင်ဗျားတို့ စ သိလောက်ပြီး ထင်ပါတယ် ။ ဒီမှာ Vision ကို ပေးနိုင်တဲ့ အခြားသော Hero တွေဟာ စ တင် အသုံးဝင်လာတာပါပဲ ဥပမာ Beast Master လို Hero မျိုးပေါ့လေ ။ Beast Master ရဲ့ hawk ဟာ အစောပိုင်းမှာ အင်မတန် အသုံးဝင်ပါတယ် ။ ဒါကြောင့် ပုံမှန် အားဖြင့် Beast master ရဲ့ hawk ကို ရပြီဆိုတာနဲ့ Team တွေဟာ သူ့ Vision ကို အသုံးပြုပြီး တစ်ခုခု လုပ်ဖို့ Game အစောပိုင်းမှာ ကြိုးစားကြတာကို မြင်ကြမှာဖြစ်ပါတယ် ။ တကယ်လို့ ယူပြီး အသုံးမပြုရင်လည်း ကိုယ့်ဘက်က နစ်နာပါတယ် ။
+
+            ဒီလို Vision ကို အားသာခြင်းဟာ Battle တစ်ခုကို နိုင်ဖို့ အတွက် ဒုတိယ အချက်ဖြစ်တဲ့ Initation ကိုပါ အထောက်အကူပြုတဲ့အတွက် vision ရဲ့ အရေးကြီးပုံကို ဒီလောက်ဆို သိလောက်ကြပြီထင်ပါတယ်"
+                        android:justificationMode="inter_word" />
+
+                </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

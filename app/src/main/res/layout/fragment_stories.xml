@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.FeedsFragment"
+    android:background="@color/colorBackground">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/storiesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_md"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorBackground"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:scrollbars="vertical"
+        tools:ignore="NotSibling"
+        tools:listitem="@layout/layout_stories_item" />
+
+</FrameLayout>
+
