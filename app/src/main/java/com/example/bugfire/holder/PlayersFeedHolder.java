@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 
-public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-    private OnFeedClickListener listener;
+public class PlayersFeedHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    
+    private OnPlayersFeedClickListener listener;
     private TextView txName, txTime, txabout, txabout1;
     private ImageView profile;
-
-    public FeedsHolder(@NonNull View itemView, OnFeedClickListener listener) {
+    
+    public PlayersFeedHolder(@NonNull View itemView, OnPlayersFeedClickListener listener) {
         super(itemView);
-        this.listener = listener;
+        this.listener = this.listener;
 
         txName = itemView.findViewById(R.id.tvName);
         txTime = itemView.findViewById(R.id.tvTime);
@@ -29,19 +29,19 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClick
         itemView.setOnClickListener(this);
     }
 
-    public static FeedsHolder create(LayoutInflater inflater, ViewGroup parent, FeedsHolder.OnFeedClickListener listener) {
-        View view = inflater.inflate(R.layout.layout_feed_item, parent, false);
-        return new FeedsHolder(view, listener);
+    public static PlayersFeedHolder create(LayoutInflater inflater, ViewGroup parent, OnPlayersFeedClickListener listener) {
+        View view = inflater.inflate(R.layout.layout_playerfeeds_item, parent, false);
+        return new PlayersFeedHolder(view, listener);
     }
 
-    public static void BindData() {
+    public static void bindData() {
     }
 
     @Override
     public void onClick(View v) {
     }
 
-    public interface OnFeedClickListener {
+    public interface OnPlayersFeedClickListener {
+        void onPlayersFeedClick();
     }
-
 }

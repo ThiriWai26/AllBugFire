@@ -1,18 +1,23 @@
 package com.example.bugfire.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.PlayerAdapter;
 import com.example.bugfire.holder.PlayerHolder;
+import com.example.bugfire.ui.home.HomeFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,10 +43,19 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
-    }
 
+    }
+    
     @Override
     public void onPlayerClick() {
+        Log.e("success","done");
+        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        PlayersDetailFragment mFrag = new PlayersDetailFragment();
+        fragmentTransaction.replace(R.id.frame, mFrag);
+        fragmentTransaction.commit();
+
 
     }
+
+
 }

@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/profile"
-                android:layout_margin="@dimen/margin_xl"
+                android:layout_marginTop="@dimen/margin_xl"
                 android:orientation="vertical">
 
                 <TextView
@@ -56,14 +56,13 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:layout_width="300dp"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_xl"
             android:defaultFocusHighlightEnabled="true"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/colorAccent"
             android:orientation="horizontal"
-            app:ignore="RtlCompat"
             tools:ignore="RtlCompat">
 
             <com.google.android.material.tabs.TabItem
@@ -86,8 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Articles"
-                app:tabTextColor="@color/white"
-                style="@style/NormalTextInputLayout"/>
+                app:tabTextColor="@color/white" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabVideos"

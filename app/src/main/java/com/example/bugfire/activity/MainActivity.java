@@ -62,9 +62,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 Fragment fragment = new HomeFragment();
                 loadFragment(fragment);
                 Toast.makeText(getApplicationContext(), "New Feeds",Toast.LENGTH_LONG).show();
-
-//                Intent intent = new Intent(getApplicationContext(), HomeFragment.class);
-//                intent.putExtra("fragment","Stories");
                 return true;
 
             case R.id.navigation_dashboard:

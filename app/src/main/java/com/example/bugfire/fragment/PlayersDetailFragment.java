@@ -34,7 +34,7 @@ public class PlayersDetailFragment extends Fragment {
         TabLayout tabLayout = view.findViewById(R.id.tabLayout);
         ViewPager viewPager = view.findViewById(R.id.viewPager);
         TapPlayersDetailAdapter tapPlayersDetailAdapter = new TapPlayersDetailAdapter(getFragmentManager());
-
+//
         viewPager.setAdapter(tapPlayersDetailAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
