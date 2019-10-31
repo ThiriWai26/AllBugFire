@@ -40,4 +40,8 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
 
     }
 
+    @Override
+    public void onPCFeeds() {
+
+    }
 }

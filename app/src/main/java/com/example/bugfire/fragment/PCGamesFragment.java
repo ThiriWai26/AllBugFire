@@ -1,6 +1,7 @@
 package com.example.bugfire.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.activity.PCGamesDetailActivity;
 import com.example.bugfire.adapter.PCGamesAdapter;
 import com.example.bugfire.holder.PCGamesHolder;
 
@@ -43,6 +45,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
 
     @Override
     public void onPCClick() {
-
+        Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
+        startActivity(intent);
     }
 }

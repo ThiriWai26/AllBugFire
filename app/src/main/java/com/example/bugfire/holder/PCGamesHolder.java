@@ -17,7 +17,7 @@ public class PCGamesHolder extends RecyclerView.ViewHolder implements View.OnCli
     
     public PCGamesHolder(@NonNull View itemView, OnPCItemClickListener listener) {
         super(itemView);
-        this.listener = this.listener;
+        this.listener = listener;
         
         imgdota = itemView.findViewById(R.id.imgdota);
         imgcounter = itemView.findViewById(R.id.imgcounter);

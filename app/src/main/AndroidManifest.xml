@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.bugfire">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +16,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.MobileGamesDetailActivity"></activity>
+        <activity android:name=".activity.PCGamesDetailActivity" />
         <activity android:name=".activity.PubgDetailActivity" />
         <activity android:name=".activity.EsportsDetailActivity" />
         <activity android:name=".activity.MBLLDetailActivity" />

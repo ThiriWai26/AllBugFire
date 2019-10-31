@@ -20,7 +20,7 @@ import com.example.bugfire.holder.StoriesHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StoriesFragment extends Fragment implements StoriesHolder.OnStoriesItemClickListener {
+public class StoriesFragment extends Fragment implements StoriesHolder.OnStoriesItemClickListener  {
 
     private RecyclerView recyclerView;
     private StoriesAdapter adapter;

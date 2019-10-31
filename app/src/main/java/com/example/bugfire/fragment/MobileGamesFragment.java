@@ -1,6 +1,7 @@
 package com.example.bugfire.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.activity.MobileGamesDetailActivity;
 import com.example.bugfire.adapter.MobileAdapter;
 import com.example.bugfire.holder.MobileHolder;
 
@@ -42,6 +44,7 @@ public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobi
 
     @Override
     public void onMobileClick() {
-
+        Intent intent = new Intent(getContext(), MobileGamesDetailActivity.class);
+        startActivity(intent);
     }
 }

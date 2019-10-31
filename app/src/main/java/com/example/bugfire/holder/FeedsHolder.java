@@ -39,9 +39,11 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        listener.onPCFeeds();
     }
 
     public interface OnFeedClickListener {
+        void onPCFeeds();
     }
 
 }
