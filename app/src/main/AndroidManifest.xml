@@ -16,8 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.MobileGamesDetailActivity"></activity>
-        <activity android:name=".activity.PCGamesDetailActivity" />
+        <activity android:name=".activity.MobileGamesDetailActivity" />
         <activity android:name=".activity.PubgDetailActivity" />
         <activity android:name=".activity.EsportsDetailActivity" />
         <activity android:name=".activity.MBLLDetailActivity" />

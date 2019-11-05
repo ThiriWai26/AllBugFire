@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorBackground"
-    android:layout_margin="@dimen/margin_lg">
+    android:layout_margin="@dimen/margin_lg"
+    tools:ignore="WebViewLayout">
 
-    <VideoView
-        android:id="@+id/vdVw"
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center" />
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

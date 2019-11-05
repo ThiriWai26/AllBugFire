@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.legacy.app.ActionBarDrawerToggle;
@@ -22,6 +23,9 @@ import com.example.bugfire.ui.home.HomeFragment;
 import com.example.bugfire.ui.message.MessageFragment;
 import com.example.bugfire.ui.notifications.NotificationsFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 
 public class AnotherHomenaviActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,7 +33,7 @@ public class AnotherHomenaviActivity extends AppCompatActivity implements Naviga
     private String fragmentName;
     private TextView txttitle;
 
-    private DrawerLayout mDrawerLayout;
+    private DrawerLayout drawer;
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
@@ -38,17 +42,10 @@ public class AnotherHomenaviActivity extends AppCompatActivity implements Naviga
         setContentView(R.layout.activity_another_homenavi);
 
         txttitle = findViewById(R.id.tvTitle);
-
         Toolbar toolbar =  (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.addDrawerListener(toggle);
-//        toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -56,6 +53,7 @@ public class AnotherHomenaviActivity extends AppCompatActivity implements Naviga
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
 
         init();
+
     }
 
     private void init() {
@@ -89,15 +87,15 @@ public class AnotherHomenaviActivity extends AppCompatActivity implements Naviga
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//        }
+//    }
 
 
     @Override

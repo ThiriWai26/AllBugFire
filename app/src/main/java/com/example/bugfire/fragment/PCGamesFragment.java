@@ -3,17 +3,17 @@ package com.example.bugfire.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
-import com.example.bugfire.activity.PCGamesDetailActivity;
 import com.example.bugfire.adapter.PCGamesAdapter;
 import com.example.bugfire.holder.PCGamesHolder;
 
@@ -45,7 +45,11 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
 
     @Override
     public void onPCClick() {
-        Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
-        startActivity(intent);
+        Log.e("success","done");
+        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        PlayersDetailFragment mFrag = new PlayersDetailFragment();
+        fragmentTransaction.replace(R.id.frame, mFrag);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

@@ -42,7 +42,6 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
     @Override
     public void onClick(View v) {
         listener.onNewsClick();
-
     }
 
     public interface OnNewsClickListener {

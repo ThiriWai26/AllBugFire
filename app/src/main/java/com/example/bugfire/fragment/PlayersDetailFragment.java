@@ -4,9 +4,13 @@ package com.example.bugfire.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,7 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayersDetailFragment extends Fragment {
+public class PlayersDetailFragment extends Fragment implements View.OnClickListener {
 
 
     public PlayersDetailFragment() {
@@ -41,4 +45,13 @@ public class PlayersDetailFragment extends Fragment {
         return view;
     }
 
+
+
+    @Override
+    public void onClick(View v) {
+//        Log.e("success","done");
+//        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+    }
 }

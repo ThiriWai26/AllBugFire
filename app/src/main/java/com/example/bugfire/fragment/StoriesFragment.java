@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.VideoView;
 
 import com.example.bugfire.R;
@@ -20,7 +23,7 @@ import com.example.bugfire.holder.StoriesHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StoriesFragment extends Fragment implements StoriesHolder.OnStoriesItemClickListener  {
+public class StoriesFragment extends Fragment implements StoriesHolder.OnStoriesItemClickListener {
 
     private RecyclerView recyclerView;
     private StoriesAdapter adapter;
@@ -41,10 +44,6 @@ public class StoriesFragment extends Fragment implements StoriesHolder.OnStories
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        Uri uri = Uri.parse("/https://www.youtube.com/watch?v=75N_UFLa-wc");
-//        VideoView simpleVideoView = view.findViewById(R.id.vdVw); // initiate a video view
-//        simpleVideoView.setVideoURI(uri);
-//        simpleVideoView.start();
 
         return view;
     }

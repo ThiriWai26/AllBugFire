@@ -4,12 +4,15 @@ package com.example.bugfire.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.TapPCGamesDetailAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,7 +29,16 @@ public class PCGamesDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pcgames_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_pcgames_detail, container, false);
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        ViewPager viewPager = view.findViewById(R.id.viewPager);
+        TapPCGamesDetailAdapter tapPCGamesDetailAdapter = new TapPCGamesDetailAdapter(getFragmentManager());
+//
+        viewPager.setAdapter(tapPCGamesDetailAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        return view;
     }
 
 }

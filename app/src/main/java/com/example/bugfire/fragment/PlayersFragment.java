@@ -1,6 +1,7 @@
 package com.example.bugfire.fragment;
 
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,9 +52,14 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
         FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
         PlayersDetailFragment mFrag = new PlayersDetailFragment();
         fragmentTransaction.replace(R.id.frame, mFrag);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
+    }
 
+    public void onBackPressed(){
+        FragmentManager fragmentManager = getActivity().getFragmentManager();
+        fragmentManager.popBackStackImmediate();
     }
 
 
