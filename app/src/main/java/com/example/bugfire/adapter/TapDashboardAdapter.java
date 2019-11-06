@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.example.bugfire.fragment.DotaFragment;
+import com.example.bugfire.fragment.MBLLFragment;
 import com.example.bugfire.fragment.StoriesFragment;
 import com.example.bugfire.fragment.WeekelyNewsFragment;
 
@@ -21,7 +23,7 @@ public class TapDashboardAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int i) {
 
-        switch (i) {
+        switch (i){
             case 0:
                 StoriesFragment fragment = new StoriesFragment();
                 return fragment;
@@ -29,9 +31,7 @@ public class TapDashboardAdapter extends FragmentStatePagerAdapter {
             case 1:
                 WeekelyNewsFragment fragment1 = new WeekelyNewsFragment();
                 return fragment1;
-
         }
-
         return null;
     }
 

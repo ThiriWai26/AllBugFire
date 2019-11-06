@@ -2,25 +2,31 @@ package com.example.bugfire.fragment;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.WeekelyNewsAdapter;
+import com.example.bugfire.holder.WeekelyNewsHolder;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeekelyNewsFragment extends Fragment implements YouTubePlayer.OnInitializedListener {
+public class WeekelyNewsFragment extends Fragment implements WeekelyNewsHolder.OnWeekelyNewsItemClickListener {
 
-    private static final String API_KEY = "AIzaSyAuUzBy9ffaLb-31gQ9-SfDvM5u_XZoFE4";
-    private YouTubePlayerView youTubePlayerView;
-
+    private RecyclerView recyclerView;
+    private WeekelyNewsAdapter adapter;
 
     public WeekelyNewsFragment() {
         // Required empty public constructor
@@ -33,19 +39,19 @@ public class WeekelyNewsFragment extends Fragment implements YouTubePlayer.OnIni
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weekely_news, container, false);
 
-        youTubePlayerView = view.findViewById(R.id.youtube_playerView);
-        youTubePlayerView.initialize(API_KEY , this);
 
-        return view;
+        recyclerView = view.findViewById(R.id.weekelynewsRecyclerView);
+       adapter = new WeekelyNewsAdapter(this);
+
+       recyclerView.setAdapter(adapter);
+       recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        return  view;
     }
 
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-        youTubePlayer.cueVideo("URBy9t6e8rY");
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+    public void onItemClick() {
 
     }
 }
+

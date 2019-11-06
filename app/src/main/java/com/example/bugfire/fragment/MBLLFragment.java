@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.bugfire.R;
 import com.example.bugfire.activity.MBLLDetailActivity;
+import com.example.bugfire.activity.WeekelyNewsActivity;
 import com.example.bugfire.adapter.MBLLAdapter;
 import com.example.bugfire.holder.MBLLHolder;
 
@@ -44,7 +45,7 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
 
     @Override
     public void onMBLLClick() {
-        Intent intent = new Intent(getContext(), MBLLDetailActivity.class);
+        Intent intent = new Intent(getContext(), WeekelyNewsActivity.class);
         startActivity(intent);
     }
 }
