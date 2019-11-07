@@ -26,6 +26,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
     @Override
     public void onBindViewHolder(@NonNull PlayerHolder holder, int position) {
         PlayerHolder.bindData();
+
+        listener.onPlayerClick();
     }
 
     @Override

@@ -42,21 +42,21 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvnameone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Arteezy"
-                        style="@style/TitleInputLayout"
-                        tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/tvnameone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Arteezy"
+                    style="@style/TitleInputLayout"
+                    tools:ignore="RtlCompat" />
 
-                    <TextView
-                        android:id="@+id/tvaboutone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="EG"
-                        style="@style/NormalTextInputLayout"
-                        tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/tvaboutone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="EG"
+                    style="@style/NormalTextInputLayout"
+                    tools:ignore="RtlCompat" />
 
             </LinearLayout>
         </LinearLayout>
@@ -111,60 +111,60 @@
         </LinearLayout>
     </LinearLayout>
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal">-->
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal">-->
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linearthree"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="@dimen/margin_md"-->
-<!--            android:orientation="vertical" >-->
+    <!--        <LinearLayout-->
+    <!--            android:id="@+id/linearthree"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_margin="@dimen/margin_md"-->
+    <!--            android:orientation="vertical" >-->
 
-<!--            &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="150dp"-->
-<!--                android:layout_height="220dp"-->
-<!--                android:layout_alignParentTop="true"-->
-<!--                app:cardCornerRadius="15dp"-->
-<!--                app:cardElevation="1dp"-->
-<!--                app:cardUseCompatPadding="true">-->
+    <!--            &lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--            <androidx.cardview.widget.CardView-->
+    <!--                android:layout_width="150dp"-->
+    <!--                android:layout_height="220dp"-->
+    <!--                android:layout_alignParentTop="true"-->
+    <!--                app:cardCornerRadius="15dp"-->
+    <!--                app:cardElevation="1dp"-->
+    <!--                app:cardUseCompatPadding="true">-->
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/imgdendi"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:background="@drawable/img_dendi"/>-->
+    <!--                <ImageView-->
+    <!--                    android:id="@+id/imgdendi"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:background="@drawable/img_dendi"/>-->
 
-<!--            </androidx.cardview.widget.CardView>-->
+    <!--            </androidx.cardview.widget.CardView>-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:orientation="vertical">-->
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_margin="10dp"-->
+    <!--                android:orientation="vertical">-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvnamethree"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Dendi"-->
-<!--                    style="@style/TitleInputLayout"-->
-<!--                    tools:ignore="RtlCompat" />-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tvnamethree"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="Dendi"-->
+    <!--                    style="@style/TitleInputLayout"-->
+    <!--                    tools:ignore="RtlCompat" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvaboutthree"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="The Pango"-->
-<!--                    style="@style/NormalTextInputLayout"-->
-<!--                    tools:ignore="RtlCompat" />-->
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tvaboutthree"-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:text="The Pango"-->
+    <!--                    style="@style/NormalTextInputLayout"-->
+    <!--                    tools:ignore="RtlCompat" />-->
 
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
+    <!--            </LinearLayout>-->
+    <!--        </LinearLayout>-->
+    <!--    </LinearLayout>-->
 
 
 </LinearLayout>

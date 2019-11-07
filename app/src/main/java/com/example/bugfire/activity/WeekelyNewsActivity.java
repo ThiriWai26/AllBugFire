@@ -2,17 +2,19 @@ package com.example.bugfire.activity;
 
 import android.os.Bundle;
 
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 
 import com.example.bugfire.adapter.WeekelyNewsAdapter;
+import com.example.bugfire.fragment.YouTubeFragment;
 import com.example.bugfire.holder.WeekelyNewsHolder;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 
 
-public class WeekelyNewsActivity extends YouTubeBaseActivity implements WeekelyNewsHolder.OnWeekelyNewsItemClickListener {
+public class WeekelyNewsActivity extends YouTubeBaseActivity implements WeekelyNewsHolder.OnWeekelyNewsItemClickListener{
 
     private RecyclerView recyclerView;
     private WeekelyNewsAdapter adapter;
@@ -31,10 +33,10 @@ public class WeekelyNewsActivity extends YouTubeBaseActivity implements WeekelyN
         adapter = new WeekelyNewsAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
     public void onItemClick() {
-        finish();
     }
 }

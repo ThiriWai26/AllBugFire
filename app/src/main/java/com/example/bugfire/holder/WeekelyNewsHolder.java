@@ -51,7 +51,7 @@ public class WeekelyNewsHolder extends RecyclerView.ViewHolder implements View.O
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
         Log.e("InitializeSuccess","success");
         if(!b) {
-            youTubePlayer.cueVideo("Q5NT63goPtk");
+            youTubePlayer.cueVideo("75N_UFLa-wc");
         }
     }
 

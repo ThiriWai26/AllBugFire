@@ -13,7 +13,7 @@ import com.example.bugfire.fragment.WeekelyNewsFragment;
 
 public class TapDashboardAdapter extends FragmentStatePagerAdapter {
 
-    String[] tab = {"Stories", "Weekely News"};
+    String[] tab = {"Stories"};
 
     public TapDashboardAdapter(@NonNull FragmentManager fm) {
         super(fm);
@@ -27,17 +27,13 @@ public class TapDashboardAdapter extends FragmentStatePagerAdapter {
             case 0:
                 StoriesFragment fragment = new StoriesFragment();
                 return fragment;
-
-            case 1:
-                WeekelyNewsFragment fragment1 = new WeekelyNewsFragment();
-                return fragment1;
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 1;
     }
 
     @Nullable
