@@ -49,17 +49,22 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
     @Override
     public void onPlayerClick() {
         Log.e("success","done");
-        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
-        PlayersDetailFragment mFrag = new PlayersDetailFragment();
-        fragmentTransaction.replace(R.id.frame, mFrag);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
 
+//        Intent intent = new Intent(getContext(), PlayersDetailFragment.class);
+//        startActivity(intent);
+//        FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+//        PlayersDetailFragment mFrag = new PlayersDetailFragment();
+//        fragmentTransaction.replace(R.id.frame, mFrag);
+////        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
     }
 
     public void onBackPressed(){
         FragmentManager fragmentManager = getActivity().getFragmentManager();
         fragmentManager.popBackStackImmediate();
+
+//        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame, new Home()).commit();
+
     }
 
 

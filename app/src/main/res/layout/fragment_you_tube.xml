@@ -10,5 +10,10 @@
         android:id="@+id/youtube_playerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+<!--    <fragment-->
+<!--        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"-->
+<!--        android:id="@+id/youtube_fragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
 
 </FrameLayout>

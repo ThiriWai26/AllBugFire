@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,9 +49,11 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
     public void onPCClick() {
         Log.e("success","done");
         FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
-        PlayersDetailFragment mFrag = new PlayersDetailFragment();
+        PCGamesDetailFragment mFrag = new PCGamesDetailFragment();
         fragmentTransaction.replace(R.id.frame, mFrag);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
 }

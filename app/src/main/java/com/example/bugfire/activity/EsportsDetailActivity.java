@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.fragment.DotaFragment;
 
 public class EsportsDetailActivity extends AppCompatActivity {
 
@@ -27,6 +28,8 @@ public class EsportsDetailActivity extends AppCompatActivity {
         tvname = findViewById(R.id.tvname);
         tvtime = findViewById(R.id.tvtime);
         tvabout = findViewById(R.id.tvabout);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame, new DotaFragment()).commit();
 
     }
 }

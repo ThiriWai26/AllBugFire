@@ -1,30 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".fragment.FeedsFragment"
-android:background="@color/colorBackground">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.FeedsFragment"
+    android:background="@color/colorBackground">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/weekelynewsRecyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_lg"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="4dp"
-        android:background="@color/colorBackground"
-        android:clipChildren="true"
-        android:clipToPadding="true"
-        android:scrollbars="vertical"
-        android:scrollbarSize="0dp"
-        tools:ignore="NotSibling"
-        tools:listitem="@layout/layout_weekelynews_item" />
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorBackground"
+               >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Videos"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:typeface="normal" />
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/tabs"-->
+<!--            android:layout_width="72dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_marginTop="@dimen/margin_md"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            app:tabTextColor="@color/white"-->
+<!--            app:tabMode="fixed"-->
+<!--            app:tabGravity="fill" />-->
+
+
+        <com.google.android.youtube.player.YouTubePlayerView
+            android:id="@+id/youtube_playerView"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="@dimen/margin_md"/>
+
+        <TextView
+            android:id="@+id/txtname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mobile MOBA လောကကို ကြီးစိုးဖို့ရောက်လာမှာလား"
+            android:justificationMode="inter_word"
+            android:layout_marginTop="@dimen/margin_md"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvabout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:layout_marginTop="@dimen/margin_md"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:justificationMode="inter_word"
+            android:text="League of Legend ဟာဆိုရင် ကမ္ဘာပေါ်မှာဆော့ကစားသူပေါင်း သန်းထောင်ချီ ရှိတဲ့ Top Ten စာရင်းဝင် Game တစ်ခုပါ ။ ဒီလို Game မျိုးကို အနည်းငယ် မတူညီတဲ့ ပုံစံနဲ့ Mobile မှာ ကစားနိုင်တော့မယ်လို့ Riot ကပြောလိုက်ပါပြီ ။"
+            style="@style/NormalTextInputLayout" />
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="72dp"-->
+<!--                android:layout_height="26dp"-->
+<!--                android:text="Dota 2"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:onClick="onClickDota2"-->
+<!--                android:background="@drawable/bg_card"-->
+<!--                tools:ignore="OnClick" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="72dp"-->
+<!--                android:layout_height="26dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:text="CSGO"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:background="@drawable/bg_card" />-->
+
+<!--            <TextView-->
+<!--                android:layout_width="72dp"-->
+<!--                android:layout_height="26dp"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:text="PUBG"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:background="@drawable/bg_card" />-->
+
+
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="80dp"-->
+<!--                android:layout_height="28dp"-->
+<!--                android:text="Esports"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:background="@drawable/bg_card" />-->
+
+
+
+<!--        </LinearLayout>-->
+
+    </LinearLayout>
 
 
 </FrameLayout>
+
+    <!--    <fragment-->
+    <!--        android:name="com.google.android.youtube.player.YouTubePlayerFragment"-->
+    <!--        android:id="@+id/youtubeplayerfragment"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_weight="3"/>-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/weekelynewsRecyclerView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/margin_lg"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginTop="4dp"-->
+    <!--        android:background="@color/colorBackground"-->
+    <!--        android:clipChildren="true"-->
+    <!--        android:clipToPadding="true"-->
+    <!--        android:scrollbars="vertical"-->
+    <!--        android:scrollbarSize="0dp"-->
+    <!--        tools:ignore="NotSibling"-->
+    <!--        tools:listitem="@layout/layout_weekelynews_item" />-->
+
+
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/frameLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"/>-->

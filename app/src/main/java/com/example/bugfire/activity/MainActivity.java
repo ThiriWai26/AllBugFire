@@ -2,14 +2,12 @@ package com.example.bugfire.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bugfire.R;
-import com.example.bugfire.fragment.FeedsFragment;
+import com.example.bugfire.fragment.HomeNavigation;
 import com.example.bugfire.ui.dashboard.DashboardFragment;
 import com.example.bugfire.ui.home.HomeFragment;
 import com.example.bugfire.ui.message.MessageFragment;
@@ -21,19 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private TextView txttitle;
+    private String fragmentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
         navigationView.setNavigationItemSelectedListener(this);
 
+        getSupportActionBar(toolbar);
+
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeButtonEnabled(true);
 //        getSupportActionBar().setIcon(R.drawable.ic_dehaze_black_24dp);
@@ -68,23 +62,57 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController);
 //        NavigationUI.setupWithNavController(navView , navController);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_dehaze_black_24dp);
+//        init();
 
         loadFragment(new HomeFragment());
 
     }
 
+    private void getSupportActionBar(Toolbar toolbar) {
 
 
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+    }
+
+    private void init() {
+        Intent intent = getIntent();
+        fragmentName = intent.getStringExtra("fragment");
+
+        if(fragmentName.equals("Stories")){
+            loadFragment(new HomeFragment());
+            txttitle.setText("Stories");
+        }
+        if(fragmentName.equals("Videos")){
+            loadFragment(new DashboardFragment());
+            txttitle.setText("Videos");
+        }
+        if(fragmentName.equals("Topics")){
+            loadFragment(new NotificationsFragment());
+            txttitle.setText("Topics");
+        }
+        if(fragmentName.equals("Articles")){
+            loadFragment(new MessageFragment());
+            txttitle.setText("Articles");
+        }
+    }
+
+
+    private boolean loadFragment(Fragment fragment) {
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+//        return false;
+
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frame, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+        Fragment selectedFragment = null;
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 Fragment fragment = new HomeFragment();
@@ -110,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 loadFragment(fragment3);
                 return true;
         }
-        return false;
+//        getSupportFragmentManager().beginTransaction().replace(R.id.frame, selectedFragment).commit();
+        return loadFragment(selectedFragment);
     }
 
 

@@ -40,11 +40,11 @@ public class WeekelyNewsFragment extends Fragment implements WeekelyNewsHolder.O
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weekely_news, container, false);
 
-        recyclerView = view.findViewById(R.id.weekelynewsRecyclerView);
-        adapter = new WeekelyNewsAdapter(this);
-
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        recyclerView = view.findViewById(R.id.weekelynewsRecyclerView);
+//        adapter = new WeekelyNewsAdapter(this);
+//
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return  view;
     }

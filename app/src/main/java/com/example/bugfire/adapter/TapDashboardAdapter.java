@@ -10,6 +10,7 @@ import com.example.bugfire.fragment.DotaFragment;
 import com.example.bugfire.fragment.MBLLFragment;
 import com.example.bugfire.fragment.StoriesFragment;
 import com.example.bugfire.fragment.WeekelyNewsFragment;
+import com.example.bugfire.fragment.YouTubeFragment;
 
 public class TapDashboardAdapter extends FragmentStatePagerAdapter {
 
@@ -25,7 +26,7 @@ public class TapDashboardAdapter extends FragmentStatePagerAdapter {
 
         switch (i){
             case 0:
-                StoriesFragment fragment = new StoriesFragment();
+                WeekelyNewsFragment fragment = new WeekelyNewsFragment();
                 return fragment;
         }
         return null;

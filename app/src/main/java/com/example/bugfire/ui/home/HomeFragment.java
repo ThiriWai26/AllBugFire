@@ -1,5 +1,6 @@
 package com.example.bugfire.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,4 +34,12 @@ public class HomeFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
+
+
 }

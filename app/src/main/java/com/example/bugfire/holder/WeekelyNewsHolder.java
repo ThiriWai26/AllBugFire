@@ -20,8 +20,7 @@ public class WeekelyNewsHolder extends RecyclerView.ViewHolder implements View.O
 
     private OnWeekelyNewsItemClickListener listener;
     private YouTubePlayerView youTubePlayerView;
-    private static final String API_KEY = "AIzaSyAuUzBy9ffaLb-31gQ9-SfDvM5u_XZoFE4";
-    private static final int RECOVERY_REQUEST = 1 ;
+    private static final String API_KEY = "AIzaSyC52HYcRetoK3kE1zwTiST-oeN5kPJ1Qqw";
 
     public WeekelyNewsHolder(@NonNull View itemView, OnWeekelyNewsItemClickListener listener) {
         super(itemView);
@@ -48,10 +47,11 @@ public class WeekelyNewsHolder extends RecyclerView.ViewHolder implements View.O
     }
 
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, boolean b) {
         Log.e("InitializeSuccess","success");
+
         if(!b) {
-            youTubePlayer.cueVideo("75N_UFLa-wc");
+            youTubePlayer.cueVideo("WVaCOFVrJPE");
         }
     }
 
