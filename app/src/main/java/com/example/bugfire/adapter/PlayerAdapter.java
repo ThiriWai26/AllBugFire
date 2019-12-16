@@ -7,12 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.holder.PlayerHolder;
+import com.example.bugfire.model.PlayerList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
 
+    List<PlayerList> playerLists;
     private PlayerHolder.OnPlayerItemClickListener listener;
 
     public PlayerAdapter(PlayerHolder.OnPlayerItemClickListener listener) {
+        playerLists = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -24,14 +30,20 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PlayerHolder holder, int position) {
-        PlayerHolder.bindData();
-
-        listener.onPlayerClick();
+    public void onBindViewHolder(@NonNull PlayerHolder playerHolder, int position) {
+        playerHolder.bindData(playerLists.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return playerLists.size();
+    }
+
+    public void addItem(PlayerList playerList){
+
+        this.playerLists.clear();
+//        this.playerLists.addAll(playerList);
+        notifyDataSetChanged();
+
     }
 }

@@ -43,7 +43,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements NewsHolder.On
     }
 
     @Override
-    public void onNewsClick() {
+    public void onNewsClick(int i) {
 
     }
 }

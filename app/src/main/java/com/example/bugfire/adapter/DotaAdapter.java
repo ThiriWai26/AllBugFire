@@ -6,12 +6,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bugfire.holder.DotaHolder;
+import com.example.bugfire.model.Article;
+import com.example.bugfire.model.News;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DotaAdapter extends RecyclerView.Adapter<DotaHolder> {
 
+    List<Article> articleList;
     private DotaHolder.OnDotaItemClickListener listener;
 
     public DotaAdapter(DotaHolder.OnDotaItemClickListener listener) {
+        articleList = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -23,12 +30,21 @@ public class DotaAdapter extends RecyclerView.Adapter<DotaHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DotaHolder holder, int position) {
-        DotaHolder.bindData();
+    public void onBindViewHolder(@NonNull DotaHolder dotaHolder, int position) {
+        dotaHolder.bindData(articleList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return articleList.size();
     }
+
+    public void addItem(List<Article> articles){
+
+        this.articleList.clear();
+        this.articleList.addAll(articles);
+        notifyDataSetChanged();
+
+    }
+
 }

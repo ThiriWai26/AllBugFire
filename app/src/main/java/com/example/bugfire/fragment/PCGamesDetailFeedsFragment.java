@@ -43,7 +43,7 @@ public class PCGamesDetailFeedsFragment extends Fragment implements FeedsHolder.
     }
 
     @Override
-    public void onPCFeeds() {
+    public void onPCFeeds(int i) {
 
     }
 }

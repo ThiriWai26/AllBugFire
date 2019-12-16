@@ -32,7 +32,7 @@ public class MobileGamesDetailActivity extends AppCompatActivity implements Feed
     }
 
     @Override
-    public void onPCFeeds() {
+    public void onPCFeeds(int i) {
 
     }
 }

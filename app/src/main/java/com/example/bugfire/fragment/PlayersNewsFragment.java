@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.bugfire.R;
 import com.example.bugfire.activity.NewsDetailActivity;
-import com.example.bugfire.adapter.FeedsAdapter;
 import com.example.bugfire.adapter.NewsAdapter;
 import com.example.bugfire.holder.NewsHolder;
 
@@ -45,7 +44,7 @@ public class PlayersNewsFragment extends Fragment implements NewsHolder.OnNewsCl
     }
 
     @Override
-    public void onNewsClick() {
+    public void onNewsClick(int i) {
         Intent intent = new Intent(getContext(), NewsDetailActivity.class);
         startActivity(intent);
     }

@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.model.Feeds;
+import com.example.bugfire.service.RetrofitService;
+import com.squareup.picasso.Picasso;
 
-public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FeedsHolder extends RecyclerView.ViewHolder {
 
     private OnFeedClickListener listener;
-    private TextView txName, txTime, txabout, txabout1;
-    private ImageView profile;
+    private TextView txName, txTime, txabout;
+    private ImageView profile,logo;
 
     public FeedsHolder(@NonNull View itemView, OnFeedClickListener listener) {
         super(itemView);
@@ -24,9 +28,9 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClick
         txName = itemView.findViewById(R.id.tvName);
         txTime = itemView.findViewById(R.id.tvTime);
         txabout = itemView.findViewById(R.id.tvabout);
-        txabout1 = itemView.findViewById(R.id.tvabout1);
+        profile = itemView.findViewById(R.id.profile);
+        logo = itemView.findViewById(R.id.logo);
 
-        itemView.setOnClickListener(this);
     }
 
     public static FeedsHolder create(LayoutInflater inflater, ViewGroup parent, FeedsHolder.OnFeedClickListener listener) {
@@ -34,16 +38,32 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements View.OnClick
         return new FeedsHolder(view, listener);
     }
 
-    public static void BindData() {
+    public void BindData(Feeds feeds) {
+
+        txName.setText(feeds.name);
+        txTime.setText(feeds.date);
+        txabout.setText(feeds.content);
+
+        Picasso.get()
+                .load(RetrofitService.BASE_URL + feeds.categoryPhoto)
+                .resize(800,700)
+                .centerCrop()
+                .into(profile);
+
+        Picasso.get().load(RetrofitService.BASE_URL + feeds.sourceLogo).into(logo);
+
+        Log.e("category_name", feeds.name);
+        Log.e("date", feeds.date);
+        Log.e("content", feeds.content);
+        Log.e("source_logo", feeds.sourceLogo);
+        Log.e("category_photo", feeds.categoryPhoto);
+
     }
 
-    @Override
-    public void onClick(View v) {
-        listener.onPCFeeds();
-    }
 
     public interface OnFeedClickListener {
-        void onPCFeeds();
+        void onPCFeeds(int i);
     }
 
 }
+

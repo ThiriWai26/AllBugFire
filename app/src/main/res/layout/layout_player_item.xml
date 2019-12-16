@@ -18,7 +18,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/playerId1"
+            android:id="@+id/playerId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"/>
@@ -32,7 +32,7 @@
             app:cardUseCompatPadding="true">
 
             <ImageView
-                android:id="@+id/imgartezy"
+                android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/img_arteezy"/>
@@ -41,7 +41,7 @@
 
 
         <TextView
-            android:id="@+id/playerTitle"
+            android:id="@+id/playername1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
@@ -50,7 +50,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/medicineSubTitle"
+            android:id="@+id/teamname1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/NormalTextInputLayout"
@@ -68,11 +68,11 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/playerId2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+<!--        <TextView-->
+<!--            android:id="@+id/playerId2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"/>-->
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             app:cardUseCompatPadding="true">
 
             <ImageView
-                android:id="@+id/featuredphoto2"
+                android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/img_sumail"/>
@@ -92,7 +92,7 @@
 
 
         <TextView
-            android:id="@+id/playerTitle2"
+            android:id="@+id/playername2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
@@ -101,7 +101,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/medicineSubTitle2"
+            android:id="@+id/teamname2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/NormalTextInputLayout"
