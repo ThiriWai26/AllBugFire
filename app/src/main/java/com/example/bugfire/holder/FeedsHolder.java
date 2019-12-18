@@ -44,22 +44,10 @@ public class FeedsHolder extends RecyclerView.ViewHolder {
         txTime.setText(feeds.date);
         txabout.setText(feeds.content);
 
-        Picasso.get()
-                .load(RetrofitService.BASE_URL + feeds.categoryPhoto)
-                .resize(800,700)
-                .centerCrop()
-                .into(profile);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.categoryPhoto).into(profile);
 
-        Picasso.get().load(RetrofitService.BASE_URL + feeds.sourceLogo).into(logo);
-
-        Log.e("category_name", feeds.name);
-        Log.e("date", feeds.date);
-        Log.e("content", feeds.content);
-        Log.e("source_logo", feeds.sourceLogo);
-        Log.e("category_photo", feeds.categoryPhoto);
-
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.sourceLogo).into(logo);
     }
-
 
     public interface OnFeedClickListener {
         void onPCFeeds(int i);

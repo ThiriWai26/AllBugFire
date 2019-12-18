@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TapPCGamesDetailAdapter;
@@ -29,6 +30,8 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         viewPager.setAdapter(tapPCGamesDetailAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+//        Log.e("getPCDetail","success");
+//        RetrofitService.getApiEnd().get
 
     }
 }

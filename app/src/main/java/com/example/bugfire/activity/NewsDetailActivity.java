@@ -55,17 +55,22 @@ public class NewsDetailActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e("response","success");
 
-                        tvtitle.setText(response.body().newsDetail.title);
-                        tvname.setText(response.body().newsDetail.categoryName);
-                        tvabout.setText(response.body().newsDetail.content);
-                        tvdate.setText(response.body().newsDetail.date);
-                        Picasso.get().load(RetrofitService.BASE_URL + response.body().newsDetail.featurePhoto).into(featurephoto);
+                    tvtitle.setText(response.body().newsDetail.title);
 
-                        Log.e("title", response.body().newsDetail.title);
-                        Log.e("category_name", response.body().newsDetail.categoryName);
-                        Log.e("content", response.body().newsDetail.content);
-                        Log.e("date", response.body().newsDetail.date);
-                        Log.e("feature_photo", response.body().newsDetail.featurePhoto);
+                    String categoryName=response.body().newsDetail.categoryName.get(0);
+                    for(int i=1;i<response.body().newsDetail.categoryName.size();i++){
+                        categoryName+=","+response.body().newsDetail.categoryName.get(i);}
+                    tvname.setText(categoryName);
+
+                    tvabout.setText(response.body().newsDetail.content);
+                    tvdate.setText(response.body().newsDetail.date);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().newsDetail.featurePhoto).into(featurephoto);
+
+//                        Log.e("title", response.body().newsDetail.title);
+//                        Log.e("category_name", response.body().newsDetail.categoryName);
+//                        Log.e("content", response.body().newsDetail.content);
+//                        Log.e("date", response.body().newsDetail.date);
+//                        Log.e("feature_photo", response.body().newsDetail.featurePhoto);
                     }
                 else{
                     Log.e("response","fail");

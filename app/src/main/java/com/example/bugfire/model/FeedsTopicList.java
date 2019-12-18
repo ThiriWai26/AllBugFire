@@ -2,7 +2,7 @@ package com.example.bugfire.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Feeds {
+public class FeedsTopicList {
 
     @SerializedName("category_name")
     public String name;
@@ -18,17 +18,5 @@ public class Feeds {
 
     @SerializedName("content")
     public String content;
-
-    @SerializedName("source_id")
-    public int sourceId;
-
-    @SerializedName("feedable_id")
-    public int feedableId;
-
-    @SerializedName("feedable_type")
-    public String feedableType;
-
-    @SerializedName("updated_at")
-    public String updatedAt;
 
 }

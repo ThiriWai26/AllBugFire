@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,11 +15,12 @@ import com.example.bugfire.model.News;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
-public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class NewsHolder extends RecyclerView.ViewHolder {
 
     private OnNewsClickListener listener;
     private ImageView featurephoto;
     private TextView tvid, tvtitle, tvabout;
+    private RelativeLayout layout;
 
     public NewsHolder(View view, OnNewsClickListener listener) {
         super(view);
@@ -28,8 +30,7 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         featurephoto = view.findViewById(R.id.featurephoto);
         tvtitle = view.findViewById(R.id.tvtitle);
         tvabout = view.findViewById(R.id.tvabout);
-
-        view.setOnClickListener(this);
+        layout = view.findViewById(R.id.layout);
     }
 
     public static NewsHolder create(LayoutInflater inflater, ViewGroup parent, OnNewsClickListener listener) {
@@ -37,10 +38,9 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         return new NewsHolder(view, listener);
     }
 
-    public void bindData(News news) {
+    public void bindData(final News news) {
 
-        tvid.setText(news.id);
-        Picasso.get().load(RetrofitService.BASE_URL + news.featurePhoto).into(featurephoto);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + news.featurePhoto).into(featurephoto);
         tvtitle.setText(news.title);
         tvabout.setText(news.preview);
 
@@ -49,14 +49,12 @@ public class NewsHolder extends RecyclerView.ViewHolder implements View.OnClickL
         Log.e("title", news.title);
         Log.e("preview", news.preview);
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        listener.onNewsClick(Integer.parseInt((String) tvid.getText()));
-        int position;
-        position = getAdapterPosition();
-        Log.e("position", String.valueOf(position));
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onNewsClick(news.id);
+            }
+        });
 
     }
 

@@ -77,7 +77,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
 
             @Override
             public void onFailure(Call<NewsResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
+                Log.e("NewsFailure",t.toString());
             }
         });
     }

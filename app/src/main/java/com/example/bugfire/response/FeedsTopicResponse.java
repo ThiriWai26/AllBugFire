@@ -1,13 +1,12 @@
-package com.example.bugfire.model;
+package com.example.bugfire.response;
 
+import com.example.bugfire.model.FeedsTopic;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+public class FeedsTopicResponse {
 
-public class NewsList {
-
-    @SerializedName("data")
-    public List<News> data;
+    @SerializedName("feed_topic")
+    public FeedsTopic feedTopic;
 
     @SerializedName("next_page_url")
     public String nextPage;
@@ -21,6 +20,4 @@ public class NewsList {
     @SerializedName("last_page_url")
     public String lastPage;
 
-    @SerializedName("last_page")
-    public int lastPageNumber;
 }

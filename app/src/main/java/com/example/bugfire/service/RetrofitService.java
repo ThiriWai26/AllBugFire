@@ -3,6 +3,7 @@ package com.example.bugfire.service;
 import android.support.v4.media.session.MediaSessionCompat;
 
 import com.example.bugfire.api.ApiEnd;
+import com.example.bugfire.response.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,8 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitService {
 
-    public static final String BASE_URL="http://157.245.198.159";
-//    public static final String BASE_URL="http://192.168.100.199:8000";
+    public static final String BASE_URL="http://192.168.100.39:8001";
 
     private static ApiEnd apiEnd;
     private static RetrofitService retrofitService;
@@ -44,11 +44,10 @@ public class RetrofitService {
 
                         Request originalRequest=chain.request();
 
-//                        Request newRequest=originalRequest.newBuilder()
-//                                .header("Authorization","Bearer "+ MediaSessionCompat.Token.token)
-//                                .build();
-//                        return chain.proceed(newRequest);
-                        return null;
+                        Request newRequest=originalRequest.newBuilder()
+                                .header("Authorization","Bearer "+ Token.token)
+                                .build();
+                        return chain.proceed(newRequest);
                     }
                 });
 

@@ -1,4 +1,4 @@
-package com.example.bugfire.service;
+package com.example.bugfire.response;
 
 public class Token {
 

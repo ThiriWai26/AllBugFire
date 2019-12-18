@@ -16,9 +16,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TapNofificationPagerAdapter;
+import com.example.bugfire.model.TopicCategories;
 import com.example.bugfire.response.TopicCategoriesResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +30,9 @@ import retrofit2.Response;
 
 public class NotificationsFragment extends Fragment {
 
+    private TabLayout tabLayout;
+    List<TopicCategories> topicCategoriesList= new ArrayList<>();
+    private TapNofificationPagerAdapter tapNofificationPagerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -50,9 +57,6 @@ public class NotificationsFragment extends Fragment {
             public void onResponse(Call<TopicCategoriesResponse> call, Response<TopicCategoriesResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-
-
-
                 }
             }
 

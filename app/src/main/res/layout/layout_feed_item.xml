@@ -71,7 +71,8 @@
                     android:layout_marginRight="@dimen/margin_md"
                     android:layout_alignParentRight="true"
                     android:scaleType="fitXY"
-                    android:background="@drawable/twitter" />
+                    />
+<!--                    android:background="@drawable/twitter" />-->
 
             </RelativeLayout>
 

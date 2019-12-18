@@ -10,9 +10,14 @@ import com.example.bugfire.fragment.MobileGamesFragment;
 import com.example.bugfire.fragment.PCGamesFragment;
 import com.example.bugfire.fragment.PlayersFragment;
 import com.example.bugfire.fragment.TeamsFragment;
+import com.example.bugfire.model.TopicCategories;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TapNofificationPagerAdapter extends FragmentStatePagerAdapter {
 
+    List<TopicCategories> topicCategories = new ArrayList<>();
     String[] tab = {"PC", "Mobile", "Players", "Teams"};
 
     public TapNofificationPagerAdapter(@NonNull FragmentManager fm) {

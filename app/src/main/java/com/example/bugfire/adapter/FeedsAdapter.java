@@ -15,7 +15,7 @@ import java.util.List;
 
 public class FeedsAdapter extends RecyclerView.Adapter<FeedsHolder> {
 
-    List<Feeds> feedsList ;
+    List<Feeds> feedsList;
     FeedsHolder.OnFeedClickListener listener;
 
     public FeedsAdapter(FeedsHolder.OnFeedClickListener listener) {
@@ -28,7 +28,7 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsHolder> {
     @Override
     public FeedsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return FeedsHolder.create(inflater,parent,listener);
+        return FeedsHolder.create(inflater, parent, listener);
     }
 
     @Override
@@ -41,10 +41,11 @@ public class FeedsAdapter extends RecyclerView.Adapter<FeedsHolder> {
         return feedsList.size();
     }
 
-    public void addItem(List<Feeds> feeds){
-
-        this.feedsList.clear();
-        this.feedsList.addAll(feeds);
+    public void addItem(List<Feeds> feeds) {
+        if (feedsList.isEmpty()) {
+            this.feedsList = feeds;
+        } else
+            this.feedsList.addAll(feeds);
         notifyDataSetChanged();
 
     }

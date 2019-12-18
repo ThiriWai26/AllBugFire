@@ -2,13 +2,15 @@ package com.example.bugfire.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class NewsDetail {
 
     @SerializedName("feature_photo")
     public String featurePhoto;
 
     @SerializedName("category_name")
-    public String categoryName;
+    public List<String> categoryName;
 
     @SerializedName("date")
     public String date;
