@@ -3,6 +3,7 @@ package com.example.bugfire.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.activity.MobileGamesDetailActivity;
+import com.example.bugfire.activity.PCGamesDetailActivity;
 import com.example.bugfire.adapter.MobileAdapter;
+import com.example.bugfire.adapter.PCGamesAdapter;
 import com.example.bugfire.holder.MobileHolder;
+import com.example.bugfire.holder.PCGamesHolder;
+import com.example.bugfire.model.GamesList;
+import com.example.bugfire.response.GamesResponse;
+import com.example.bugfire.service.RetrofitService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobileItemClickListener{
+public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCItemClickListener{
 
     private RecyclerView recyclerView;
-    private MobileAdapter adapter;
+    private PCGamesAdapter adapter;
+
+    private int categoryId = -1;
+    List<GamesList> gamesList = new ArrayList<>();
 
     public MobileGamesFragment() {
         // Required empty public constructor
@@ -36,15 +53,39 @@ public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobi
         View view = inflater.inflate(R.layout.fragment_mobile_games, container, false);
 
         recyclerView = view.findViewById(R.id.mobileRecyclerView);
-        adapter = new MobileAdapter(this);
+        adapter = new PCGamesAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        getGamesList();
         return view;
     }
 
+    private void getGamesList() {
+        Log.e("getGamesList","success");
+
+        RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
+            @Override
+            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
+                if(response.isSuccessful()) {
+                    Log.e("response", "success");
+                    adapter.addItem(response.body().gamesList);
+                    Log.e("Games_Size", String.valueOf(gamesList.size()));
+                }else {
+                    Log.e("response","fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GamesResponse> call, Throwable t) {
+                Log.e("failure",t.toString());
+            }
+        });
+    }
+
     @Override
-    public void onMobileClick() {
-        Intent intent = new Intent(getContext(), MobileGamesDetailActivity.class);
+    public void onPCClick(int i) {
+        Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
         startActivity(intent);
     }
 }

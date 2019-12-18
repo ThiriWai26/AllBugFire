@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,11 @@ public class DotaHolder extends RecyclerView.ViewHolder  {
         tvtitle.setText(article.title);
         tvabout.setText(article.preview);
         tvId.setText(article.id);
+
+        Log.e("featurePhoto",article.featurePhoto);
+        Log.e("title",article.title);
+        Log.e("preview",article.preview);
+        Log.e("id", String.valueOf(article.id));
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

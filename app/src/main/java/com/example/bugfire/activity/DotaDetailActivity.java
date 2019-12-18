@@ -20,7 +20,7 @@ public class DotaDetailActivity extends AppCompatActivity {
 
     private ImageView featurephoto;
     private TextView tvtitle, tvname, tvtime, tvabout;
-    private int id;
+    private int id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class DotaDetailActivity extends AppCompatActivity {
         tvabout = findViewById(R.id.tvabout);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("dotaId");
-        Log.e("dotaId",String.valueOf(id));
+        id = bundle.getInt("categoryId");
+        Log.e("categoryId",String.valueOf(id));
 
         getDotaDetail();
     }

@@ -1,13 +1,16 @@
 package com.example.bugfire.api;
 
+import com.example.bugfire.response.ArticleCategoriesResponse;
 import com.example.bugfire.response.ArticleDetailResponse;
 import com.example.bugfire.response.ArticlesResponse;
+import com.example.bugfire.response.GamesResponse;
 import com.example.bugfire.response.PlayerResponse;
 import com.example.bugfire.response.TeamsResponse;
 import com.example.bugfire.response.TopicCategoriesResponse;
 import com.example.bugfire.response.FeedsResponse;
 import com.example.bugfire.response.NewsDetailResponse;
 import com.example.bugfire.response.NewsResponse;
+import com.example.bugfire.response.TopicFeedsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -28,8 +31,8 @@ public interface ApiEnd {
     @GET("/api/topic_categories")
     Call<TopicCategoriesResponse> getTopicCategories();
 
-//    @POST("/api/sub_categories/games")
-//    Call
+    @POST("/api/sub_categories/games")
+    Call<GamesResponse> getGamesList(@Field("category_id") int id);
 
     @GET("/api/sub_categories/players")
     Call<PlayerResponse> getPlayerList();
@@ -37,10 +40,16 @@ public interface ApiEnd {
     @GET("/api/sub_categories/teams")
     Call<TeamsResponse> getTeamsList();
 
-    @GET("/api/articles")
-    Call<ArticlesResponse> getArticleList();
+    @GET("/api/article_categories")
+    Call<ArticleCategoriesResponse> getArticleCategories();
+
+    @POST("/api/articles")
+    Call<ArticlesResponse> getArticleList(@Field("category_id") int id, @Field("type") String type);
 
     @POST("/api/article_details")
     Call<ArticleDetailResponse> getArticleDetail(@Field("id") int id);
+
+    @POST("/api/feed_topic")
+    Call<TopicFeedsResponse> getTopicFeeds(@Field("type") String type, @Field("id") int id);
 
 }

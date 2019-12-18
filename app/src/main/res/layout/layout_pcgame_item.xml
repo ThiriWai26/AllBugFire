@@ -14,29 +14,34 @@
         app:cardElevation="1dp"
         app:cardUseCompatPadding="true">
 
+        <TextView
+            android:id="@+id/tvId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <ImageView
-            android:id="@+id/imgdota"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/img_dota"/>
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="1dp"
-        app:cardUseCompatPadding="true">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        app:cardCornerRadius="20dp"-->
+<!--        app:cardElevation="1dp"-->
+<!--        app:cardUseCompatPadding="true">-->
 
-        <ImageView
-            android:id="@+id/imgcounter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/img_counter"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/imgcounter"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/img_counter"/>-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
 
 

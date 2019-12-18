@@ -39,7 +39,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
         return playerLists.size();
     }
 
-    public void addItem(PlayerList playerList){
+    public void addItem(List<PlayerList> playerList){
 
         this.playerLists.clear();
 //        this.playerLists.addAll(playerList);

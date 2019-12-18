@@ -1,6 +1,7 @@
 package com.example.bugfire.ui.notifications;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TapNofificationPagerAdapter;
+import com.example.bugfire.response.TopicCategoriesResponse;
+import com.example.bugfire.service.RetrofitService;
 import com.google.android.material.tabs.TabLayout;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NotificationsFragment extends Fragment {
 
@@ -32,6 +39,30 @@ public class NotificationsFragment extends Fragment {
         viewPager.setAdapter(tapNofificationPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        getTopicCategories();
         return view;
+    }
+
+    private void getTopicCategories() {
+        Log.e("getTopicCategories","success");
+        RetrofitService.getApiEnd().getTopicCategories().enqueue(new Callback<TopicCategoriesResponse>() {
+            @Override
+            public void onResponse(Call<TopicCategoriesResponse> call, Response<TopicCategoriesResponse> response) {
+                if(response.isSuccessful()){
+                    Log.e("response","success");
+
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TopicCategoriesResponse> call, Throwable t) {
+
+            }
+        });
+
+
+
     }
 }

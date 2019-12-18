@@ -7,12 +7,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.holder.CSGOHolder;
+import com.example.bugfire.model.Article;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSGOAdapter extends RecyclerView.Adapter<CSGOHolder> {
 
+    List<Article> articleList;
     private CSGOHolder.OnCSGOItemClickListener listener;
 
     public CSGOAdapter(CSGOHolder.OnCSGOItemClickListener listener) {
+        articleList = new ArrayList<>();
         this.listener = listener;
     }
 
@@ -24,12 +30,19 @@ public class CSGOAdapter extends RecyclerView.Adapter<CSGOHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CSGOHolder holder, int position) {
-        CSGOHolder.bindData();
+    public void onBindViewHolder(@NonNull CSGOHolder csgoHolder, int position) {
+        csgoHolder.bindData(articleList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return articleList.size();
+    }
+
+    public void addItem(List<Article> articles) {
+
+        this.articleList.clear();
+        this.articleList.addAll(articles);
+        notifyDataSetChanged();
     }
 }

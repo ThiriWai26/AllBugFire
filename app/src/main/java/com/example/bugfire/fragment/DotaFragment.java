@@ -37,6 +37,8 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private DotaAdapter adapter;
 
     List<Article> articleList = new ArrayList<>();
+    private int categoryId = -1;
+    private String type = "GAME";
 
     public DotaFragment() {
         // Required empty public constructor
@@ -61,7 +63,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private void getDotaList() {
         Log.e("getDotaList","success");
 
-        RetrofitService.getApiEnd().getArticleList().enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
@@ -86,8 +88,8 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     public void onDotaClick(int id) {
 
         Intent intent = new Intent(getContext(), DotaDetailActivity.class);
-        intent.putExtra("dotaId",id);
-        Log.e("dotaId", String.valueOf(id));
+        intent.putExtra("categoryId",id);
+        Log.e("categoryId", String.valueOf(id));
         startActivity(intent);
     }
 }
