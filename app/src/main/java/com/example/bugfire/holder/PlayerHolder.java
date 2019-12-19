@@ -19,23 +19,20 @@ import com.squareup.picasso.Picasso;
 public class PlayerHolder extends RecyclerView.ViewHolder  {
 
     private OnPlayerItemClickListener listener;
-    private LinearLayout linearone, lineartwo;
-    private ImageView imageView1, imageView2;
-    private TextView playername1, tvid, playername2, playertype1, playertype2;
+    private LinearLayout layoutplayer1;
+    private ImageView imageView1;
+    private TextView playername1, playerteam1, playerId1;
 
     public PlayerHolder(@NonNull View itemView, OnPlayerItemClickListener listener) {
         super(itemView);
         this.listener = listener;
 
-        tvid = itemView.findViewById(R.id.playerId);
+        layoutplayer1 = itemView.findViewById(R.id.layout_playerItems);
         imageView1 = itemView.findViewById(R.id.imageView1);
-        imageView2 = itemView.findViewById(R.id.imageView2);
         playername1 = itemView.findViewById(R.id.playername1);
-        playername2 = itemView.findViewById(R.id.playername2);
-        playertype1 = itemView.findViewById(R.id.teamname1);
-        playertype2 = itemView.findViewById(R.id.teamname2);
-        linearone = itemView.findViewById(R.id.linearone);
-        lineartwo = itemView.findViewById(R.id.lineartwo);
+        playerteam1 = itemView.findViewById(R.id.teamname1);
+        playerId1 = itemView.findViewById(R.id.playerId1);
+
     }
 
     public static PlayerHolder create(LayoutInflater inflater, ViewGroup parent, OnPlayerItemClickListener listener) {
@@ -43,25 +40,25 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
         return new PlayerHolder(view, listener);
     }
 
-    public void bindData(PlayerList playerList) {
+    public void bindData(final PlayerList playerList) {
 
-        Picasso.get().load(RetrofitService.BASE_URL + playerList.photo).into(imageView1);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + playerList.photo).into(imageView1);
         playername1.setText(playerList.name);
-        playertype1.setText(playerList.teamName);
-        tvid.setText(playerList.id);
+        playerteam1.setText(playerList.teamName);
 
-        linearone.setOnClickListener(new View.OnClickListener() {
+        layoutplayer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onPlayerClick(Integer.parseInt((String) tvid.getText()));
-                int position;
-                position = getAdapterPosition();
-                Log.e("position", String.valueOf(position));
+                listener.onPlayerClick(playerList.id);
             }
         });
 
-    }
+        Log.e("id", String.valueOf(playerList.id));
+        Log.e("name",playerList.name);
+        Log.e("photo",playerList.photo);
+        Log.e("team_name",playerList.teamName);
 
+    }
 
     public interface OnPlayerItemClickListener {
         void onPlayerClick(int i);

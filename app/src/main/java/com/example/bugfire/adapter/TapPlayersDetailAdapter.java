@@ -30,13 +30,13 @@ public class TapPlayersDetailAdapter extends FragmentStatePagerAdapter {
                 PlayersNewsFragment fragment1 = new PlayersNewsFragment();
                 return fragment1;
 
-            case 2:
-                PlayersArticlesFragment fragment2 = new PlayersArticlesFragment();
-                return fragment2;
-
-            case 3:
-                PlayersVideosFragment fragment3 = new PlayersVideosFragment();
-                return fragment3;
+//            case 2:
+//                PlayersArticlesFragment fragment2 = new PlayersArticlesFragment();
+//                return fragment2;
+//
+//            case 3:
+//                PlayersVideosFragment fragment3 = new PlayersVideosFragment();
+//                return fragment3;
         }
 
         return null;

@@ -3,114 +3,105 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_playerItems"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_width="210dp"
+    android:layout_height="wrap_content"
     android:background="@color/colorBackground"
     tools:ignore="InvalidId">
 
-    <LinearLayout
-        android:id="@+id/linearone"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginRight="12dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+                <TextView
+                    android:id="@+id/playerId1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
 
-        <TextView
-            android:id="@+id/playerId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:layout_alignParentTop="true"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="240dp"
-            android:layout_alignParentTop="true"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="1dp"
-            app:cardUseCompatPadding="true">
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+<!--                            android:background="@drawable/img_arteezy"/>-->
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img_arteezy"/>
-
-        </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
 
-        <TextView
-            android:id="@+id/playername1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/margin_md"
-            android:text="Arteezy"
-            android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/playername1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/margin_md"
+                    android:text="Arteezy"
+                    android:textColor="@color/white"/>
 
-        <TextView
-            android:id="@+id/teamname1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/NormalTextInputLayout"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/margin_md"
-            android:layout_marginBottom="@dimen/margin_md"
-            android:text="EG" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lineartwo"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-<!--        <TextView-->
-<!--            android:id="@+id/playerId2"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone"/>-->
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="240dp"
-            android:layout_alignParentTop="true"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="1dp"
-            app:cardUseCompatPadding="true">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img_sumail"/>
-
-        </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/teamname1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/NormalTextInputLayout"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/margin_md"
+                    android:layout_marginBottom="@dimen/margin_md"
+                    android:text="EG" />
 
 
-        <TextView
-            android:id="@+id/playername2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/margin_md"
-            android:text="Sumail"
-            android:textColor="@color/white"/>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/lineartwo"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="300dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical">-->
 
-        <TextView
-            android:id="@+id/teamname2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/NormalTextInputLayout"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:layout_marginTop="@dimen/margin_md"
-            android:layout_marginBottom="@dimen/margin_md"
-            android:text="EG" />
+<!--                <TextView-->
+<!--                    android:id="@+id/playerId2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:visibility="gone"/>-->
 
-    </LinearLayout>
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="240dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    app:cardCornerRadius="15dp"-->
+<!--                    app:cardElevation="1dp"-->
+<!--                    app:cardUseCompatPadding="true">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/featuredphoto2"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:background="@drawable/img_sumail"/>-->
+
+<!--                </androidx.cardview.widget.CardView>-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/playerTitle2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="@dimen/default_margin"-->
+<!--                    android:layout_marginTop="@dimen/margin_md"-->
+<!--                    android:text="Sumail"-->
+<!--                    android:textColor="@color/white"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/medicineSubTitle2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    style="@style/NormalTextInputLayout"-->
+<!--                    android:layout_marginLeft="@dimen/default_margin"-->
+<!--                    android:layout_marginTop="@dimen/margin_md"-->
+<!--                    android:layout_marginBottom="@dimen/margin_md"-->
+<!--                    android:text="EG" />-->
+
+<!--        </LinearLayout>-->
 
 
 </LinearLayout>

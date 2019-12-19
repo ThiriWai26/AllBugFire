@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.model.TopicFeeds;
 
 public class PlayersFeedHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     
@@ -34,7 +35,7 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder implements View.O
         return new PlayersFeedHolder(view, listener);
     }
 
-    public static void bindData() {
+    public static void bindData(TopicFeeds topicFeeds) {
     }
 
     @Override

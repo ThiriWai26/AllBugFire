@@ -9,15 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.holder.PlayersFeedHolder;
+import com.example.bugfire.model.TopicFeeds;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayersFeedAdapter extends RecyclerView.Adapter<PlayersFeedHolder> {
 
     private PlayersFeedHolder.OnPlayersFeedClickListener listener;
-    private TextView txName, txTime, txabout, txabout1;
-    private ImageView profile;
+    List<TopicFeeds> topicFeedsList;
 
     public PlayersFeedAdapter(PlayersFeedHolder.OnPlayersFeedClickListener listener) {
         this.listener = listener;
+        topicFeedsList = new ArrayList<>();
     }
 
     @NonNull
@@ -29,11 +33,11 @@ public class PlayersFeedAdapter extends RecyclerView.Adapter<PlayersFeedHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PlayersFeedHolder holder, int position) {
-        PlayersFeedHolder.bindData();
+        PlayersFeedHolder.bindData(topicFeedsList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return topicFeedsList.size();
     }
 }

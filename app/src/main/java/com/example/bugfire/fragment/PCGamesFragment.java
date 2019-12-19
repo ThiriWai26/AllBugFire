@@ -55,6 +55,10 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = new Bundle();
+        categoryId = bundle.getInt("pc_categoryId");
+        Log.e("pc_categoryId",String.valueOf(categoryId));
+
         getGamesList();
         return view;
     }

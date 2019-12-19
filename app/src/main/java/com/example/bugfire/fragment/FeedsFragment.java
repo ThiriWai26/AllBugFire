@@ -26,6 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,16 +39,15 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private int page = 1;
     private int totalPage;
 
-    private boolean isLoading = true;
-    private int visibleItemCount = 0;
-    private int totalItemCount = 0;
-    private int inVisiblesItems = 0;
-    private int previousTotal = 0;
-    private int firstVisibleItem = 0;
-    private int perPage = 20;
-    private int lastItem,preLast;
+    private boolean isLoading = false;
+    private int currentPage = 0;
+    private int visibleThreadhold = 5;
+    private int previousTotalItemCount = 0;
+    private int startingPageIndex = 0;
 
-
+    private int visibleItemCount;
+    private int totalItemCount;
+    private int inVisiblesItems;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -81,40 +82,67 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                 if(page<=totalPage){
                     Log.e("pageNumber",String.valueOf(page));
                     getFeedsList(++page);
+
+//                    if (!isLoading() && !isLastPage()) {
+//                        if ((visibleItemCount + inVisiblesItems) >= totalItemCount && inVisiblesItems >= 0 && totalItemCount >= PAGE_SIZE) {
+//                            loadMoreItems();
+//                        }
+//                    }
+
+
                 }
 
                 visibleItemCount = linearLayoutManager.getChildCount();
                 totalItemCount = linearLayoutManager.getItemCount();
                 inVisiblesItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
 
-//                lastItem = (firstVisibleItem + visibleItemCount);
-//                if (lastItem == totalItemCount) {
-//                    if (preLast != lastItem) {
-//                        preLast = lastItem;
-//                        recyclerView.findViewById(R.id.loadmore_progress).setVisibility(View.VISIBLE);
-//                        recyclerView.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Log.e("perpage","ok");
-//                                perPage += 20;
-//                            }
-//                        }, 1500);
-//                    }
+//                // If the total item count is zero and the previous isn't, assume the
+//                // list is invalidated and should be reset back to initial state
+//                if (totalItemCount < previousTotalItemCount) {
+//                    currentPage = startingPageIndex;
+//                    previousTotalItemCount = totalItemCount;
+//                    if (totalItemCount == 0) {
+//                        isLoading = true; }
 //                }
-
-//                if (page != totalPage) {
-//                    if (isLoading) {
-//                        if ((visibleItemCount + firstVisibleItem) >= totalItemCount) {
-//                            Log.e("page", String.valueOf(page));
-//                            page=page+1;
-//                            isLoading = false;
-//                        }
-//                    }
+//                // If it's still loading, we check to see if the dataset count has
+//                // changed, if so we conclude it has finished loading and update the current page
+//                // number and total item count.
+//                if (isLoading && (totalItemCount > previousTotalItemCount)) {
+//                    isLoading = false;
+//                    previousTotalItemCount = totalItemCount;
+//                    currentPage++;
+//                }
+//
+//
+//                // If it isn't currently loading, we check to see if we have breached
+//                // the visibleThreshold and need to reload more data.
+//                // If we do need to reload some more data, we execute onLoadMore to fetch the data.
+//                if (!isLoading && (inVisiblesItems + visibleItemCount + visibleThreadhold) >= totalItemCount ) {
+//                    isLoading = onLoadMore(currentPage + 1, totalItemCount);
 //                }
             }
+
+//            private boolean onLoadMore(int i, int totalItemCount) {
+//                isLoading = true;
+//                currentPage++;
+//                return true;
+//            }
         });
 
         return view;
+    }
+
+    private void loadMoreItems() {
+        isLoading = true;
+//        currentPage++;
+    }
+
+    private boolean isLastPage() {
+        return false;
+    }
+
+    private boolean isLoading() {
+        return false;
     }
 
     private void getFeedsList(int page) {

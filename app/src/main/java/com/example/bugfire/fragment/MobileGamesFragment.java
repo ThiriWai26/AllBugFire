@@ -57,6 +57,10 @@ public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCI
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = new Bundle();
+        categoryId = bundle.getInt("mb_categoryId");
+        Log.e("pc_categoryId",String.valueOf(categoryId));
+
         getGamesList();
         return view;
     }
@@ -86,6 +90,7 @@ public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCI
     @Override
     public void onPCClick(int i) {
         Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
+
         startActivity(intent);
     }
 }
