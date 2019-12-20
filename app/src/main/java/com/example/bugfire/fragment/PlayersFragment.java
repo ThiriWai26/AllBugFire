@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
-import com.example.bugfire.activity.PlayersDetailActivity;
 import com.example.bugfire.adapter.PlayerAdapter;
 import com.example.bugfire.holder.PlayerHolder;
 import com.example.bugfire.model.PlayerList;
@@ -86,8 +85,8 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
     @Override
     public void onPlayerClick(int i) {
         Log.e("success","done");
-        Intent intent = new Intent(getContext(), PlayersDetailActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getContext(), PlayersDetailActivity.class);
+//        startActivity(intent);
     }
 
 }

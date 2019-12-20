@@ -19,7 +19,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitService {
 
-    public static final String BASE_URL="http://192.168.100.39:8001";
+    public static final String BASE_URL="http://192.168.100.39:8000";
 
     private static ApiEnd apiEnd;
     private static RetrofitService retrofitService;

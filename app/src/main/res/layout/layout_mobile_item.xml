@@ -15,28 +15,29 @@
         app:cardUseCompatPadding="true">
 
         <ImageView
-            android:id="@+id/imgmobile"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mobilelegand"/>
+            android:scaleType="fitXY"/>
+<!--            android:background="@drawable/mobilelegand"/>-->
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_alignParentTop="true"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="1dp"
-        app:cardUseCompatPadding="true">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        app:cardCornerRadius="20dp"-->
+<!--        app:cardElevation="1dp"-->
+<!--        app:cardUseCompatPadding="true">-->
 
-        <ImageView
-            android:id="@+id/imgpubg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/pubg"/>
+<!--        <ImageView-->
+<!--            android:id="@+id/imgpubg"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/pubg"/>-->
 
-    </androidx.cardview.widget.CardView>
+<!--    </androidx.cardview.widget.CardView>-->
 
 
 

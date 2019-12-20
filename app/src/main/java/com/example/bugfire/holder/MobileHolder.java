@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +10,35 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.model.GamesList;
+import com.example.bugfire.service.RetrofitService;
+import com.squareup.picasso.Picasso;
 
-public class MobileHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MobileHolder extends RecyclerView.ViewHolder  {
 
     private OnMobileItemClickListener listener;
-    private ImageView imgmobilelegand, imgpubg;
+    private ImageView imageView;
 
     public MobileHolder(@NonNull View itemView, OnMobileItemClickListener listener) {
         super(itemView);
         this.listener = listener;
 
-        imgmobilelegand = itemView.findViewById(R.id.imgmobile);
-        imgpubg = itemView.findViewById(R.id.imgpubg);
-
-        itemView.setOnClickListener(this);
+        imageView = itemView.findViewById(R.id.imageView);
     }
 
-    public static void bindData() {
+    public void bindData(final GamesList gamesList) {
+
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + gamesList.photo).into(imageView);
+
+        Log.e("photo", gamesList.photo);
+        Log.e("id", String.valueOf(gamesList.id));
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onMobileClick(gamesList.id);
+            }
+        });
     }
 
     public static MobileHolder create(LayoutInflater inflater, ViewGroup parent, OnMobileItemClickListener listener) {
@@ -33,12 +46,8 @@ public class MobileHolder extends RecyclerView.ViewHolder implements View.OnClic
         return new MobileHolder(view, listener);
     }
 
-    @Override
-    public void onClick(View v) {
-        listener.onMobileClick();
-    }
 
     public interface OnMobileItemClickListener {
-        void onMobileClick();
+        void onMobileClick(int id);
     }
 }

@@ -56,12 +56,13 @@ public class EsportsDetailActivity extends AppCompatActivity {
 
                     Picasso.get().load(RetrofitService.BASE_URL + response.body().articleDetail.featurePhoto).into(featurephoto);
                     tvtitle.setText(response.body().articleDetail.title);
-                    tvname.setText(response.body().articleDetail.categoryName);
-                    tvtime.setText(response.body().articleDetail.date);
+                    String name=response.body().articleDetail.categoryName.get(0);
+                    for(int i=1;i<response.body().articleDetail.categoryName.size();i++){
+                        name+=","+response.body().articleDetail.categoryName.get(i);}
+                    tvname.setText(name);                    tvtime.setText(response.body().articleDetail.date);
                     tvabout.setText(response.body().articleDetail.content);
 
                     Log.e("feature_photo", response.body().articleDetail.featurePhoto);
-                    Log.e("categoryName", response.body().articleDetail.categoryName);
                     Log.e("date", response.body().articleDetail.date);
                     Log.e("title", response.body().articleDetail.title);
                     Log.e("content", response.body().articleDetail.content);

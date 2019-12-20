@@ -43,7 +43,7 @@ public class TapNofificationPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 MobileGamesFragment fragment1 = new MobileGamesFragment();
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("mb_categoryId", String.valueOf(topicCategories.get(1).id));
+                bundle1.putInt("mb_categoryId", topicCategories.get(1).id);
                 fragment1.setArguments(bundle1);
                 Log.e("mb_categoryId", String.valueOf(topicCategories.get(1).id));
                 return fragment1;

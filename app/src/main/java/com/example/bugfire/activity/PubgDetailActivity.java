@@ -38,7 +38,6 @@ public class PubgDetailActivity extends AppCompatActivity {
         tvtime = findViewById(R.id.tvtime);
         tvabout = findViewById(R.id.tvabout);
 
-
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("categoryId");
         Log.e("categoryId",String.valueOf(id));
@@ -48,21 +47,21 @@ public class PubgDetailActivity extends AppCompatActivity {
 
     private void getPubgDetail() {
         Log.e("getPubgDetail", "success");
-
         RetrofitService.getApiEnd().getArticleDetail(id).enqueue(new Callback<ArticleDetailResponse>() {
             @Override
             public void onResponse(Call<ArticleDetailResponse> call, Response<ArticleDetailResponse> response) {
                 if (response.isSuccessful()) {
                     Log.e("response", "success");
 
-                    Picasso.get().load(RetrofitService.BASE_URL + response.body().articleDetail.featurePhoto).into(featurephoto);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().articleDetail.featurePhoto).into(featurephoto);
                     tvtitle.setText(response.body().articleDetail.title);
-                    tvname.setText(response.body().articleDetail.categoryName);
-                    tvtime.setText(response.body().articleDetail.date);
+                    String name=response.body().articleDetail.categoryName.get(0);
+                    for(int i=1;i<response.body().articleDetail.categoryName.size();i++){
+                        name+=","+response.body().articleDetail.categoryName.get(i);}
+                    tvname.setText(name);                    tvtime.setText(response.body().articleDetail.date);
                     tvabout.setText(response.body().articleDetail.content);
 
                     Log.e("feature_photo", response.body().articleDetail.featurePhoto);
-                    Log.e("categoryName", response.body().articleDetail.categoryName);
                     Log.e("date", response.body().articleDetail.date);
                     Log.e("title", response.body().articleDetail.title);
                     Log.e("content", response.body().articleDetail.content);

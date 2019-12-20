@@ -15,7 +15,7 @@ import com.example.bugfire.model.GamesList;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
-public class PCGamesHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class PCGamesHolder extends RecyclerView.ViewHolder {
     
     private OnPCItemClickListener listener;
     private ImageView imageView;
@@ -28,16 +28,22 @@ public class PCGamesHolder extends RecyclerView.ViewHolder implements View.OnCli
         imageView = itemView.findViewById(R.id.imageView);
         tvId = itemView.findViewById(R.id.tvId);
 
-        itemView.setOnClickListener(this);
     }
 
-    public void bindData(GamesList gamesList) {
+    public void bindData(final GamesList gamesList) {
 
-        Picasso.get().load(RetrofitService.BASE_URL + gamesList.photo).into(imageView);
-        tvId.setText(gamesList.id);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + gamesList.photo).into(imageView);
 
         Log.e("photo", gamesList.photo);
         Log.e("id", String.valueOf(gamesList.id));
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPCClick(gamesList.id);
+            }
+        });
+
     }
 
     public static PCGamesHolder create(LayoutInflater inflater, ViewGroup parent, OnPCItemClickListener listener) {
@@ -45,10 +51,6 @@ public class PCGamesHolder extends RecyclerView.ViewHolder implements View.OnCli
         return new PCGamesHolder(view, listener);
     }
 
-    @Override
-    public void onClick(View v) {
-        listener.onPCClick(Integer.parseInt((String) tvId.getText()));
-    }
 
     public interface OnPCItemClickListener {
         void onPCClick(int i);

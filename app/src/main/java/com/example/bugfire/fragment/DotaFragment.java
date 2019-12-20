@@ -56,6 +56,10 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        categoryId = bundle.getInt("dota_categoryId");
+        Log.e("dotaId",String.valueOf(categoryId));
+
         getDotaList();
         return view;
     }
@@ -63,7 +67,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private void getDotaList() {
         Log.e("getDotaList","success");
 
-        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){

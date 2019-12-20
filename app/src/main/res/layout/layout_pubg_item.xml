@@ -32,8 +32,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_margin="@dimen/margin_md"
-                android:scaleType="fitXY"
-                android:background="@drawable/img_pubg"/>
+                android:scaleType="fitXY" />
+<!--                android:background="@drawable/img_pubg"/>-->
 
             <TextView
                 tools:ignore="MissingPrefix"

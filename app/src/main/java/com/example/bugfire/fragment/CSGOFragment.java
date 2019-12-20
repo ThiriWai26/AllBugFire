@@ -38,7 +38,6 @@ public class CSGOFragment extends Fragment implements CSGOHolder.OnCSGOItemClick
 
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
-    private String type = "GAME";
 
     public CSGOFragment() {
         // Required empty public constructor
@@ -56,6 +55,10 @@ public class CSGOFragment extends Fragment implements CSGOHolder.OnCSGOItemClick
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        categoryId = bundle.getInt("csgo_categoryId");
+        Log.e("csgoId",String.valueOf(categoryId));
+
         getCSGOList();
         return view;
     }
@@ -63,7 +66,7 @@ public class CSGOFragment extends Fragment implements CSGOHolder.OnCSGOItemClick
     private void getCSGOList() {
         Log.e("getCSGOList","success");
 
-        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){

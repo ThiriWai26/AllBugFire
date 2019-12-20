@@ -55,7 +55,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Bundle bundle = new Bundle();
+        Bundle bundle = getArguments();
         categoryId = bundle.getInt("pc_categoryId");
         Log.e("pc_categoryId",String.valueOf(categoryId));
 
@@ -65,7 +65,6 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
 
     private void getGamesList() {
         Log.e("getGamesList","success");
-
         RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
             @Override
             public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {

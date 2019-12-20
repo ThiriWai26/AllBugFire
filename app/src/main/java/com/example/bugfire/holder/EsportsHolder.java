@@ -41,10 +41,9 @@ public class EsportsHolder extends RecyclerView.ViewHolder  {
 
     public void bindData(final Article article) {
 
-        Picasso.get().load(RetrofitService.BASE_URL + article.featurePhoto).into(featurephoto);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + article.featurePhoto).into(featurephoto);
         tvtitle.setText(article.title);
         tvabout.setText(article.preview);
-        tvId.setText(article.id);
 
         Log.e("featurePhoto",article.featurePhoto);
         Log.e("title",article.title);

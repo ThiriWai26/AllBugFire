@@ -38,7 +38,6 @@ public class EsportsFragment extends Fragment implements EsportsHolder.OnEsportI
 
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
-    private String type = "GAME";
 
     public EsportsFragment() {
         // Required empty public constructor
@@ -56,6 +55,10 @@ public class EsportsFragment extends Fragment implements EsportsHolder.OnEsportI
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        categoryId = bundle.getInt("esport_categoryId");
+        Log.e("esportId",String.valueOf(categoryId));
+
         getEsportsList();
         return view;
     }
@@ -63,7 +66,7 @@ public class EsportsFragment extends Fragment implements EsportsHolder.OnEsportI
     private void getEsportsList() {
         Log.e("getEsportsList","success");
 
-        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){

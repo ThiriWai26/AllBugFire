@@ -1,5 +1,6 @@
 package com.example.bugfire.adapter;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,11 +17,16 @@ import com.example.bugfire.fragment.DotaFragment;
 import com.example.bugfire.fragment.EsportsFragment;
 import com.example.bugfire.fragment.MBLLFragment;
 import com.example.bugfire.fragment.PubgFragment;
+import com.example.bugfire.model.Article;
+import com.example.bugfire.model.ArticleCategories;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TapMessagePagerAdapter extends FragmentStatePagerAdapter {
 
-    String[] tab = {"Dota 2", "CSGO", "MBLL", "Esports", "Pubg"};
+    List<ArticleCategories> articleCategories = new ArrayList<>();
 
     public TapMessagePagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
@@ -28,7 +34,7 @@ public class TapMessagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return articleCategories.size();
     }
 
     @NonNull
@@ -38,28 +44,45 @@ public class TapMessagePagerAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 DotaFragment fragment = new DotaFragment();
-                Log.e("Dota","success");
+                Bundle bundle = new Bundle();
+                bundle.putInt("dota_categoryId", articleCategories.get(0).id);
+                fragment.setArguments(bundle);
+                Log.e("dotaId", String.valueOf(articleCategories.get(0).id));
                 return fragment;
 
             case 1:
                 CSGOFragment fragment1 = new CSGOFragment();
-                Log.e("CSGO","success");
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("csgo_categoryId", articleCategories.get(1).id);
+                fragment1.setArguments(bundle1);
+                Log.e("csgoId", String.valueOf(articleCategories.get(1).id));
                 return fragment1;
 
             case 2:
-                MBLLFragment fragment2 = new MBLLFragment();
-                Log.e("MBLL","success");
+                PubgFragment fragment2 = new PubgFragment();
+                Bundle bundle2 = new Bundle();
+                bundle2.putInt("pubg_categoryId", articleCategories.get(2).id);
+                fragment2.setArguments(bundle2);
+                Log.e("pubgId", String.valueOf(articleCategories.get(2).id));
                 return fragment2;
 
             case 3:
-                EsportsFragment fragment3 = new EsportsFragment();
-                Log.e("Esport","success");
+                MBLLFragment fragment3 = new MBLLFragment();
+                Bundle bundle3 = new Bundle();
+                bundle3.putInt("mbll_categoryId", articleCategories.get(3).id);
+                fragment3.setArguments(bundle3);
+                Log.e("mbllId", String.valueOf(articleCategories.get(3).id));
                 return fragment3;
 
+
             case 4:
-                PubgFragment fragment4 = new PubgFragment();
-                Log.e("Pubg","success");
+                EsportsFragment fragment4 = new EsportsFragment();
+                Bundle bundle4 = new Bundle();
+                bundle4.putInt("esport_categoryId", articleCategories.get(4).id);
+                fragment4.setArguments(bundle4);
+                Log.e("esportId", String.valueOf(articleCategories.get(4).id));
                 return fragment4;
+
         }
 
         return null;
@@ -68,6 +91,16 @@ public class TapMessagePagerAdapter extends FragmentStatePagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return tab[position];
+        return articleCategories.get(position).name;
+    }
+
+    public void addItem(List<ArticleCategories> articleCategoriesList) {
+
+        if (articleCategories.isEmpty()) {
+            this.articleCategories = articleCategoriesList;
+        } else
+            this.articleCategories.addAll(articleCategoriesList);
+
+        notifyDataSetChanged();
     }
 }

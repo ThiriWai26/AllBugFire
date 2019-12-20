@@ -30,19 +30,18 @@ import retrofit2.Response;
 
 public class MessageFragment extends Fragment {
 
-    List<ArticleCategories> articleCategories = new ArrayList<>();
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TapMessagePagerAdapter tapMessagePagerAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
 
-        TabLayout tabLayout = view.findViewById(R.id.tabMessageLayout);
-        ViewPager viewPager = view.findViewById(R.id.viewPager);
-        TapMessagePagerAdapter tapMessagePagerAdapter = new TapMessagePagerAdapter(getFragmentManager());
-
-        viewPager.setAdapter(tapMessagePagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout = view.findViewById(R.id.tabMessageLayout);
+        viewPager = view.findViewById(R.id.viewPager);
+        tapMessagePagerAdapter = new TapMessagePagerAdapter(getFragmentManager());
 
         getarticleCategories();
         return view;
@@ -55,6 +54,27 @@ public class MessageFragment extends Fragment {
             @Override
             public void onResponse(Call<ArticleCategoriesResponse> call, Response<ArticleCategoriesResponse> response) {
                 Log.e("response","success");
+
+                viewPager.setAdapter(tapMessagePagerAdapter);
+                tabLayout.setupWithViewPager(viewPager);
+
+                Log.e("id", String.valueOf(response.body().articleCategories.get(0).id));
+                Log.e("category_name", response.body().articleCategories.get(0).name);
+
+                Log.e("id", String.valueOf(response.body().articleCategories.get(1).id));
+                Log.e("category_name", response.body().articleCategories.get(1).name);
+
+                Log.e("id", String.valueOf(response.body().articleCategories.get(2).id));
+                Log.e("category_name", response.body().articleCategories.get(2).name);
+
+                Log.e("id", String.valueOf(response.body().articleCategories.get(3).id));
+                Log.e("category_name", response.body().articleCategories.get(3).name);
+
+                Log.e("id", String.valueOf(response.body().articleCategories.get(4).id));
+                Log.e("category_name", response.body().articleCategories.get(4).name);
+
+                tapMessagePagerAdapter.addItem(response.body().articleCategories);
+                Log.e("size", String.valueOf(response.body().articleCategories.size()));
             }
 
             @Override

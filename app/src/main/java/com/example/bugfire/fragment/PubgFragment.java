@@ -38,7 +38,6 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
 
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
-    private String type = "GAME";
 
     public PubgFragment() {
         // Required empty public constructor
@@ -56,14 +55,17 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        categoryId = bundle.getInt("pubg_categoryId");
+        Log.e("pubgId",String.valueOf(categoryId));
+
         getPubgList();
         return view;
     }
 
     private void getPubgList() {
         Log.e("getPubgList","success");
-
-        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){

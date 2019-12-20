@@ -50,7 +50,7 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/articles")
-    Call<ArticlesResponse> getArticleList(@Field("category_id") int id, @Field("type") String type);
+    Call<ArticlesResponse> getArticleList(@Field("category_id") int id);
 
     @FormUrlEncoded
     @POST("/api/article_details")

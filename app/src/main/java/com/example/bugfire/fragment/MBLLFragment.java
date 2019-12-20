@@ -37,7 +37,6 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
     private MBLLAdapter adapter;
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
-    private String type = "GAME";
 
     public MBLLFragment() {
         // Required empty public constructor
@@ -55,14 +54,17 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        categoryId = bundle.getInt("mbll_categoryId");
+        Log.e("mbllId",String.valueOf(categoryId));
+
         getMBLLList();
         return view;
     }
 
     private void getMBLLList() {
         Log.e("getMBLLList","success");
-
-        RetrofitService.getApiEnd().getArticleList(categoryId,type).enqueue(new Callback<ArticlesResponse>() {
+        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
             @Override
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
