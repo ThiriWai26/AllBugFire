@@ -3,12 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context=".fragment.TeamsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_lg"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorBackground"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:scrollbars="vertical"
+        android:scrollbarSize="0dp"
+        tools:ignore="NotSibling"
+        tools:listitem="@layout/layout_team_item" />
+
 
 </FrameLayout>

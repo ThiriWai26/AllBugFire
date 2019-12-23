@@ -4,8 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TopicFeedsList {
+public class TopicNewsList {
 
     @SerializedName("data")
-    public List<FeedsTopicList> data;
+    public List<NewsTopicList> data;
+
 }

@@ -5,23 +5,23 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.example.bugfire.R;
-import com.example.bugfire.adapter.TapPCGamesDetailAdapter;
-import com.example.bugfire.service.RetrofitService;
+import com.example.bugfire.adapter.TapPlayersDetailAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class PCGamesDetailActivity extends AppCompatActivity {
+public class PlayerDetailActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TapPCGamesDetailAdapter tapPCGamesDetailAdapter;
+    private TapPlayersDetailAdapter tapPlayersDetailAdapter;
     private int id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pcgames_detail);
+        setContentView(R.layout.activity_player_detail);
 
         init();
     }
@@ -30,13 +30,12 @@ public class PCGamesDetailActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
-        tapPCGamesDetailAdapter = new TapPCGamesDetailAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tapPCGamesDetailAdapter);
+        tapPlayersDetailAdapter = new TapPlayersDetailAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tapPlayersDetailAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("id", String.valueOf(id));
-
+        Log.e("categoryId",String.valueOf(id));
     }
 }

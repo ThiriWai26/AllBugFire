@@ -88,14 +88,11 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
 //                            loadMoreItems();
 //                        }
 //                    }
-
-
                 }
 
                 visibleItemCount = linearLayoutManager.getChildCount();
                 totalItemCount = linearLayoutManager.getItemCount();
                 inVisiblesItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-
 //                // If the total item count is zero and the previous isn't, assume the
 //                // list is invalidated and should be reset back to initial state
 //                if (totalItemCount < previousTotalItemCount) {

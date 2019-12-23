@@ -85,8 +85,10 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
     }
 
     @Override
-    public void onPCClick(int i) {
+    public void onPCClick(int id) {
         Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
+        intent.putExtra("categoryId",id);
+        Log.e("id", String.valueOf(id));
         startActivity(intent);
 
     }

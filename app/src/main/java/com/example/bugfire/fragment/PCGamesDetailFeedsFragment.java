@@ -17,7 +17,16 @@ import com.example.bugfire.adapter.FeedsAdapter;
 import com.example.bugfire.adapter.GamesAdapter;
 import com.example.bugfire.holder.FeedsHolder;
 import com.example.bugfire.holder.GamesHolder;
+import com.example.bugfire.model.FeedsTopicList;
+import com.example.bugfire.response.TopicFeedsResponse;
 import com.example.bugfire.service.RetrofitService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +38,7 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
 
     private String type = "GAME";
     private int id = -1;
+    List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
 
     public PCGamesDetailFeedsFragment() {
         // Required empty public constructor
@@ -46,6 +56,10 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        Bundle bundle = getArguments();
+        id = bundle.getInt("categoryId");
+        Log.e("pcfeedsId",String.valueOf(id));
+
         getPCGamesFeeds();
         return view;
     }
@@ -53,7 +67,25 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
     private void getPCGamesFeeds() {
         Log.e("getPCGamesFeeds","success");
 
-//        RetrofitService.getApiEnd().getTopicFeeds()
+        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
+            @Override
+            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
+                if(response.isSuccessful()){
+                    Log.e("response","success");
+
+                    adapter.addItem(response.body().topicFeedsList.data);
+                    Log.e("pcFeedsDataSize", String.valueOf(feedsTopicLists.size()));
+                }
+                else {
+                    Log.e("response","fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
+                Log.e("failure", t.toString());
+            }
+        });
     }
 
 

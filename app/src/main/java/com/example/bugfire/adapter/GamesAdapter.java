@@ -10,6 +10,7 @@ import com.example.bugfire.holder.FeedsHolder;
 import com.example.bugfire.holder.GamesHolder;
 import com.example.bugfire.model.Feeds;
 import com.example.bugfire.model.FeedsTopicList;
+import com.example.bugfire.model.TopicFeeds;
 
 import java.util.ArrayList;
 import java.util.List;

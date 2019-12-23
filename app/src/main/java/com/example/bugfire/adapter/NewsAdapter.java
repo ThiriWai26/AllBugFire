@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.bugfire.holder.NewsHolder;
-import com.example.bugfire.model.Feeds;
+import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.model.News;
 
 import java.util.ArrayList;

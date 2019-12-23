@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 
@@ -15,6 +16,7 @@ import com.example.bugfire.R;
  */
 public class TeamsFragment extends Fragment {
 
+    private RecyclerView recyclerView;
 
     public TeamsFragment() {
         // Required empty public constructor
@@ -26,6 +28,8 @@ public class TeamsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_teams, container, false);
+
+
     }
 
 }

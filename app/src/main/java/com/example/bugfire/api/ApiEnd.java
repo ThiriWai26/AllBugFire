@@ -11,6 +11,7 @@ import com.example.bugfire.response.FeedsResponse;
 import com.example.bugfire.response.NewsDetailResponse;
 import com.example.bugfire.response.NewsResponse;
 import com.example.bugfire.response.TopicFeedsResponse;
+import com.example.bugfire.response.TopicNewsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -59,5 +60,9 @@ public interface ApiEnd {
     @FormUrlEncoded
     @POST("/api/feed_topic")
     Call<TopicFeedsResponse> getTopicFeeds(@Field("type") String type, @Field("id") int id);
+
+    @FormUrlEncoded
+    @POST("/api/news_topic")
+    Call<TopicNewsResponse> getTopicNews(@Field("type") String type, @Field("id") int id);
 
 }
