@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,17 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.FeedsTopicList;
-import com.example.bugfire.model.TopicFeeds;
+import com.example.bugfire.model.NewsTopicList;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
-public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
-    
-    private OnPlayersFeedClickListener listener;
+public class PlayersNewHolder extends RecyclerView.ViewHolder {
+
+    private OnPlayersNewClickListener listener;
     private TextView txName, txTime, txabout;
     private ImageView profile, logo;
-    
-    public PlayersFeedHolder(@NonNull View itemView, OnPlayersFeedClickListener listener) {
+    private RelativeLayout layout;
+
+    public PlayersNewHolder(@NonNull View itemView, PlayersNewHolder.OnPlayersNewClickListener listener) {
         super(itemView);
         this.listener = listener;
 
@@ -31,15 +33,15 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
         txabout = itemView.findViewById(R.id.tvabout);
         profile = itemView.findViewById(R.id.profile);
         logo = itemView.findViewById(R.id.logo);
-
+        layout = itemView.findViewById(R.id.layout);
     }
 
-    public static PlayersFeedHolder create(LayoutInflater inflater, ViewGroup parent, OnPlayersFeedClickListener listener) {
-        View view = inflater.inflate(R.layout.layout_playerfeeds_item, parent, false);
-        return new PlayersFeedHolder(view, listener);
+    public static PlayersNewHolder create(LayoutInflater inflater, ViewGroup parent, PlayersNewHolder.OnPlayersNewClickListener listener) {
+        View view = inflater.inflate(R.layout.layout_playernews_item, parent, false);
+        return new PlayersNewHolder(view, listener);
     }
 
-    public void bindData(FeedsTopicList feedsTopicList) {
+    public void bindData(final NewsTopicList feedsTopicList) {
         txName.setText(feedsTopicList.name);
         txTime.setText(feedsTopicList.date);
         txabout.setText(feedsTopicList.content);
@@ -52,6 +54,13 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
 
         Picasso.get().load(RetrofitService.BASE_URL + feedsTopicList.sourceLogo).into(logo);
 
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onPlayersNewClick(feedsTopicList.id);
+            }
+        });
+
         Log.e("category_name", feedsTopicList.name);
         Log.e("date", feedsTopicList.date);
         Log.e("content", feedsTopicList.content);
@@ -59,7 +68,7 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
         Log.e("category_photo", feedsTopicList.categoryPhoto);
     }
 
-    public interface OnPlayersFeedClickListener {
-        void onPlayersFeedClick();
+    public interface OnPlayersNewClickListener {
+        void onPlayersNewClick(int id);
     }
 }

@@ -38,7 +38,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
     private RecyclerView recyclerView;
     private GamesNewsAdapter adapter;
 
-    private String type = "GAME";
+    private String type = "games";
     private int id = -1;
     List<TopicNewsList> topicNewsLists = new ArrayList<>();
 

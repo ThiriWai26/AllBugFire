@@ -73,7 +73,7 @@ dependencies {
 //    implementation 'com.google.apis:google-api-services-youtube:v3-rev141-1.20.0'
 
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
-
+    implementation 'org.rabbit-converter.rabbit:rabbit:0.0.3'
 
 //    implementation 'androidx.annotation:annotation:1.1.0'
 //    compile fileTree(dir: 'libs', include: '*.jar')

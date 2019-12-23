@@ -1,5 +1,8 @@
 package com.example.bugfire.adapter;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -8,10 +11,16 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.bugfire.fragment.PCGamesDetailFeedsFragment;
 import com.example.bugfire.fragment.PCGamesDetailNewsFragment;
+import com.example.bugfire.model.FeedsTopicList;
+import com.example.bugfire.model.TopicCategories;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TapPCGamesDetailAdapter extends FragmentStatePagerAdapter {
 
     String tab[] = {"Feeds", "News"};
+    List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
 
     public TapPCGamesDetailAdapter(@NonNull FragmentManager fm) {
         super(fm);
@@ -24,6 +33,10 @@ public class TapPCGamesDetailAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 PCGamesDetailFeedsFragment fragment = new PCGamesDetailFeedsFragment();
+                Bundle bundle = new Bundle();
+                int id = bundle.getInt("categoryId", i);
+                Log.e("id", String.valueOf(id));
+
                 return fragment;
 
             case 1:

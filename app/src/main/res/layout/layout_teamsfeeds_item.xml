@@ -32,7 +32,7 @@
                     android:layout_margin="@dimen/margin_md"
                     android:maxHeight="48dp"
                     android:tag="image_tag"
-                    android:src="@drawable/img_dendi" />
+                    android:src="@drawable/img_sumail" />
 
                 <LinearLayout
                     android:id="@+id/linearName"
@@ -59,14 +59,13 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/logo"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="@dimen/margin_lg"
                     android:layout_marginRight="@dimen/margin_md"
                     android:layout_alignParentRight="true"
                     android:scaleType="fitXY"
-                    android:background="@drawable/instagram" />
+                    android:background="@drawable/twitter" />
 
             </RelativeLayout>
 
@@ -76,11 +75,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_lg"
                 android:layout_marginRight="@dimen/margin_lg"
-                android:text="We parted way with @GamingElements and disbanded as a team, want to thank EPG for everything they did for us in last 8months.I am free agent now and i m looking for a team, willing to relocate and play any region. DM's open,RT's appreciated!"
+                android:text="We parted way with @GamingElements and disbanded as a team, want to thank EPG for everything they did for us in last 8month"
                 style="@style/NormalTextInputLayout"
                 android:justificationMode="inter_word"
                 />
 
+            <TextView
+                android:id="@+id/tvabout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_lg"
+                android:layout_marginRight="@dimen/margin_lg"
+                android:layout_marginTop="@dimen/margin_md"
+                android:text="I am free agent now and I am looking for a team, willing to relocate and and play any region."
+                android:justificationMode="inter_word"
+                style="@style/NormalTextInputLayout"
+                />
 
         </LinearLayout>
 

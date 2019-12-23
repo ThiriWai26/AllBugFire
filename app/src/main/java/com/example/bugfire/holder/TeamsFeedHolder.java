@@ -12,17 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.FeedsTopicList;
-import com.example.bugfire.model.TopicFeeds;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
-public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
-    
-    private OnPlayersFeedClickListener listener;
+public class TeamsFeedHolder extends RecyclerView.ViewHolder {
+
+    private OnTeamsFeedClickListener listener;
     private TextView txName, txTime, txabout;
     private ImageView profile, logo;
-    
-    public PlayersFeedHolder(@NonNull View itemView, OnPlayersFeedClickListener listener) {
+
+    public TeamsFeedHolder(@NonNull View itemView, OnTeamsFeedClickListener listener) {
         super(itemView);
         this.listener = listener;
 
@@ -34,9 +33,9 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
 
     }
 
-    public static PlayersFeedHolder create(LayoutInflater inflater, ViewGroup parent, OnPlayersFeedClickListener listener) {
-        View view = inflater.inflate(R.layout.layout_playerfeeds_item, parent, false);
-        return new PlayersFeedHolder(view, listener);
+    public static TeamsFeedHolder create(LayoutInflater inflater, ViewGroup parent, TeamsFeedHolder.OnTeamsFeedClickListener listener) {
+        View view = inflater.inflate(R.layout.layout_teamsfeeds_item, parent, false);
+        return new TeamsFeedHolder(view, listener);
     }
 
     public void bindData(FeedsTopicList feedsTopicList) {
@@ -59,7 +58,6 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
         Log.e("category_photo", feedsTopicList.categoryPhoto);
     }
 
-    public interface OnPlayersFeedClickListener {
-        void onPlayersFeedClick();
+    public interface OnTeamsFeedClickListener {
     }
 }

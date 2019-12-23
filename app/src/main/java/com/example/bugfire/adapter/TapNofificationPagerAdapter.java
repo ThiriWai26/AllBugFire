@@ -22,7 +22,6 @@ public class TapNofificationPagerAdapter extends FragmentStatePagerAdapter {
 
     public Object addItem;
     List<TopicCategories> topicCategories = new ArrayList<>();
-//    String[] tab = {"PC", "Mobile", "Players", "Teams"};
 
     public TapNofificationPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);

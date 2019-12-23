@@ -13,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.activity.MobileGamesDetailActivity;
 import com.example.bugfire.activity.PCGamesDetailActivity;
 import com.example.bugfire.adapter.MobileAdapter;
+import com.example.bugfire.adapter.PCGamesAdapter;
 import com.example.bugfire.holder.MobileHolder;
+import com.example.bugfire.holder.PCGamesHolder;
 import com.example.bugfire.model.GamesList;
 import com.example.bugfire.response.GamesResponse;
 import com.example.bugfire.service.RetrofitService;
@@ -30,10 +33,10 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobileItemClickListener{
+public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCItemClickListener{
 
     private RecyclerView recyclerView;
-    private MobileAdapter adapter;
+    private PCGamesAdapter adapter;
 
     private int categoryId = -1;
     List<GamesList> gamesList = new ArrayList<>();
@@ -50,7 +53,7 @@ public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobi
         View view = inflater.inflate(R.layout.fragment_mobile_games, container, false);
 
         recyclerView = view.findViewById(R.id.mobileRecyclerView);
-        adapter = new MobileAdapter(this);
+        adapter = new PCGamesAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -84,11 +87,11 @@ public class MobileGamesFragment extends Fragment implements MobileHolder.OnMobi
         });
     }
 
-
     @Override
-    public void onMobileClick(int id) {
-        Intent intent = new Intent(getContext(), PCGamesDetailActivity.class);
-
+    public void onPCClick(int id) {
+        Intent intent = new Intent(getContext(), MobileGamesDetailActivity.class);
+        intent.putExtra("categoryId",id);
+        Log.e("id", String.valueOf(id));
         startActivity(intent);
     }
 }

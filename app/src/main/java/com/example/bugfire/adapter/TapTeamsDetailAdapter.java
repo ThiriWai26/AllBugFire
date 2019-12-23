@@ -6,13 +6,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
-import com.example.bugfire.fragment.TeamsDetailNewsFragment;
+import com.example.bugfire.fragment.PlayersFeedsFragment;
+import com.example.bugfire.fragment.PlayersNewsFragment;
 
-public class TapPlayersDetailAdapter extends FragmentStatePagerAdapter {
+public class TapTeamsDetailAdapter extends FragmentStatePagerAdapter {
 
     String tab[] = {"Feeds", "News"};
-    public TapPlayersDetailAdapter(@NonNull FragmentManager fm) {
+
+    public TapTeamsDetailAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
@@ -21,11 +22,11 @@ public class TapPlayersDetailAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                TeamsDetailFeedsFragment fragment = new TeamsDetailFeedsFragment();
+                PlayersFeedsFragment fragment = new PlayersFeedsFragment();
                 return fragment;
 
             case 1:
-                TeamsDetailNewsFragment fragment1 = new TeamsDetailNewsFragment();
+                PlayersNewsFragment fragment1 = new PlayersNewsFragment();
                 return fragment1;
 
         }

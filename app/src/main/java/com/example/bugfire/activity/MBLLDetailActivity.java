@@ -54,12 +54,13 @@ public class MBLLDetailActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Log.e("response","success");
 
-                    Picasso.get().load(RetrofitService.BASE_URL + response.body().articleDetail.featurePhoto).into(featurephoto);
+                    Picasso.get().load(RetrofitService.BASE_URL  + "/api/download_image/" + response.body().articleDetail.featurePhoto).into(featurephoto);
                     tvtitle.setText(response.body().articleDetail.title);
                     String name=response.body().articleDetail.categoryName.get(0);
                     for(int i=1;i<response.body().articleDetail.categoryName.size();i++){
                         name+=","+response.body().articleDetail.categoryName.get(i);}
-                    tvname.setText(name);                    tvtime.setText(response.body().articleDetail.date);
+                    tvname.setText(name);
+                    tvtime.setText(response.body().articleDetail.date);
                     tvabout.setText(response.body().articleDetail.content);
 
                     Log.e("feature_photo", response.body().articleDetail.featurePhoto);

@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.TapPCGamesDetailAdapter;
+import com.example.bugfire.fragment.PCGamesDetailFeedsFragment;
 import com.example.bugfire.model.GamesList;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;

@@ -26,8 +26,9 @@
                         <ImageView
                             android:id="@+id/imageView1"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-<!--                            android:background="@drawable/img_arteezy"/>-->
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_sumail"/>
 
                 </androidx.cardview.widget.CardView>
 

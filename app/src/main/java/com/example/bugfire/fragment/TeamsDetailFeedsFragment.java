@@ -13,10 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bugfire.R;
-import com.example.bugfire.adapter.FeedsAdapter;
-import com.example.bugfire.adapter.GamesAdapter;
-import com.example.bugfire.holder.FeedsHolder;
-import com.example.bugfire.holder.GamesHolder;
+import com.example.bugfire.adapter.TeamsFeedAdapter;
+import com.example.bugfire.holder.TeamsFeedHolder;
 import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.response.TopicFeedsResponse;
 import com.example.bugfire.service.RetrofitService;
@@ -31,16 +29,16 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.OnGamesItemClickListener {
+public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener {
 
     private RecyclerView recyclerView;
-    private GamesAdapter adapter;
+    private TeamsFeedAdapter adapter;
 
-    private String type = "games";
+    private String type = "teams";
     private int id = -1;
     List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
 
-    public PCGamesDetailFeedsFragment() {
+    public TeamsDetailFeedsFragment() {
         // Required empty public constructor
     }
 
@@ -49,24 +47,23 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_pcgames_detail_feeds, container, false);
+        View view = inflater.inflate(R.layout.fragment_teams_feeds, container, false);
 
         recyclerView = view.findViewById(R.id.pcgamesdetailnewsRecyclerView);
-        adapter = new GamesAdapter(this);
+        adapter = new TeamsFeedAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle bundle = getArguments();
-        id = bundle.getInt("categoryId");
-        Log.e("pcfeedsId",String.valueOf(id));
+        id = bundle.getInt("team_id");
+        Log.e("Id",String.valueOf(id));
 
-        getPCGamesFeeds();
+        getteamsdetailfeeds();
         return view;
     }
 
-    private void getPCGamesFeeds() {
-        Log.e("getPCGamesFeeds","success");
-
+    private void getteamsdetailfeeds() {
+        Log.e("getteamsdetailfeeds","success");
         RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
             @Override
             public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
@@ -74,7 +71,7 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
                     Log.e("response","success");
 
                     adapter.addItem(response.body().topicFeedsList.data);
-                    Log.e("pcFeedsDataSize", String.valueOf(feedsTopicLists.size()));
+                    Log.e("teamsfeedsDataSize", String.valueOf(feedsTopicLists.size()));
                 }
                 else {
                     Log.e("response","fail");
@@ -85,8 +82,6 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
             public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
                 Log.e("failure", t.toString());
             }
-        });
-    }
-
+        });    }
 
 }

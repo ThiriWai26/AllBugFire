@@ -5,13 +5,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TapPlayersDetailAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class PlayerDetailActivity extends AppCompatActivity {
+public class TeamsDetailActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -21,12 +20,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player_detail);
-
-        init();
-    }
-
-    private void init() {
+        setContentView(R.layout.activity_teams_detail);
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -35,8 +29,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("categoryId");
-        Log.e("categoryId", String.valueOf(id));
-
+        id = bundle.getInt("team_id");
+        Log.e("Id", String.valueOf(id));
     }
 }
