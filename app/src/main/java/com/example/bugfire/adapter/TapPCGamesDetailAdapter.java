@@ -20,7 +20,6 @@ import java.util.List;
 public class TapPCGamesDetailAdapter extends FragmentStatePagerAdapter {
 
     String tab[] = {"Feeds", "News"};
-    List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
 
     public TapPCGamesDetailAdapter(@NonNull FragmentManager fm) {
         super(fm);

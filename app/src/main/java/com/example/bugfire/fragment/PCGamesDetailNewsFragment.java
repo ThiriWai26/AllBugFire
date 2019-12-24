@@ -19,6 +19,7 @@ import com.example.bugfire.adapter.GamesNewsAdapter;
 import com.example.bugfire.adapter.NewsAdapter;
 import com.example.bugfire.holder.GamesNewsHolder;
 import com.example.bugfire.holder.NewsHolder;
+import com.example.bugfire.model.NewsTopicList;
 import com.example.bugfire.model.TopicNewsList;
 import com.example.bugfire.response.TopicNewsResponse;
 import com.example.bugfire.service.RetrofitService;
@@ -40,7 +41,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
 
     private String type = "games";
     private int id = -1;
-    List<TopicNewsList> topicNewsLists = new ArrayList<>();
+    List<NewsTopicList> newsTopicLists = new ArrayList<>();
 
     public PCGamesDetailNewsFragment() {
         // Required empty public constructor
@@ -59,7 +60,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
 
         Bundle b = getActivity().getIntent().getExtras();
         id = b.getInt("categoryId");
-        Log.e("ID", String.valueOf(id));
+        Log.e("NewsId", String.valueOf(id));
 
         getPCgamesNews();
         return view;
@@ -73,7 +74,10 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
                 if(response.isSuccessful()){
                     Log.e("response","success");
                     adapter.addItem(response.body().topicNewsList.data);
-                    Log.e("pcgamesDataSize" , String.valueOf(topicNewsLists.size()));
+                    Log.e("pcgamesnewsDataSize" , String.valueOf(newsTopicLists.size()));
+                }
+                else {
+                    Log.e("response","fail");
                 }
             }
 
@@ -87,8 +91,6 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
     @Override
     public void onGamesNewsClick(int id) {
         Intent intent = new Intent(getContext(), GamesNewsDetailActivity.class);
-        intent.putExtra("id",id);
-        Log.e("id",String.valueOf(id));
         startActivity(intent);
     }
 }

@@ -42,17 +42,15 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(final NewsTopicList feedsTopicList) {
-        txName.setText(feedsTopicList.name);
-        txTime.setText(feedsTopicList.date);
-        txabout.setText(feedsTopicList.content);
+        txName.setText(feedsTopicList.title);
+        txabout.setText(feedsTopicList.preview);
 
         Picasso.get()
-                .load(RetrofitService.BASE_URL + feedsTopicList.categoryPhoto)
+                .load(RetrofitService.BASE_URL + feedsTopicList.categoryphoto)
                 .resize(800,700)
                 .centerCrop()
                 .into(profile);
 
-        Picasso.get().load(RetrofitService.BASE_URL + feedsTopicList.sourceLogo).into(logo);
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +59,10 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        Log.e("category_name", feedsTopicList.name);
-        Log.e("date", feedsTopicList.date);
-        Log.e("content", feedsTopicList.content);
-        Log.e("source_logo", feedsTopicList.sourceLogo);
-        Log.e("category_photo", feedsTopicList.categoryPhoto);
+        Log.e("id", String.valueOf(feedsTopicList.id));
+        Log.e("title", feedsTopicList.title);
+        Log.e("Preview", feedsTopicList.preview);
+        Log.e("featurePhoto", feedsTopicList.featurephoto);
     }
 
     public interface OnPlayersNewClickListener {

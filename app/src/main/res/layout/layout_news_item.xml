@@ -31,7 +31,8 @@
                     android:id="@+id/featurephoto"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_margin="@dimen/margin_md" />
+                    android:layout_margin="@dimen/margin_md"
+                    android:scaleType="fitXY"/>
 <!--                    android:background="@drawable/bugfire"/>-->
 
                 <TextView

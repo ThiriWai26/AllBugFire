@@ -39,7 +39,7 @@ public class GamesNewsDetailActivity extends AppCompatActivity {
         tvabout = findViewById(R.id.tvabout);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("id");
+        id = bundle.getInt("gamesNewsId");
         Log.e("Id",String.valueOf(id));
 
         getgamesNewsDetail();
