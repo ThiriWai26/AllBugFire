@@ -24,7 +24,7 @@ public class GamesHolder extends RecyclerView.ViewHolder {
     public GamesHolder(@NonNull View itemView, GamesHolder.OnGamesItemClickListener listener) {
 
         super(itemView);
-        this.listener = this.listener;
+        this.listener = listener;
 
         txName = itemView.findViewById(R.id.tvName);
         txTime = itemView.findViewById(R.id.tvTime);
@@ -45,12 +45,12 @@ public class GamesHolder extends RecyclerView.ViewHolder {
         txabout.setText(feedsTopicList.content);
 
         Picasso.get()
-                .load(RetrofitService.BASE_URL + feedsTopicList.categoryPhoto)
+                .load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto)
                 .resize(800,700)
                 .centerCrop()
                 .into(profile);
 
-        Picasso.get().load(RetrofitService.BASE_URL + feedsTopicList.sourceLogo).into(logo);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);
 
         Log.e("category_name", feedsTopicList.name);
         Log.e("date", feedsTopicList.date);

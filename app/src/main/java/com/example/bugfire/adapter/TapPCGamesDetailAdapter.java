@@ -33,10 +33,6 @@ public class TapPCGamesDetailAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 PCGamesDetailFeedsFragment fragment = new PCGamesDetailFeedsFragment();
-                Bundle bundle = new Bundle();
-                int id = bundle.getInt("categoryId", i);
-                Log.e("id", String.valueOf(id));
-
                 return fragment;
 
             case 1:

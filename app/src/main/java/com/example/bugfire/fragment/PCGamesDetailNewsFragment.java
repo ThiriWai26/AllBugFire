@@ -57,9 +57,9 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Bundle bundle = getArguments();
-        id = bundle.getInt("categoryId");
-        Log.e("pcnewsId",String.valueOf(id));
+        Bundle b = getActivity().getIntent().getExtras();
+        id = b.getInt("categoryId");
+        Log.e("ID", String.valueOf(id));
 
         getPCgamesNews();
         return view;
@@ -67,7 +67,6 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
 
     private void getPCgamesNews() {
         Log.e("getpcgamesnews", "success");
-
         RetrofitService.getApiEnd().getTopicNews(type,id).enqueue(new Callback<TopicNewsResponse>() {
             @Override
             public void onResponse(Call<TopicNewsResponse> call, Response<TopicNewsResponse> response) {

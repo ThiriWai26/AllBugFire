@@ -56,9 +56,9 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Bundle bundle = getArguments();
-        id = bundle.getInt("categoryId");
-        Log.e("pcfeedsId",String.valueOf(id));
+        Bundle b = getActivity().getIntent().getExtras();
+        id = b.getInt("categoryId");
+        Log.e("ID", String.valueOf(id));
 
         getPCGamesFeeds();
         return view;

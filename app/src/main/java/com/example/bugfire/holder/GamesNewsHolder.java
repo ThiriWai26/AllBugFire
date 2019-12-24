@@ -19,18 +19,17 @@ import com.squareup.picasso.Picasso;
 public class GamesNewsHolder extends RecyclerView.ViewHolder {
 
     private OnGamesNewsItemClickListener listener;
-    private TextView txName, txTime, txabout;
-    private ImageView profile,logo;
+    private TextView txName, txabout;
+    private ImageView profile,logo, featurephoto;
     private RelativeLayout layout;
 
     public GamesNewsHolder(@NonNull View itemView, GamesNewsHolder.OnGamesNewsItemClickListener listener) {
         super(itemView);
         this.listener =  listener;
 
-        txName = itemView.findViewById(R.id.tvName);
-        txTime = itemView.findViewById(R.id.tvTime);
+        txName = itemView.findViewById(R.id.tvtitle);
         txabout = itemView.findViewById(R.id.tvabout);
-        profile = itemView.findViewById(R.id.profile);
+        featurephoto = itemView.findViewById(R.id.featurephoto);
         logo = itemView.findViewById(R.id.logo);
         layout = itemView.findViewById(R.id.layout);
     }
@@ -43,16 +42,15 @@ public class GamesNewsHolder extends RecyclerView.ViewHolder {
     public void bindData(final NewsTopicList newsTopicList) {
 
         txName.setText(newsTopicList.name);
-        txTime.setText(newsTopicList.date);
         txabout.setText(newsTopicList.content);
 
         Picasso.get()
-                .load(RetrofitService.BASE_URL + newsTopicList.categoryPhoto)
+                .load(RetrofitService.BASE_URL + newsTopicList.sourceLogo)
                 .resize(800,700)
                 .centerCrop()
-                .into(profile);
+                .into(featurephoto);
 
-        Picasso.get().load(RetrofitService.BASE_URL + newsTopicList.sourceLogo).into(logo);
+//        Picasso.get().load(RetrofitService.BASE_URL + newsTopicList.sourceLogo).into(logo);
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
