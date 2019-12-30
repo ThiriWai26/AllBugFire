@@ -27,7 +27,7 @@ public class TeamHolder extends RecyclerView.ViewHolder {
 
     public TeamHolder(@NonNull View itemView, TeamHolder.OnTeamsItemClickListener listener) {
         super(itemView);
-        this.listener = this.listener;
+        this.listener = listener;
 
         layout = itemView.findViewById(R.id.layout);
         imageView = itemView.findViewById(R.id.imageView);
@@ -42,6 +42,7 @@ public class TeamHolder extends RecyclerView.ViewHolder {
     public void bindData(final Teams teams) {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + teams.photo).into(imageView);
         teamname.setText(teams.name);
+        Log.e("ID", String.valueOf(teams.id));
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,6 @@ public class TeamHolder extends RecyclerView.ViewHolder {
     }
 
     public interface OnTeamsItemClickListener {
-
         void onPlayerClick(int id);
     }
 }

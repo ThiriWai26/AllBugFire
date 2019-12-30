@@ -16,7 +16,9 @@ import com.example.bugfire.R;
 import com.example.bugfire.activity.MobileGamesDetailActivity;
 import com.example.bugfire.activity.PCGamesDetailActivity;
 import com.example.bugfire.adapter.MobileAdapter;
+import com.example.bugfire.adapter.MobileGamesAdapter;
 import com.example.bugfire.adapter.PCGamesAdapter;
+import com.example.bugfire.holder.MobileGamesHolder;
 import com.example.bugfire.holder.MobileHolder;
 import com.example.bugfire.holder.PCGamesHolder;
 import com.example.bugfire.model.GamesList;
@@ -33,10 +35,10 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCItemClickListener{
+public class MobileGamesFragment extends Fragment implements MobileGamesHolder.OnMobileItemClickListener {
 
     private RecyclerView recyclerView;
-    private PCGamesAdapter adapter;
+    private MobileGamesAdapter adapter;
 
     private int categoryId = -1;
     List<GamesList> gamesList = new ArrayList<>();
@@ -53,7 +55,7 @@ public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCI
         View view = inflater.inflate(R.layout.fragment_mobile_games, container, false);
 
         recyclerView = view.findViewById(R.id.mobileRecyclerView);
-        adapter = new PCGamesAdapter(this);
+        adapter = new MobileGamesAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -88,7 +90,7 @@ public class MobileGamesFragment extends Fragment implements PCGamesHolder.OnPCI
     }
 
     @Override
-    public void onPCClick(int id) {
+    public void onMobileItemClick(int id) {
         Intent intent = new Intent(getContext(), MobileGamesDetailActivity.class);
         intent.putExtra("categoryId",id);
         Log.e("id", String.valueOf(id));

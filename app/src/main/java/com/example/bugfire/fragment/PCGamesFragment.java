@@ -72,6 +72,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
                     Log.e("response", "success");
                     adapter.addItem(response.body().gamesList);
                     Log.e("Games_Size", String.valueOf(gamesLists.size()));
+                    adapter.notifyDataSetChanged();
                 }else {
                     Log.e("response","fail");
                 }

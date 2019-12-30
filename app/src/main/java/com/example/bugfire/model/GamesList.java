@@ -9,4 +9,7 @@ public class GamesList {
 
     @SerializedName("id")
     public int id;
+
+    @SerializedName("name")
+    public String name;
 }

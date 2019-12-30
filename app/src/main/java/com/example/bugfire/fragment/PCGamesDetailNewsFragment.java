@@ -91,6 +91,8 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
     @Override
     public void onGamesNewsClick(int id) {
         Intent intent = new Intent(getContext(), GamesNewsDetailActivity.class);
+        intent.putExtra("gamesNewsId",id);
+        Log.e("gamesNewsId", String.valueOf(id));
         startActivity(intent);
     }
 }

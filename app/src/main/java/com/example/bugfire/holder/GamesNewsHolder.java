@@ -52,10 +52,6 @@ public class GamesNewsHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 listener.onGamesNewsClick(newsTopicList.id);
-                Intent intent = new Intent(itemView.getContext(), GamesNewsDetailActivity.class);
-                intent.putExtra("gamesNewsId",newsTopicList.id);
-                Log.e("gamesNewsId", String.valueOf(newsTopicList.id));
-                itemView.getContext().startActivity(intent);
             }
         });
 

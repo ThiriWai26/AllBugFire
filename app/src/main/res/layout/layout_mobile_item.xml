@@ -18,8 +18,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:background="@drawable/mobilelegand"/>
+            android:scaleType="fitXY" />
+<!--            android:background="@drawable/mobilelegand"/>-->
 
     </androidx.cardview.widget.CardView>
 
