@@ -6,24 +6,15 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
-import com.example.bugfire.holder.TeamHolder;
 import com.example.bugfire.holder.TeamsFeedHolder;
 import com.example.bugfire.model.FeedsTopicList;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TeamsFeedAdapter extends RecyclerView.Adapter<TeamsFeedHolder> {
+public class TeamFeedsAdapter extends RecyclerView.Adapter<TeamsFeedHolder>  {
 
     private TeamsFeedHolder.OnTeamsFeedClickListener listener;
     List<FeedsTopicList> feedsTopicLists;
-
-    public TeamsFeedAdapter(TeamHolder.OnTeamsItemClickListener listener) {
-        this.listener = (TeamsFeedHolder.OnTeamsFeedClickListener) listener;
-        feedsTopicLists = new ArrayList<>();
-    }
-
 
     @NonNull
     @Override
@@ -33,21 +24,19 @@ public class TeamsFeedAdapter extends RecyclerView.Adapter<TeamsFeedHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TeamsFeedHolder holder, int position) {
-        holder.bindData(feedsTopicLists.get(position));
+    public void onBindViewHolder(@NonNull TeamsFeedHolder teamsFeedHolder, int position) {
+        teamsFeedHolder.bindData(feedsTopicLists.get(position));
     }
-
 
     @Override
     public int getItemCount() {
         return feedsTopicLists.size();
     }
-    public
-    void addItem(List<FeedsTopicList> feedsTopicList) {
+
+    public void addItem(List<FeedsTopicList> feedsTopicList) {
         this.feedsTopicLists.clear();
         this.feedsTopicLists.addAll(feedsTopicList);
         notifyDataSetChanged();
 
     }
-
 }

@@ -8,13 +8,14 @@ import android.util.Log;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TapPlayersDetailAdapter;
+import com.example.bugfire.adapter.TapTeamsDetailAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class TeamsDetailActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TapPlayersDetailAdapter tapPlayersDetailAdapter;
+    private TapTeamsDetailAdapter tapTeamsDetailAdapter;
     private int id = -1;
 
     @Override
@@ -24,8 +25,8 @@ public class TeamsDetailActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
-        tapPlayersDetailAdapter = new TapPlayersDetailAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(tapPlayersDetailAdapter);
+        tapTeamsDetailAdapter = new TapTeamsDetailAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(tapTeamsDetailAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();

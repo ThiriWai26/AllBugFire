@@ -55,9 +55,9 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Bundle bundle = getArguments();
+        Bundle bundle = getActivity().getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("categoryId",String.valueOf(id));
+        Log.e("id",String.valueOf(id));
 
         getplayersFeeds();
         return view;

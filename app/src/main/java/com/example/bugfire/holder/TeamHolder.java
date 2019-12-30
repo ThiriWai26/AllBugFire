@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.activity.TeamsDetailActivity;
+import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
 import com.example.bugfire.model.Teams;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -23,13 +24,14 @@ public class TeamHolder extends RecyclerView.ViewHolder {
     private OnTeamsItemClickListener listener;
     private LinearLayout layout;
     private ImageView imageView;
-    private TextView teamname;
+    private TextView teamname, tvid;
 
     public TeamHolder(@NonNull View itemView, TeamHolder.OnTeamsItemClickListener listener) {
         super(itemView);
         this.listener = listener;
 
         layout = itemView.findViewById(R.id.layout);
+        tvid = itemView.findViewById(R.id.tvId);
         imageView = itemView.findViewById(R.id.imageView);
         teamname = itemView.findViewById(R.id.teamname);
     }
@@ -42,18 +44,16 @@ public class TeamHolder extends RecyclerView.ViewHolder {
     public void bindData(final Teams teams) {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + teams.photo).into(imageView);
         teamname.setText(teams.name);
-        Log.e("ID", String.valueOf(teams.id));
-
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                listener.onPlayerClick(teams.id);
+            public void onClick(View v) {
+                listener.onTeamClick(teams.id);
             }
         });
 
     }
 
     public interface OnTeamsItemClickListener {
-        void onPlayerClick(int id);
+        void onTeamClick(int id);
     }
 }

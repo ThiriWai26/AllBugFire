@@ -44,19 +44,15 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder  {
         txTime.setText(feedsTopicList.date);
         txabout.setText(feedsTopicList.content);
 
-        Picasso.get()
-                .load(RetrofitService.BASE_URL + feedsTopicList.categoryPhoto)
-                .resize(800,700)
-                .centerCrop()
-                .into(profile);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);
 
-        Picasso.get().load(RetrofitService.BASE_URL + feedsTopicList.sourceLogo).into(logo);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto).into(profile);
 
-        Log.e("category_name", feedsTopicList.name);
-        Log.e("date", feedsTopicList.date);
-        Log.e("content", feedsTopicList.content);
-        Log.e("source_logo", feedsTopicList.sourceLogo);
-        Log.e("category_photo", feedsTopicList.categoryPhoto);
+//        Log.e("category_name", feedsTopicList.name);
+//        Log.e("date", feedsTopicList.date);
+//        Log.e("content", feedsTopicList.content);
+//        Log.e("source_logo", feedsTopicList.sourceLogo);
+//        Log.e("category_photo", feedsTopicList.categoryPhoto);
     }
 
     public interface OnPlayersFeedClickListener {

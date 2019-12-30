@@ -40,14 +40,14 @@
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" "
+                    android:text="Dendi"
                     style="@style/TitleInputLayout" />
 
                 <TextView
                     android:id="@+id/tvabout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="The Pango"
                     style="@style/NormalTextInputLayout" />
 
             </LinearLayout>

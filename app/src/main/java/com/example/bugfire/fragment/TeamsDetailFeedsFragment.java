@@ -13,9 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.TeamAdapter;
 import com.example.bugfire.adapter.TeamsFeedAdapter;
+import com.example.bugfire.holder.TeamHolder;
 import com.example.bugfire.holder.TeamsFeedHolder;
 import com.example.bugfire.model.FeedsTopicList;
+import com.example.bugfire.model.Teams;
+import com.example.bugfire.model.TopicFeedsList;
+import com.example.bugfire.response.TeamsResponse;
 import com.example.bugfire.response.TopicFeedsResponse;
 import com.example.bugfire.service.RetrofitService;
 
@@ -29,14 +34,14 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener {
+public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener, TeamHolder.OnTeamsItemClickListener {
 
     private RecyclerView recyclerView;
     private TeamsFeedAdapter adapter;
 
     private String type = "teams";
     private int id = -1;
-    List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
+    List<TopicFeedsList> topicFeedsList = new ArrayList<>();
 
     public TeamsDetailFeedsFragment() {
         // Required empty public constructor
@@ -49,14 +54,14 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_teams_feeds, container, false);
 
-        recyclerView = view.findViewById(R.id.pcgamesdetailnewsRecyclerView);
+        recyclerView = view.findViewById(R.id.teamsdetailnewsRecyclerView);
         adapter = new TeamsFeedAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        Bundle bundle = getArguments();
-        id = bundle.getInt("team_id");
-        Log.e("Id",String.valueOf(id));
+        Bundle b = getActivity().getIntent().getExtras();
+        id = b.getInt("team_id");
+        Log.e("ID", String.valueOf(id));
 
         getteamsdetailfeeds();
         return view;
@@ -71,7 +76,7 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
                     Log.e("response","success");
 
                     adapter.addItem(response.body().topicFeedsList.data);
-                    Log.e("teamsfeedsDataSize", String.valueOf(feedsTopicLists.size()));
+                    Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
                 }
                 else {
                     Log.e("response","fail");
@@ -82,6 +87,11 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
             public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
                 Log.e("failure", t.toString());
             }
-        });    }
+        });   }
 
+
+    @Override
+    public void onTeamClick(int id) {
+
+    }
 }

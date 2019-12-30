@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.bugfire.fragment.PlayersFeedsFragment;
 import com.example.bugfire.fragment.PlayersNewsFragment;
+import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
+import com.example.bugfire.fragment.TeamsDetailNewsFragment;
 
 public class TapTeamsDetailAdapter extends FragmentStatePagerAdapter {
 
@@ -22,11 +24,11 @@ public class TapTeamsDetailAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                PlayersFeedsFragment fragment = new PlayersFeedsFragment();
+                TeamsDetailFeedsFragment fragment = new TeamsDetailFeedsFragment();
                 return fragment;
 
             case 1:
-                PlayersNewsFragment fragment1 = new PlayersNewsFragment();
+                TeamsDetailNewsFragment fragment1 = new TeamsDetailNewsFragment();
                 return fragment1;
 
         }

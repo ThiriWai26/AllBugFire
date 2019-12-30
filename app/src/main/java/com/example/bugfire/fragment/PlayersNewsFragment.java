@@ -17,6 +17,7 @@ import com.example.bugfire.R;
 import com.example.bugfire.activity.NewsDetailActivity;
 import com.example.bugfire.activity.PlayersNewsDetailActivity;
 import com.example.bugfire.adapter.NewsAdapter;
+import com.example.bugfire.adapter.PlayerAdapter;
 import com.example.bugfire.adapter.PlayersNewAdapter;
 import com.example.bugfire.holder.NewsHolder;
 import com.example.bugfire.holder.PlayersNewHolder;
@@ -58,10 +59,10 @@ public class PlayersNewsFragment extends Fragment implements PlayersNewHolder.On
         adapter = new PlayersNewAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        
-        Bundle bundle = getArguments();
+
+        Bundle bundle = getActivity().getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("pcnewsId",String.valueOf(id));
+        Log.e("id",String.valueOf(id));
         
         getplayersNewsList();
         return view;

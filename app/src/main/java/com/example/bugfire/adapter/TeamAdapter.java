@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
 import com.example.bugfire.fragment.TeamsFragment;
 import com.example.bugfire.holder.TeamHolder;
 import com.example.bugfire.model.Teams;
@@ -18,7 +19,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamHolder> {
     List<Teams> teamsList;
     private TeamHolder.OnTeamsItemClickListener listener;
 
-    public TeamAdapter(TeamsFragment teamsFragment) {
+    public TeamAdapter(TeamHolder.OnTeamsItemClickListener listener) {
         teamsList = new ArrayList<>();
         this.listener = listener;
     }

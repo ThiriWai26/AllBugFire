@@ -70,6 +70,7 @@ public class PCGamesDetailActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     Log.e("response", "success");
 
+
 //                    String name= String.valueOf(response.body().gamesList.get(0));
 //                    for(int i=1;i<response.body().gamesList.size();i++){
 //                        name+=","+response.body().gamesList.get(i);}

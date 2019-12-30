@@ -43,13 +43,9 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder {
         txTime.setText(feedsTopicList.date);
         txabout.setText(feedsTopicList.content);
 
-        Picasso.get()
-                .load(RetrofitService.BASE_URL + feedsTopicList.categoryPhoto)
-                .resize(800,700)
-                .centerCrop()
-                .into(profile);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);
 
-        Picasso.get().load(RetrofitService.BASE_URL + feedsTopicList.sourceLogo).into(logo);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto).into(profile);
 
         Log.e("category_name", feedsTopicList.name);
         Log.e("date", feedsTopicList.date);

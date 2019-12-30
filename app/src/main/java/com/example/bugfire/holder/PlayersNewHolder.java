@@ -20,19 +20,18 @@ import com.squareup.picasso.Picasso;
 public class PlayersNewHolder extends RecyclerView.ViewHolder {
 
     private OnPlayersNewClickListener listener;
-    private TextView txName, txTime, txabout;
-    private ImageView profile, logo;
+    private TextView txName, txabout, tvId;
+    private ImageView profile;
     private RelativeLayout layout;
 
     public PlayersNewHolder(@NonNull View itemView, PlayersNewHolder.OnPlayersNewClickListener listener) {
         super(itemView);
         this.listener = listener;
 
-        txName = itemView.findViewById(R.id.tvName);
-        txTime = itemView.findViewById(R.id.tvTime);
+        txName = itemView.findViewById(R.id.tvtitle);
         txabout = itemView.findViewById(R.id.tvabout);
-        profile = itemView.findViewById(R.id.profile);
-        logo = itemView.findViewById(R.id.logo);
+        profile = itemView.findViewById(R.id.featurephoto);
+        tvId = itemView.findViewById(R.id.tvId);
         layout = itemView.findViewById(R.id.layout);
     }
 
@@ -42,15 +41,14 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(final NewsTopicList feedsTopicList) {
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.featurephoto).into(profile);
         txName.setText(feedsTopicList.title);
         txabout.setText(feedsTopicList.preview);
 
-        Picasso.get()
-                .load(RetrofitService.BASE_URL + feedsTopicList.categoryphoto)
-                .resize(800,700)
-                .centerCrop()
-                .into(profile);
-
+//        Log.e("id", String.valueOf(feedsTopicList.id));
+//        Log.e("featurePhoto", feedsTopicList.featurephoto);
+//        Log.e("title", feedsTopicList.title);
+//        Log.e("preview", feedsTopicList.preview);
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
