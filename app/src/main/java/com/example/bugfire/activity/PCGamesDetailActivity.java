@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.PCGamesAdapter;
 import com.example.bugfire.adapter.TapPCGamesDetailAdapter;
+import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.model.GamesList;
 import com.example.bugfire.model.TopicFeedsList;
 import com.example.bugfire.response.GamesResponse;
@@ -32,7 +33,6 @@ public class PCGamesDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TapPCGamesDetailAdapter tapPCGamesDetailAdapter;
     private int id = -1;
-    private int categoryId = -1;
     private String type = "games";
 
     private ImageView profile;
@@ -60,32 +60,31 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         id = bundle.getInt("categoryId");
         Log.e("id", String.valueOf(id));
 
-        Bundle bundle1 = getIntent().getExtras();
-        categoryId = bundle1.getInt("pc_categoryId");
-        Log.e("pc_categoryId",String.valueOf(categoryId));
 
-        RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
+        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
             @Override
-            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
-                if(response.isSuccessful()) {
-                    Log.e("response", "success");
+            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
+                if(response.isSuccessful()){
+                    Log.e("response","success");
+                    FeedsTopicList feedsTopicList = new FeedsTopicList();
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto)
+                            .resize(800,700)
+                            .centerCrop()
+                            .into(profile);
 
+                    txname.setText(feedsTopicList.name);
 
-//                    String name= String.valueOf(response.body().gamesList.get(0));
-//                    for(int i=1;i<response.body().gamesList.size();i++){
-//                        name+=","+response.body().gamesList.get(i);}
-//                    txname.setText(name);
-//                    Log.e("id", String.valueOf(response.body().gamesList.get(0).id));
-//                    Log.e("name", response.body().gamesList.get(0).name);
-
-                }else {
+//                    adapter.addItem(response.body().topicFeedsList.data);
+//                    Log.e("pcFeedsDataSize", String.valueOf(feedsTopicLists.size()));
+                }
+                else {
                     Log.e("response","fail");
                 }
             }
 
             @Override
-            public void onFailure(Call<GamesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
+            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
+                Log.e("failure", t.toString());
             }
         });
     }

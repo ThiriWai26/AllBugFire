@@ -35,7 +35,9 @@ public class MobileGamesHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(final GamesList gamesList) {
+
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + gamesList.photo).into(imageView);
+
 
         Log.e("photo", gamesList.photo);
         Log.e("id", String.valueOf(gamesList.id));

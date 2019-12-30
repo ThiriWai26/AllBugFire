@@ -5,7 +5,8 @@
     android:id="@+id/layout"
     android:background="@color/colorBackground"
     android:layout_width="100dp"
-    android:layout_height="200dp">
+    android:layout_height="140dp"
+    android:layout_margin="@dimen/margin_md">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         <!-- TODO: Update blank fragment layout -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="110dp"
             android:layout_alignParentTop="true"
             app:cardCornerRadius="15dp"
             app:cardElevation="1dp"
