@@ -71,9 +71,7 @@ public class CSGOFragment extends Fragment implements CSGOHolder.OnCSGOItemClick
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-
                     adapter.addItem(response.body().articlesList.data);
-                    Log.e("CSGOData_Size", String.valueOf(articleList.size()));
                     adapter.notifyDataSetChanged();
                 }
                 else {

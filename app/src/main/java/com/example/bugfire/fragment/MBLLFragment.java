@@ -71,9 +71,8 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-
                     adapter.addItem(response.body().articlesList.data);
-                    Log.e("MBLLData_Size", String.valueOf(articleList.size()));
+                    adapter.notifyDataSetChanged();
                 }
                 else{
                     Log.e("response","fail");

@@ -62,62 +62,26 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         id = bundle.getInt("categoryId");
         Log.e("id", String.valueOf(id));
 
-        Bundle bundle1 = getIntent().getExtras();
-        categoryId = bundle1.getInt("pc_categoryId");
-        Log.e("pc_categoryId",String.valueOf(categoryId));
-
-//        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
-//            @Override
-//            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
-//                if(response.isSuccessful()){
-//                    Log.e("response","success");
-//                    FeedsTopicList feedsTopicList = new FeedsTopicList();
-//                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto)
-//                            .resize(800,700)
-//                            .centerCrop()
-//                            .into(profile);
-//
-//                    txname.setText(feedsTopicList.name);
-//
-////                    adapter.addItem(response.body().topicFeedsList.data);
-////                    Log.e("pcFeedsDataSize", String.valueOf(feedsTopicLists.size()));
-//                }
-//                else {
-//                    Log.e("response","fail");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
-//                Log.e("failure", t.toString());
-//            }
-//        });
-
-        RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
+        Log.e("getGameTitle","success");
+        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
             @Override
-            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
-                if(response.isSuccessful()) {
-                    Log.e("response", "success");
+            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
+                if(response.isSuccessful()){
+                    Log.e("response","success");
+                    txname.setText(response.body().topicFeedsList.data.get(0).name);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().topicFeedsList.data.get(0).categoryPhoto).into(profile);
 
-//                    final GamesList gamesList = new GamesList();
-//                    txname.setText(gamesList.name);
-//
-//                    Log.e("name", gamesList.name);
-
-//                    txname.setText(response.body().gamesList.get(0).name);
-//                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().gamesList.get(0).photo);
-
-//                    Log.e("name", response.body().gamesList.get(0).name);
-//                    Log.e("photo", response.body().gamesList.get(0).photo);
-
-                }else {
+                    Log.e("Name", response.body().topicFeedsList.data.get(0).name);
+                    Log.e("Photo", response.body().topicFeedsList.data.get(0).categoryPhoto);
+                }
+                else {
                     Log.e("response","fail");
                 }
             }
 
             @Override
-            public void onFailure(Call<GamesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
+            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
+                Log.e("failure", t.toString());
             }
         });
     }

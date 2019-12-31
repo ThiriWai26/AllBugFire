@@ -65,7 +65,9 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
             public void onResponse(Call<PlayerResponse> call, Response<PlayerResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
+                    playerList= response.body().playerList;
                     adapter.addItem(response.body().playerList);
+                    Log.e("player_Size", String.valueOf(playerList.size()));
                     adapter.notifyDataSetChanged();
                 }
                 else {

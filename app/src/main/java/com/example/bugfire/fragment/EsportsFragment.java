@@ -72,7 +72,7 @@ public class EsportsFragment extends Fragment implements EsportsHolder.OnEsportI
                 if(response.isSuccessful()){
                     Log.e("response","success");
                     adapter.addItem(response.body().articlesList.data);
-                    Log.e("EsportsData_Size", String.valueOf(articleList.size()));
+                    adapter.notifyDataSetChanged();
                 }
                 else {
                     Log.e("response","fail");

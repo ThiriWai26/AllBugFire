@@ -64,6 +64,7 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
             public void onResponse(Call<TeamsResponse> call, Response<TeamsResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
+                    teamsList = response.body().team;
                     adapter.addItem(response.body().team);
                     Log.e("TeamsDataSize", String.valueOf(teamsList.size()));
                     adapter.notifyDataSetChanged();

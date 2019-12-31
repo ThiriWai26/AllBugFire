@@ -72,9 +72,8 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
             public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-
                     adapter.addItem(response.body().topicFeedsList.data);
-                    Log.e("pcFeedsDataSize", String.valueOf(feedsTopicLists.size()));
+                    adapter.notifyDataSetChanged();
                 }
                 else {
                     Log.e("response","fail");

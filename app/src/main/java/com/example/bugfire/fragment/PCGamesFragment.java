@@ -70,6 +70,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
             public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
                 if(response.isSuccessful()) {
                     Log.e("response", "success");
+                    gamesLists = response.body().gamesList;
                     adapter.addItem(response.body().gamesList);
                     Log.e("Games_Size", String.valueOf(gamesLists.size()));
                     adapter.notifyDataSetChanged();

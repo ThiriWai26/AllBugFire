@@ -36,7 +36,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private RecyclerView recyclerView;
     private DotaAdapter adapter;
 
-    List<Article> articleList = new ArrayList<>();
+    List<Article> articleLists = new ArrayList<>();
     private int categoryId = -1;
     private String type = "GAME";
 
@@ -73,7 +73,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
                 if(response.isSuccessful()){
                     Log.e("response","success");
                     adapter.addItem(response.body().articlesList.data);
-                    Log.e("DotaData_Size", String.valueOf(articleList.size()));
+                    adapter.notifyDataSetChanged();
                 }
                 else {
                     Log.e("response","fail");
