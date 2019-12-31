@@ -44,7 +44,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerHolder> {
         if(this.playerLists.size() == 0 ){
             this.playerLists = playerList;
         }
-        this.playerLists.addAll(playerList);
+        else
+            this.playerLists.addAll(playerList);
         notifyDataSetChanged();
 
     }

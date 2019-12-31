@@ -30,7 +30,7 @@ public class MobileGamesHolder extends RecyclerView.ViewHolder {
     }
 
     public static MobileGamesHolder create(LayoutInflater inflater, ViewGroup parent, MobileGamesHolder.OnMobileItemClickListener listener) {
-        View view = inflater.inflate(R.layout.layout_pcgame_item, parent, false);
+        View view = inflater.inflate(R.layout.layout_mobile_item, parent, false);
         return new MobileGamesHolder(view, listener);
     }
 

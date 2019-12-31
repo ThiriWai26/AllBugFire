@@ -77,6 +77,7 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
                     Log.e("response", "success");
                     adapter.addItem(response.body().gamesList);
                     Log.e("Games_Size", String.valueOf(gamesList.size()));
+                    adapter.notifyDataSetChanged();
                 }else {
                     Log.e("response","fail");
                 }

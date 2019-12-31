@@ -45,8 +45,9 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamHolder> {
 
         if(this.teamsList.size() == 0 ){
             this.teamsList = teams;
+        } else {
+            this.teamsList.addAll(teams);
         }
-        this.teamsList.addAll(teams);
         notifyDataSetChanged();
 
     }
