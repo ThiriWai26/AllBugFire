@@ -34,7 +34,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener, TeamHolder.OnTeamsItemClickListener {
+public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener {
 
     private RecyclerView recyclerView;
     private TeamsFeedAdapter adapter;
@@ -60,7 +60,7 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle b = getActivity().getIntent().getExtras();
-        id = b.getInt("team_id");
+        id = b.getInt("id");
         Log.e("ID", String.valueOf(id));
 
         getteamsdetailfeeds();
@@ -90,8 +90,4 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
         });   }
 
 
-    @Override
-    public void onTeamClick(int id) {
-
-    }
 }

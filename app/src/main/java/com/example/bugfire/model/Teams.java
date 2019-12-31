@@ -12,4 +12,7 @@ public class Teams {
 
     @SerializedName("name")
     public String name;
+
+    @SerializedName("category")
+    public String category;
 }

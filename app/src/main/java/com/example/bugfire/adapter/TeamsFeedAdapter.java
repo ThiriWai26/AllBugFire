@@ -19,8 +19,8 @@ public class TeamsFeedAdapter extends RecyclerView.Adapter<TeamsFeedHolder> {
     private TeamsFeedHolder.OnTeamsFeedClickListener listener;
     List<FeedsTopicList> feedsTopicLists;
 
-    public TeamsFeedAdapter(TeamHolder.OnTeamsItemClickListener listener) {
-        this.listener = (TeamsFeedHolder.OnTeamsFeedClickListener) listener;
+    public TeamsFeedAdapter(TeamsFeedHolder.OnTeamsFeedClickListener listener) {
+        this.listener =  listener;
         feedsTopicLists = new ArrayList<>();
     }
 

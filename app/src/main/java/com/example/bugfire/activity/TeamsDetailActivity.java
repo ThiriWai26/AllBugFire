@@ -27,6 +27,9 @@ public class TeamsDetailActivity extends AppCompatActivity {
     private TapTeamsDetailAdapter tapTeamsDetailAdapter;
     private int id = -1;
     private String type = "teams";
+    private String name;
+    private String teamName;
+    private String photo;
 
     private TextView tvname, tvabout;
     private ImageView profile;
@@ -46,8 +49,14 @@ public class TeamsDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("team_id");
-        Log.e("Id", String.valueOf(id));
+        id = bundle.getInt("id");
+        name = bundle.getString("name");
+        teamName = bundle.getString("team_name");
+        photo = bundle.getString("photo");
+        Log.e("id", String.valueOf(id));
+        Log.e("Name", name);
+        Log.e("TeamName", teamName);
+        Log.e("Photo", photo);
 
         Log.e("getGameTitle","success");
         RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
@@ -55,11 +64,9 @@ public class TeamsDetailActivity extends AppCompatActivity {
             public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-                    tvname.setText(response.body().topicFeedsList.data.get(0).name);
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().topicFeedsList.data.get(0).categoryPhoto).into(profile);
-
-                    Log.e("Name", response.body().topicFeedsList.data.get(0).name);
-                    Log.e("Photo", response.body().topicFeedsList.data.get(0).categoryPhoto);
+                    tvname.setText(name);
+                    tvabout.setText(teamName);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
                 }
                 else {
                     Log.e("response","fail");

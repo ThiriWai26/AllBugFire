@@ -36,9 +36,12 @@ public class PCGamesDetailActivity extends AppCompatActivity {
     private int id = -1;
     private int categoryId = -1;
     private String type = "games";
+    private String name;
+    private String teamName;
+    private String photo;
 
     private ImageView profile;
-    private TextView txname;
+    private TextView txname, txabout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class PCGamesDetailActivity extends AppCompatActivity {
 
         profile = findViewById(R.id.profile);
         txname = findViewById(R.id.tvName);
+        txabout = findViewById(R.id.tvabout);
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         tapPCGamesDetailAdapter = new TapPCGamesDetailAdapter(getSupportFragmentManager());
@@ -59,8 +63,14 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("categoryId");
+        id = bundle.getInt("id");
+        name = bundle.getString("name");
+        teamName = bundle.getString("team_name");
+        photo = bundle.getString("photo");
         Log.e("id", String.valueOf(id));
+        Log.e("Name", name);
+        Log.e("TeamName", teamName);
+        Log.e("Photo", photo);
 
         Log.e("getGameTitle","success");
         RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
@@ -68,11 +78,10 @@ public class PCGamesDetailActivity extends AppCompatActivity {
             public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-                    txname.setText(response.body().topicFeedsList.data.get(0).name);
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().topicFeedsList.data.get(0).categoryPhoto).into(profile);
 
-                    Log.e("Name", response.body().topicFeedsList.data.get(0).name);
-                    Log.e("Photo", response.body().topicFeedsList.data.get(0).categoryPhoto);
+                    txname.setText(name);
+                    txabout.setText(teamName);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
                 }
                 else {
                     Log.e("response","fail");

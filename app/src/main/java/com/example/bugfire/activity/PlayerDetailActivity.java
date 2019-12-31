@@ -29,6 +29,10 @@ public class PlayerDetailActivity extends AppCompatActivity {
     private int id = -1;
     private int categoryId = -1;
     private String type = "players";
+    private String name;
+    private String teamName;
+    private int Id = -1;
+    private String photo;
 
     private TextView tvname, tvabout;
     private ImageView profile;
@@ -53,30 +57,35 @@ public class PlayerDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         Bundle bundle = getIntent().getExtras();
-        id = bundle.getInt("categoryId");
-        Log.e("categoryId", String.valueOf(id));
+        id = bundle.getInt("id");
+        name = bundle.getString("name");
+        teamName = bundle.getString("team_name");
+        photo = bundle.getString("photo");
+        Log.e("id", String.valueOf(id));
+        Log.e("Name", name);
+        Log.e("TeamName", teamName);
+        Log.e("Photo", photo);
 
         Log.e("getPlayerTitle","success");
-        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
+        RetrofitService.getApiEnd().getPlayerList().enqueue(new Callback<PlayerResponse>() {
             @Override
-            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
+            public void onResponse(Call<PlayerResponse> call, Response<PlayerResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-                    tvname.setText(response.body().topicFeedsList.data.get(0).name);
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().topicFeedsList.data.get(0).categoryPhoto).into(profile);
 
-                    Log.e("Name", response.body().topicFeedsList.data.get(0).name);
-                    Log.e("Photo", response.body().topicFeedsList.data.get(0).categoryPhoto);
-                    }
-                    else {
-                        Log.e("response","fail");
-                    }
+                    tvname.setText(name);
+                    tvabout.setText(teamName);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
                 }
+                else {
+                    Log.e("response","fail");
+                }
+            }
 
-                @Override
-                public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
-                    Log.e("failure", t.toString());
-                }
-            });
+            @Override
+            public void onFailure(Call<PlayerResponse> call, Throwable t) {
+                Log.e("failure", t.toString());
+            }
+        });
     }
 }

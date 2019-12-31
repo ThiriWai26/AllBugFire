@@ -59,7 +59,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle b = getActivity().getIntent().getExtras();
-        id = b.getInt("categoryId");
+        id = b.getInt("id");
         Log.e("NewsId", String.valueOf(id));
 
         getPCgamesNews();

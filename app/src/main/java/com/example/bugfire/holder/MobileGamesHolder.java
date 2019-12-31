@@ -38,19 +38,18 @@ public class MobileGamesHolder extends RecyclerView.ViewHolder {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + gamesList.photo).into(imageView);
 
-
         Log.e("photo", gamesList.photo);
         Log.e("id", String.valueOf(gamesList.id));
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onMobileItemClick(gamesList.id);
+                listener.onMobileItemClick(gamesList);
             }
         });
     }
 
     public interface OnMobileItemClickListener {
-        void onMobileItemClick(int id);
+        void onMobileItemClick(GamesList gamesList);
     }
 }

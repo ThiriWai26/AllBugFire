@@ -84,11 +84,13 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
     }
 
     @Override
-    public void onPlayerClick(int id) {
+    public void onPlayerClick(PlayerList playerList) {
         Log.e("success","done");
         Intent intent = new Intent(getContext(), PlayerDetailActivity.class);
-        intent.putExtra("categoryId",id);
-        Log.e("id", String.valueOf(id));
+        intent.putExtra("id",playerList.id);
+        intent.putExtra("name",playerList.name);
+        intent.putExtra("team_name",playerList.teamName);
+        intent.putExtra("photo",playerList.photo);
         startActivity(intent);
     }
 

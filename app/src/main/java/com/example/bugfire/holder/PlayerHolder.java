@@ -1,5 +1,8 @@
 package com.example.bugfire.holder;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.activity.PlayerDetailActivity;
 import com.example.bugfire.model.PlayerList;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -47,9 +51,10 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
         playerteam1.setText(playerList.teamName);
 
         layoutplayer1.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onClick(View view) {
-                listener.onPlayerClick(playerList.id);
+                listener.onPlayerClick(playerList);
             }
         });
 
@@ -61,6 +66,6 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
     }
 
     public interface OnPlayerItemClickListener {
-        void onPlayerClick(int i);
+        void onPlayerClick(PlayerList playerList);
     }
 }

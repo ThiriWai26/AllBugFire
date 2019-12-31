@@ -47,13 +47,13 @@ public class TeamHolder extends RecyclerView.ViewHolder {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onTeamClick(teams.id);
+                listener.onTeamClick(teams);
             }
         });
 
     }
 
     public interface OnTeamsItemClickListener {
-        void onTeamClick(int id);
+        void onTeamClick(Teams teams);
     }
 }

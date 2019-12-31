@@ -42,7 +42,7 @@ public class PCGamesHolder extends RecyclerView.ViewHolder {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onPCClick(gamesList.id);
+                listener.onPCClick(gamesList);
             }
         });
 
@@ -55,6 +55,6 @@ public class PCGamesHolder extends RecyclerView.ViewHolder {
 
 
     public interface OnPCItemClickListener {
-        void onPCClick(int i);
+        void onPCClick(GamesList gamesList);
     }
 }

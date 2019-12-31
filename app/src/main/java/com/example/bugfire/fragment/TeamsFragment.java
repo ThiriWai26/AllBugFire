@@ -82,10 +82,12 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
     }
 
     @Override
-    public void onTeamClick(int id) {
+    public void onTeamClick(Teams teams) {
         Intent intent = new Intent(getContext(), TeamsDetailActivity.class);
-        intent.putExtra("team_id", id);
-        Log.e("TeamId", String.valueOf(id));
+        intent.putExtra("id", teams.id);
+        intent.putExtra("name", teams.name);
+        intent.putExtra("team_name", teams.category);
+        intent.putExtra("photo", teams.photo);
         startActivity(intent);
     }
 }

@@ -92,10 +92,12 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
     }
 
     @Override
-    public void onMobileItemClick(int id) {
+    public void onMobileItemClick(GamesList gamesList) {
         Intent intent = new Intent(getContext(), MobileGamesDetailActivity.class);
-        intent.putExtra("categoryId",id);
-        Log.e("id", String.valueOf(id));
+        intent.putExtra("id", gamesList.id);
+        intent.putExtra("name", gamesList.name);
+        intent.putExtra("team_name", gamesList.category);
+        intent.putExtra("photo", gamesList.photo);
         startActivity(intent);
     }
 }

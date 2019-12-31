@@ -58,7 +58,7 @@ public class TeamsDetailNewsFragment extends Fragment implements TeamsNewHolder.
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle b = getActivity().getIntent().getExtras();
-        id = b.getInt("team_id");
+        id = b.getInt("id");
         Log.e("ID", String.valueOf(id));
 
         getteamNewsList();
