@@ -39,15 +39,12 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private int page = 1;
     private int totalPage;
 
-    private boolean isLoading = false;
-    private int currentPage = 0;
-    private int visibleThreadhold = 5;
-    private int previousTotalItemCount = 0;
-    private int startingPageIndex = 0;
-
+    private boolean isLoading = true;
     private int visibleItemCount;
     private int totalItemCount;
-    private int inVisiblesItems;
+    private int firstVisibleItem;
+    private int previousTotal = 0;
+    private int visibleThreshold = 10;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -78,68 +75,29 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
             @Override
             public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                if(page<=totalPage){
-                    Log.e("pageNumber",String.valueOf(page));
+                if (page <= totalPage) {
+                    Log.e("pageNumber", String.valueOf(page));
                     getFeedsList(++page);
-
-//                    if (!isLoading() && !isLastPage()) {
-//                        if ((visibleItemCount + inVisiblesItems) >= totalItemCount && inVisiblesItems >= 0 && totalItemCount >= PAGE_SIZE) {
-//                            loadMoreItems();
-//                        }
-//                    }
                 }
 
-                visibleItemCount = linearLayoutManager.getChildCount();
-                totalItemCount = linearLayoutManager.getItemCount();
-                inVisiblesItems = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-//                // If the total item count is zero and the previous isn't, assume the
-//                // list is invalidated and should be reset back to initial state
-//                if (totalItemCount < previousTotalItemCount) {
-//                    currentPage = startingPageIndex;
-//                    previousTotalItemCount = totalItemCount;
-//                    if (totalItemCount == 0) {
-//                        isLoading = true; }
+//                visibleItemCount = linearLayoutManager.getChildCount();
+//                totalItemCount = linearLayoutManager.getItemCount();
+//                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+//                Log.e("totalItemCount",String.valueOf(totalItemCount));
+//                if (isLoading) {
+//                    if (totalItemCount > previousTotal) {
+//                        isLoading = false;
+//                        previousTotal = totalItemCount;
+//                        Log.e("previousTotal",String.valueOf(previousTotal));
+//                    }
 //                }
-//                // If it's still loading, we check to see if the dataset count has
-//                // changed, if so we conclude it has finished loading and update the current page
-//                // number and total item count.
-//                if (isLoading && (totalItemCount > previousTotalItemCount)) {
-//                    isLoading = false;
-//                    previousTotalItemCount = totalItemCount;
-//                    currentPage++;
-//                }
-//
-//
-//                // If it isn't currently loading, we check to see if we have breached
-//                // the visibleThreshold and need to reload more data.
-//                // If we do need to reload some more data, we execute onLoadMore to fetch the data.
-//                if (!isLoading && (inVisiblesItems + visibleItemCount + visibleThreadhold) >= totalItemCount ) {
-//                    isLoading = onLoadMore(currentPage + 1, totalItemCount);
+//                if (!isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
+//                    isLoading = true;
 //                }
             }
-
-//            private boolean onLoadMore(int i, int totalItemCount) {
-//                isLoading = true;
-//                currentPage++;
-//                return true;
-//            }
         });
 
         return view;
-    }
-
-    private void loadMoreItems() {
-        isLoading = true;
-//        currentPage++;
-    }
-
-    private boolean isLastPage() {
-        return false;
-    }
-
-    private boolean isLoading() {
-        return false;
     }
 
     private void getFeedsList(int page) {
@@ -152,6 +110,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                     Log.e("response","success");
                     totalPage = response.body().feedsList.lastPageNumber;
                     Log.e("totalPage",String.valueOf(totalPage));
+                    feeds = response.body().feedsList.data;
                     adapter.addItem(response.body().feedsList.data);
                     Log.e("Feeds_Size", String.valueOf(feeds.size()));
 

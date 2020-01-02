@@ -71,7 +71,9 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
+                    articleList = response.body().articlesList.data;
                     adapter.addItem(response.body().articlesList.data);
+                    Log.e("Dota_Size", String.valueOf(articleList.size()));
                     adapter.notifyDataSetChanged();
                 }
                 else{

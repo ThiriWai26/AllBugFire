@@ -72,7 +72,9 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
             public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
+                    articleLists = response.body().articlesList.data;
                     adapter.addItem(response.body().articlesList.data);
+                    Log.e("Dota_Size", String.valueOf(articleLists.size()));
                     adapter.notifyDataSetChanged();
                 }
                 else {

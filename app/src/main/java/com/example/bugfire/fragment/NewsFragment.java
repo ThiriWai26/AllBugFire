@@ -64,7 +64,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 if(response.isSuccessful()){
                     Log.e("response","success");
-
+                    news = response.body().newsList.data;
                     adapter.addItem(response.body().newsList.data);
                     Log.e("NewsList_size", String.valueOf(news.size()));
 
