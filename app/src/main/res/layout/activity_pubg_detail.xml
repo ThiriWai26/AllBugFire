@@ -38,14 +38,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
-                    android:text="Pubg, Strategy" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="Call of Duty နဲ့ ယှဉ်ပြိုင်ဖို့ update အသစ်မှာ အပြောင်းအလဲတွေလုပ်လိုက်တဲ့ PUBG:Mobile"
+                    android:text=""
                     android:justificationMode="inter_word"
                     android:textSize="14sp"
                     android:textColor="@color/white"
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="11:20AM, March 20, 2019"
+                    android:text=""
                     android:justificationMode="inter_word"/>
 
                 <TextView
@@ -67,46 +67,7 @@
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
                     android:lineSpacingExtra="@dimen/margin_md"
-                    android:text="Call of Duty:Mobile ကို October 1 ရက်နေ့က ထုတ်ပေးခဲ့ပြီး Mobile Platform ရဲ့ Survival Game ထိပ်သီးနေရာကို ရယူဖို့ စတင်လာခဲ့ပါတယ် ။ ဒါကို PUBG:Mobile အနေနဲ့ အားကျမခံပါပဲ အရင်ကဆော့ခဲ့တဲ့ PUBG နဲ့ ကွဲပြားသွားမယ့် 0.15.0 ဆိုတဲ့ Update တစ်ခုကို ပရိတ်သတ်တွေထံ ထုတ်ပေးခဲ့ပါတယ် ။
-ဒီ update မှာတော့ Payload mode (ယခုမပါဝင်သေး) ပါဝင်လာမှာဖြစ်ပြီး Survival till dawnကို upgrade မြင့်ထားပြီး နဲ့ Halloween party တို့ ပါလာမှာပါ ။Deathmatch Mode မှာလည်း Aztec Temple Map ဆိုတဲ့ မြေပုံကိုထည့်သွင်းလိုက်ပြီး ဘုရားကျောင်းပျက်တွေ ကြားထဲမှာ ပစ်ရခတ်ရဦးမှာပါ ။
-
-Game ရဲ့ Performance ကို မြင့်ပေးထားပါတယ် ။ ပြောချင်တာက power consumes ကို နည်းပေးထားလို့ Game run ရတာပိုပြီးချောချောမွတ်မွတ်ဖြစ်သွားပြီး အရင်ကလို ဖုန်း heat တက်တာတွေနည်းသွားပါလိမ့်မယ်
-လက်နက်တွေနဲ့ outfit display တွေကို အရင်ကထက် ပိုပြီးကောင်းအောင်လုပ်ပေးထားပါတယ် Scope ဖွင့်ပြီးရွေ့လျားနေတုန်းဖြစ်တတ်တဲ့ touch control error လေးတွေကိုလည်း ပြင်ပေးထားပါတယ် Room နဲ့ inventory systemတွေကိုလည်း ပိုကောင်းအောင်လုပ်ပေးထားပါသေးတယ် ။
-အခြား Game တွေမှာ တွေ့ရလေ့ ရှိတဲ့ Graffiti တွေကိုလည်း ဒီတစ်ခေါက် 0.15.0 update မှာ ထည့်ပေးလိုက်ပါပြီ ။
-
-1.Payload Mode(Coming Soon)
-
-ပရိတ်သတ်တွေအနေနဲ့ Heavy weapon အသစ်တွေ Recall system,ရဟတ်ယာဉ်,Vehicle repair pack,super weapon crates လေကြောင်းပစ်ကူတွေနဲ့ အကြမ်းစား Mode တစ်ခုကိုဆော့ရမှာပါ ။
-
-Teammate Recall
-သေဆုံးသွားတဲ့ မိမိ Teammate ရဲ့ Id Card ကို ယူပြီး Recall Tower မှာ ပြန်ခေါ်လို့ရပါတယ် ။ (ပွဲစတာနဲ့ မှောက်တက်ပြီး စစ်ကားထိုင်ကြည့်နေရတဲ့ ဘော်ဒါတွေအတွက်သတင်းကောင်းပါပဲ) Communication tower မှာ လေယာဉ်နဲ့ပြန်ချပေးမှာပါ ။ အ့ဒါဆို လူတွေကျတိုင်းပြန်ခေါ်လိုက်နဲ့ လုံးချာလည်လိုက်နေမှာပေါ့ ။ CouumnicationTower တစ်ခုကို တစ်ခါပဲ သုံးလို့ရမှာပါ ။ Air Drop လုတဲ့ Battle တွေတင်မကပါဘူး Communication tower လုတဲ့ Battle တွေလည်း မြင်ရဖို့ များပါတယ် ။
-
-ရဟတ်ယာဉ်ပါဝင်လာ
-ကားစီးရတာ ရိုးနေတဲ့ ပရိတ်သတ်တွေအတွက် ရဟတ်ယာဉ်မောင်းနှင်နိုင်ဖြစ်ပြီး တိုက်ပွဲထဲမှာ ရဟတ်ယာဉ်တွေနဲ့ပါဆင်နွဲနိုင်မှာပါ ။ ရဟတ်ယာဉ်ပေါ်ထိုင်လိုက်တဲ့ ဘော်ဒါတွေကလည်း သေနတ်အသုံးပြီး ပစ်ခတ်နိုင်ပါတယ် ။
-
-Payload Mode လက်နက်အသစ်တွေ
-RPG-7, M3E1-A, M79 Grenade Launcher, MGL Grenade Launcher, M134 Minigun လက်နက်အသစ်တွေနဲ့ တဝကြီး ကြမ်းရပါဦးမယ် ။
-
-Super Weapon Crate
-ပုံမှန်အတိုင်း ၃ မိနစ်ကနေ စပြီး ထွက်လာမှာပါ ။ Air drop weapon တွေ lvl 3 armor တွေနဲ့ Payload mode လက်နက်တွေ ပါဝင်လာမှာပါ ။
-
-Vehicle Repair pack
-ထိခိုက်ထားတဲ့ Vehicle ကို ပြင်နိုင်မှာဖြစ်ပြီး Tires မရှိတာတွေကိုလည်း ပြန်ပြင်နိုင်ပါတယ် ။
-Air Strike Beacon
-လေကြောင်းပစ်ကူ ခေါ်နိုင်တဲ့ weapon အသစ်တစ်ခုပါလာမှာပါ ။ မိမိပစ်လိုတဲ့နေရာက Bomb zone အသေးစားတစ်ခုဖြစ်လာမှာဖြစ်ပြီး အကွာအဝေးအဝေးကြီးတော့ ပစ်လို့ရမှာမဟုတ်ပါဘူး ။
-
-Survival Till Dawn
-Skybox,colors နဲ့ Background objects တွေကို Halloween ပုံစံတွေ ပြုပြင်ပေးထားပါတယ် ။
-Hostile human တွေကို စက်ရုံပျက်တွေနဲ့ မြို့ထဲနေရာတွေမှာထည့်ထားပြီး သူတို့ကိုသတ်ပြီး ပိုကြီးတဲ့ Reward တွေ ရယူနိုင်ပါတယ် ။ Zombie တွေကိုသတ်ရင် Zombie တွေနဲ့ အခြားသူတွေကို တိုက်ခိုက်ဖို့ Special Bio-warfare equipment တွေ ရရှိပါမယ် ။
-
-2.New Feature အနေနဲ့ကတော့
-Ledge Grab
-အရင်တုန်းကလုပ်လို့မရခဲ့တဲ့ အဆောက်အဦးနဲ့ container ‌တွေကို တွယ်တက်လို့ရသွားပါပြီ ။
-Jump tap ကို နှစ်ခါလုပ်လို့ရပြီ ။ တစ်ခါခုန်ပြီး mid air ရောက်နေချိန် right timing မှာနောက်တစ်ခါ Jump လုပ်ပြီး အဆောက်အဦးတစ်ခုနဲ့တစ်ခုကြား အရင်ကထက်ပိုပြီးရောက်အောင်သွားလို့ရပါပြီ ။
-
-Fuel Drum
-Fuel Drum တွေအနေနဲ့ အရင်ကလို ဆီကုန်မှ အဖတ်လုပ်ခံရတဲ့ ဘဝ ထက်ပိုလာတော့မှာပါ ။ Fuel Drum တွေအနေနဲ့ သေနတ်နဲ့ ပစ်လို့ဖြစ်စေ Throwable နဲ့ ပစ်ခံရလို့ဖြစ်စေ ပေါက်ကွဲနိုင်ပါတယ် ။ ပေါက်ကွဲတဲ့ Damage ဟာလည်း အနီးနားမှာရှိတဲ့ player တွေကို ထိခိုက်စေမှာပါ ။(Map တိုင်းအတွက် သက်ဆိုင်မှာပါ )
-ါ"
+                    android:text=""
                     android:justificationMode="inter_word" />
 
             </LinearLayout>

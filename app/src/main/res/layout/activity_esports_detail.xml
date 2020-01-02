@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
-                    android:text="University of Staffordshire" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvtitle"
@@ -46,8 +46,7 @@
                     android:layout_height="wrap_content"
                     style="@style/TitleInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="စကောလားရှစ်တွေစပေးနေပြီဖစ်တဲ့
-                University of Staffordshire"
+                    android:text=""
                     android:justificationMode="inter_word"/>
 
                 <TextView
@@ -56,7 +55,7 @@
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="11:20AM, March 20, 2019"
+                    android:text=""
                     android:justificationMode="inter_word"/>
 
                 <TextView
@@ -65,17 +64,8 @@
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
+                    android:text=""
                     android:lineSpacingExtra="@dimen/margin_md"
-                    android:text="U.K ရဲ့ တက္ကသိုလ်တွေထဲက တစ်ခုဖြစ်တဲ့ University of Staffordshire က အလျင်အမြန်တိုးတက်နေတဲ့ Esports industry ရဲ့ ကျွမ်းကျင်ပညာရှင် လိုအပ်မှု ကို ရည်ရွယ်ပြီး လုပ်ဆောင်သွားတာလည်း ဖြစ်ပါတယ် ။ (University of Staffordshire ရဲ့ Esport Hub ကတော့ မြင်တဲ့ အတိုင်းပါပဲ )
-
-ဒါတင်မကသေးပါဘူး U.S ရဲ့ ကောလိပ်တွေဖြစ်တဲ့ Virginia’s Shenandoah University, Massachusetts မှာရှိတဲ့ Becker College နဲ့ Ohio State University တွေမှာလည်း Esports Degrees တွေကိုပေးအပ်တော့မှာပါ ။
-
-18 နှစ်အရွယ် Ryan Chapman ဆိုတဲ့ competitive multiplayer videogaming ကျောင်းသား တစ်ဦးကတော့
-“အစမှာတော့ ဒီကိစ္စနဲ့ပါတ်သတ်လို့ မိဘတွေက ဟုတ်ရဲ့လား လို့ သံသယ ဝင်တာပေါ့ ။
-အခုတော့ သူတို့ ဒီ Industry ဟာ ဘယ်လောက် အရှိန်အဟုန်ပြင်းပြင်း နဲ့ ကြီးထွား လာတယ်ဆိုတာ သိသွားကြပါပြီ ။ ဒီ Esport ဟာ အားလုံးအတွက် ကြီးမားတဲ့ industry ဖြစ်တယ်ဆိုတာ ထဲထဲဝင်ဝင် ‌လေ့လာရမယ့် အချိန်ရောက်ပါပီ ” လို့ ပြောကြားသွားခဲ့ပါတယ် ။
-Chapman ဟာ နာမည်ကြီး Esport Game တစ်ခု ဖြစ်တဲ့ Counter Strike ဆော့ကစားနေတဲ့ ကျောင်းသား တစ်ဦးလည်း ဖြစ်ပါတယ် ။
-
-University of Staffordshire ဟာ ဆိုရင်တော့ Esports နဲ့ပါတ်သတ်တဲ့ Bachelor နဲ့ Master ဘွဲ့ အတွက် Program တွေကို ယခင်နှစ်ကတည်း က စတင် အကောင်အထည်ဖော်ခဲ့ပြီး ‌Esport Industry အတွက်လိုအပ်တဲ့ Marketing နဲ့ Management Skill များကို သင်ကြားပေးခဲ့တာလည်း ဖြစ်ပါတယ် ။ ဒီနှစ်ရဲ့ ဆောင်းဦးရာသီမှာ Britian’s Chichester University ကဲ့သို့ London တက္ကသိုလ်တွေပါ ပါဝင်လာကာ Esport Degrees Course တွေ သင်ကြားပေးသွားမှာ ဖြစ်ပါတယ် ။ ဉရောပ နဲ့ အမေရိကတွင်သာ မကပါဘူး Esport ရဲ့ ကြီးထွားလာတဲ့ လှိုင်းတွေကြောင့် အာရှဘက်ရှိ Singapore နဲ့ China ရှိ တက္ကသိုလ်များမှာလည်း အကောင်အထည်ဖော်သွားဖို့ ရှိတယ်လို့ သိရပါတယ် ။"
                     android:justificationMode="inter_word" />
 
             </LinearLayout>

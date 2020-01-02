@@ -67,7 +67,7 @@
                         style="@style/NormalTextInputLayout"
                         android:layout_marginTop="@dimen/margin_md"
                         android:lineSpacingExtra="@dimen/margin_md"
-                        android:text=" "
+                        android:text= ""
                         android:justificationMode="inter_word" />
 
                 </LinearLayout>

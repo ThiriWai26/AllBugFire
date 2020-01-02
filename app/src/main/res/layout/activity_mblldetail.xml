@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
-                    android:text="Mobile Legand, Strategy" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvtitle"
@@ -47,7 +47,7 @@
                     android:layout_height="wrap_content"
                     style="@style/TitleInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="Mobile MOBA လောကကို ကြီးစိုးဖို့ရောက်လာမှာလား League of Legend:Wild Rift"
+                    android:text=""
                     android:justificationMode="inter_word"/>
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text="11:20AM, March 20, 2019"
+                    android:text=""
                     android:justificationMode="inter_word"/>
 
                 <TextView
@@ -66,18 +66,7 @@
                     style="@style/NormalTextInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
                     android:lineSpacingExtra="@dimen/margin_md"
-                    android:text="Esport လောကရဲ့ အအောင်မြင်ဆုံးထဲကတစ်ခုဖြစ်တဲ့ Riot Games ကတော့ october 15 ရက်နေ့က ကျင်းပခဲ့တဲ့ 10 နှစ်မြောက်အခမ်းအနားကြီးမှာ League of Legend Universe ရဲ့ Game အမျိုးအစားအသစ်တွေကိုထုတ်ပြခဲ့ပါတယ် ။ ဒီထဲမှာမှ Mobile နဲ့ Console version အတွက် Wild Rift ဆိုတဲ့ Game ကလည်းပါဝင်လာခဲ့ပါတယ် ။
-League of Legend ဟာဆိုရင် ကမ္ဘာပေါ်မှာဆော့ကစားသူပေါင်း သန်းထောင်ချီ ရှိတဲ့ Top Ten စာရင်းဝင် Game တစ်ခုပါ ။ Champion (သာမန်လူအခေါ် Hero LOLမှာတော့ Champion လို့ပဲခေါ်ပါတယ် ) ပေါင်း 100 ကျော်နဲ့ Skin ပေါင်း ထောင်ဂဏန်းနီးပါးရှိပါတယ်။ ဒီလို Game မျိုးကို အနည်းငယ် မတူညီတဲ့ ပုံစံနဲ့ Mobile မှာ ကစားနိုင်တော့မယ်လို့ Riot ကပြောလိုက်ပါပြီ ။
-
-Wild Rift မှာတော့ Game ထွက်ထွက်ချင်းမှာပဲ Champion 40 လောက်ပါဝင်လာမှာဖြစ်ပြီး PC မှ Champion Skin အားလုံးကို ပြန်လည်ထည့်သွင်းသွားမှာမဟုတ်ပါဘူး ။ ထို့အပြင် Mobile မှာ ထိန်းချုပ်ဖို့ မလွယ်ကူတဲ့ Champion ( ဉပမာ-Fannyလို Hero မျိုးကို Pc မှာ ကိုင်ရမလွယ်ကူသလို)တွေကိုလည်း ထည့်သွင်းသွားမှာမဟုတ်ပါဘူး ။
-သတင်းကောင်း အနေနဲ့ကတော့ Mobile MOBA တွေတော်တော်များများ အနေနဲ့ Hero တွေကို ဝယ်ယူကိုင်တွယ်ရတဲ့ အခြေအနေမှာ Wild Rift အနေနဲ့ ကတော့ Champion အားလုံးကို Free ပေးသွားပါမယ်တဲ့ ။
-
-Game ကစားတဲ့ ပုံစံကတော့ ရင်းနှီးနေကြ 5 vs 5 ပုံစံ ကစားရမှာဖြစ်ပြီး MOBA အတွက် new Map ပြုလုပ်ပေးထားပြီး ဂိမ်းကစားချိန်ကို ပျှမ်းမျှ 20 mins ခန့်ရှိအောင်ပြုလုပ်ပေးထားပါတယ်။
-
-League of Legend:Wild Rift Official Version ကိုတော့ Mobile အတွက် 2020 မှာ ရရှိနိုင်မှာဖြစ်ပြီး Console အတွက်ကတော့ ဒီထက်ပိုကြာတဲ့ အချိန်တစ်ခုထိ စောင့်ရပါဦးမယ် ။ ဒီနှစ်ရဲ့ December လ လောက်မှာတော့ Wild Rift ကို Beta Version အဖြစ် ကစားနိုင်မှာဖြစ်ပြီး Play Store မှာ pre register လုပ်လို့ရနေပါပြီ ။
-
-တရိပ်ရိပ်နဲ့ ကြီးမားတိုးတက်လာတဲ့ Mobile Gaming နယ်ပယ်ကို ဝင်ရောက်လာတာ Riot Games တစ်ခုတည်းမဟုတ်ပါဘူး Call of Duty လို Game မျိုးကလည်း October လ အစပိုင်းကပဲ Mobile အတွက်ထုတ်ပေးလိုက်တာမျိုးတွေ တွေ့ရတာက Mobile Game ရဲ့ popular ဖြစ်မှုတွေကိုတွေ့ရတာပါပဲ ။
-League of Legend ရဲ့Wild Rift လို ဂိမ်းမျိုးသာ Mobile Platform မှာ အောင်မြင်မှုသရဖူသာ ဆောင်းပြနိုင်ခဲ့ရင် အလားတူ Game မျိုးတွေဖြစ်တဲ့ Dota 2 တို့ Heros of The Storm တို့ Mobile Platform ပေါ်ရောက်မလာနိုင်ဘူးလို့ ဘယ်သူမှတပ်အပ်မပြောနိုင်ပါဘူး ။"
+                    android:text=""
                     android:justificationMode="inter_word" />
 
             </LinearLayout>
