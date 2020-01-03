@@ -97,7 +97,7 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
     @Override
     public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
-        Drawable empty = getResources().getDrawable(R.drawable.imagenotavailable2);
+        Drawable empty = getResources().getDrawable(R.drawable.defaultimage);
         d.addLevel(0, 0, empty);
         d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 
