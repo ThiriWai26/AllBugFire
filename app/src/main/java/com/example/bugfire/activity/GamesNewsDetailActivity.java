@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,11 +79,12 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
                     tvdate.setText(response.body().newsDetail.date);
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsDetail.featurePhoto).into(featurephoto);
 
+                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
                     Spanned spanned = Html.fromHtml(newsDetail.content, GamesNewsDetailActivity.this, null);
                     tvabout.setText(spanned);
                 }
                 else{
-                    Log.e("response","fail");
+                    Log.e("response",response.body().errorMessage);
                 }
             }
 

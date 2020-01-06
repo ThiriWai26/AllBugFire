@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         card_view:cardBackgroundColor="#2C384B"
         card_view:cardCornerRadius="@dimen/margin_md"
         card_view:cardElevation="1dp"
@@ -54,11 +54,12 @@
                 android:id="@+id/tvabout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_lg"
+                android:layout_marginTop="@dimen/margin_md"
                 android:layout_marginLeft="@dimen/margin_md"
                 android:layout_marginRight="@dimen/margin_md"
                 android:text=" "
                 android:justificationMode="inter_word"
+                android:layout_marginBottom="@dimen/margin_bottom"
                 style="@style/NormalTextInputLayout" />
 <!--            android:text="Call of Duty:Mobile ကို October 1 ရက်နေ့က ထုတ်ပေးခဲ့ပြီး Mobile Platform ရဲ့ Survival Game ထိပ်သီးနေရာကို ရယူဖို့ စတင်လာခဲ့ပါတယ် ။ ဒါကို PUBG:Mobile အနေနဲ့ အားကျမခံပါပဲ အရင်ကဆော့ခဲ့တဲ့ PUBG နဲ့ ကွဲပြားသွားမယ့် 0.15.0 ဆိုတဲ့ Update တစ်ခုကို ပရိတ်သတ်တွေထံ ထုတ်ပေးခဲ့ပါတယ် ။ "-->
 

@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="wrap_content"
         card_view:cardBackgroundColor="#2C384B"
         card_view:cardCornerRadius="@dimen/margin_md"
         card_view:cardElevation="1dp"
@@ -43,7 +43,7 @@
                     android:layout_marginTop="@dimen/margin_md"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="Interview with TNC COASH HEEN "
+                    android:text=""
                     android:justificationMode="inter_word"
                     android:textStyle="bold"
                     android:textColor="@color/white"
@@ -57,7 +57,8 @@
                     android:layout_marginLeft="@dimen/margin_md"
                     android:layout_marginRight="@dimen/margin_md"
                     android:justificationMode="inter_word"
-                    android:text="Interview ကတော့ AFK Gamingက TNC Predator ရဲ့နည်းြဖစ်တဲ့ Heen နဲ့ တွေ့ပီး Interview ထားတာကို Bug Fireပရိတ်သတ်တွေ ဖတ်ရှူနိူင်ဖို့ တင်ဆက်ပေးလိုက်တာ ြဖစ်ပါတ၊်"
+                    android:text=""
+                    android:layout_marginBottom="@dimen/margin_bottom"
                     style="@style/NormalTextInputLayout" />
 
         </LinearLayout>

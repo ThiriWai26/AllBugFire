@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="wrap_content"
         card_view:cardBackgroundColor="#2C384B"
         card_view:cardCornerRadius="@dimen/margin_md"
         card_view:cardElevation="1dp"
@@ -89,6 +89,7 @@
                 android:layout_marginTop="@dimen/margin_md"
                 android:text="I am free agent now and I am looking for a team, willing to relocate and and play any region."
                 android:justificationMode="inter_word"
+                android:layout_marginBottom="@dimen/margin_bottom"
                 style="@style/NormalTextInputLayout"
                 />
 

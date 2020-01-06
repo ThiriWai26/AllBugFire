@@ -19,6 +19,6 @@
         android:scrollbars="vertical"
         android:scrollbarSize="0dp"
         tools:ignore="NotSibling"
-        tools:listitem="@layout/layout_news_item" />
+        tools:listitem="@layout/layout_gamesnews_item" />
 
 </FrameLayout>

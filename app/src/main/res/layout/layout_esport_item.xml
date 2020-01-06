@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         card_view:cardBackgroundColor="#2C384B"
         card_view:cardCornerRadius="@dimen/margin_md"
         card_view:cardElevation="1dp"
@@ -54,10 +54,11 @@
                 android:id="@+id/tvabout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_lg"
+                android:layout_marginTop="@dimen/margin_md"
                 android:layout_marginLeft="@dimen/margin_md"
                 android:layout_marginRight="@dimen/margin_md"
                 android:justificationMode="inter_word"
+                android:layout_marginBottom="@dimen/margin_bottom"
                 android:text=" "
                 style="@style/NormalTextInputLayout" />
 <!--            android:text="ကောလိပ် တွေမှာ အီလက်ထရောနစ် အားကစား ဘွဲ့ ဒီဂရီ တွေပေးတော့မယ်-->

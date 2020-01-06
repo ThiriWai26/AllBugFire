@@ -83,7 +83,7 @@ public class PlayersNewsDetailActivity extends AppCompatActivity implements Html
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsDetail.featurePhoto).into(featurephoto);
                 }
                 else{
-                    Log.e("response","fail");
+                    Log.e("response",response.body().errorMessage);
                 }
             }
 

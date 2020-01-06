@@ -38,13 +38,9 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     List<Feeds> feeds = new ArrayList<>();
     private int page = 1;
     private int totalPage;
-
     private boolean isLoading = true;
-    private int visibleItemCount;
-    private int totalItemCount;
-    private int firstVisibleItem;
-    private int previousTotal = 0;
-    private int visibleThreshold = 10;
+
+    private int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -80,20 +76,10 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                     getFeedsList(++page);
                 }
 
-//                visibleItemCount = linearLayoutManager.getChildCount();
-//                totalItemCount = linearLayoutManager.getItemCount();
-//                firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-//                Log.e("totalItemCount",String.valueOf(totalItemCount));
-//                if (isLoading) {
-//                    if (totalItemCount > previousTotal) {
-//                        isLoading = false;
-//                        previousTotal = totalItemCount;
-//                        Log.e("previousTotal",String.valueOf(previousTotal));
-//                    }
-//                }
-//                if (!isLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-//                    isLoading = true;
-//                }
+//                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+//                if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() -1);
+//                Log.e("LastvisibleItemPosition", String.valueOf(lastVisibleItemPosition));
+
             }
         });
 
@@ -101,7 +87,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     }
 
     private void getFeedsList(int page) {
-
         Log.e("getFeedsList","success");
         RetrofitService.getApiEnd().getFeedList(page).enqueue(new Callback<FeedsResponse>() {
             @Override
