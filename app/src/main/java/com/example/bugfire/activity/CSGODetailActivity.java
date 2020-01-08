@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.ArticleDetail;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.response.ArticleDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -37,6 +38,8 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
     private TextView tvtitle, tvname, tvtime, tvabout;
     private int id = -1;
     private final static String TAG = "TestImageGetter";
+    private String unicode = "";
+    private String zawgyi = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
         id = bundle.getInt("categoryId");
         Log.e("categoryId",String.valueOf(id));
 
+        zawgyi = bundle.getString("Zawgyi");
+        Log.e("zawgyi", zawgyi);
+
         getCSGODetail();
     }
 
@@ -78,9 +84,9 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
                         name+=","+articleDetail.categoryName.get(i);}
                     tvname.setText(name);
                     tvtime.setText(articleDetail.date);
-
                     Spanned spanned = Html.fromHtml(articleDetail.content, CSGODetailActivity.this, null);
                     tvabout.setText(spanned);
+
                 }
                 else{
                     Log.e("response",response.body().errorMessage);

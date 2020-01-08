@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.TeamsNewsDetailActivity"></activity>
+        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.TeamsNewsDetailActivity" />
         <activity android:name=".activity.TeamsDetailActivity" />
         <activity android:name=".activity.PlayersNewsDetailActivity" />
         <activity android:name=".activity.GamesNewsDetailActivity" />
@@ -33,7 +34,7 @@
         <activity android:name=".activity.DotaDetailActivity" />
         <activity android:name=".activity.NewsDetailActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.FontStatusActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

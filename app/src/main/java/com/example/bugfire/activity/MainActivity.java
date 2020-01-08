@@ -1,6 +1,7 @@
 package com.example.bugfire.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,16 +22,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     private TextView txttitle;
     private String fragmentName;
     private TextView tvrattit, tvok;
+    public int choose;
+    private String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.e("user font",userFont);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
@@ -39,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         androidx.appcompat.widget.Toolbar toolbar =  (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar(toolbar);
-
-//        chooseZawgyiorUnicode();
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeButtonEnabled(true);
 //        getSupportActionBar().setIcon(R.drawable.ic_dehaze_black_24dp);
@@ -57,28 +62,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         loadFragment(new HomeFragment());
     }
 
-    public void chooseZawgyiorUnicode() {
-        Log.e("Rabbit","success");
-        setContentView(R.layout.layout_choosezawgyiorunicode);
-
-        tvrattit = findViewById(R.id.tvrabbit);
-        tvok = findViewById(R.id.tvok);
-
-        String[] singleChoiceItems = getResources().getStringArray(R.array.dialog_single_choice_array);
-        int itemSelected = 0;
-        AlertDialog alertDialog = new AlertDialog.Builder(this).setSingleChoiceItems(singleChoiceItems, itemSelected, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).setPositiveButton("OK",null)
-                .show();
-
-
-
-//        mBuilder.setSingleChoiceItems()
-
-    }
 
     private void getSupportActionBar(Toolbar toolbar) {
 

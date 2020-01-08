@@ -25,7 +25,6 @@ import com.example.bugfire.ui.message.MessageFragment;
 import com.example.bugfire.ui.notifications.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
