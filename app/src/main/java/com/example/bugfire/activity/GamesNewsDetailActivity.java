@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.NewsDetail;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.response.NewsDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -32,7 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GamesNewsDetailActivity extends AppCompatActivity implements Html.ImageGetter{
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
+
+public class GamesNewsDetailActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private ImageView featurephoto;
     private TextView tvtitle, tvname, tvdate, tvabout;
@@ -43,13 +46,12 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_news_detail);
-
         initActivity();
     }
 
     private void initActivity() {
 
-        featurephoto= findViewById(R.id.featurephoto);
+        featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
         tvdate = findViewById(R.id.tvtime);
@@ -57,50 +59,59 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("gamesNewsId");
-        Log.e("Id",String.valueOf(id));
-
+        Log.e("Id", String.valueOf(id));
         getgamesNewsDetail();
     }
 
     private void getgamesNewsDetail() {
-        Log.e("getNewsDetail","success");
+        Log.e("getNewsDetail", "success");
         RetrofitService.getApiEnd().getNewDetail(id).enqueue(new Callback<NewsDetailResponse>() {
             @Override
             public void onResponse(Call<NewsDetailResponse> call, Response<NewsDetailResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-
+                if (response.isSuccessful()) {
+                    Log.e("response", "success");
                     NewsDetail newsDetail = response.body().newsDetail;
-                    tvtitle.setText(newsDetail.title);
-                    String categoryName = newsDetail.categoryName.get(0);
-                    for(int i=1;i<newsDetail.categoryName.size();i++){
-                        categoryName+=","+newsDetail.categoryName.get(i);}
-                    tvname.setText(categoryName);
-                    tvdate.setText(response.body().newsDetail.date);
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsDetail.featurePhoto).into(featurephoto);
-
+                    String categoryName = newsDetail.categoryName.get(0);
+                    for (int i = 1; i < newsDetail.categoryName.size(); i++) {
+                        categoryName += "," + newsDetail.categoryName.get(i);
+                    }
                     tvabout.setMovementMethod(LinkMovementMethod.getInstance());
                     Spanned spanned = Html.fromHtml(newsDetail.content, GamesNewsDetailActivity.this, null);
-                    tvabout.setText(spanned);
-                }
-                else{
-                    Log.e("response",response.body().errorMessage);
+
+                    if (userFont.equals("z")) {
+                        Log.e("font", "z");
+                        tvtitle.setText(rabbit.uni2zg(newsDetail.title));
+                        tvname.setText(rabbit.uni2zg(categoryName));
+                        tvdate.setText(rabbit.uni2zg(newsDetail.date));
+                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                    } else {
+                        Log.e("font", "u");
+                        tvtitle.setText(rabbit.zg2uni(newsDetail.title));
+                        tvname.setText(rabbit.zg2uni(categoryName));
+                        tvtitle.setText(rabbit.zg2uni(newsDetail.date));
+                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                    }
+
+
+                } else {
+                    Log.e("response", response.body().errorMessage);
                 }
             }
 
             @Override
             public void onFailure(Call<NewsDetailResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
+                Log.e("failure", t.toString());
             }
         });
     }
 
     @Override
-    public Drawable getDrawable(String source){
+    public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
         Drawable empty = getResources().getDrawable(R.drawable.defaultimage);
-        d.addLevel(0,0, empty);
-        d.setBounds(0,0, empty.getIntrinsicWidth() , empty.getIntrinsicHeight());
+        d.addLevel(0, 0, empty);
+        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 
         new LoadImage().execute(source, d);
 

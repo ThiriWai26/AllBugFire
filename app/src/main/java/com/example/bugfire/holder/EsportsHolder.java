@@ -13,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.Article;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class EsportsHolder extends RecyclerView.ViewHolder  {
 
@@ -42,13 +45,13 @@ public class EsportsHolder extends RecyclerView.ViewHolder  {
     public void bindData(final Article article) {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + article.featurePhoto).into(featurephoto);
-        tvtitle.setText(article.title);
-        tvabout.setText(article.preview);
-
-        Log.e("featurePhoto",article.featurePhoto);
-        Log.e("title",article.title);
-        Log.e("preview",article.preview);
-        Log.e("id", String.valueOf(article.id));
+        if (userFont.equals("z")) {
+            tvtitle.setText(rabbit.uni2zg(article.title));
+            tvabout.setText(rabbit.uni2zg(article.preview));
+        } else {
+            tvtitle.setText(rabbit.zg2uni(article.title));
+            tvabout.setText(rabbit.zg2uni(article.preview));
+        }
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

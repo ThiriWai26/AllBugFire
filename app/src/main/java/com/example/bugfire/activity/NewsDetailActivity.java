@@ -11,12 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.NewsDetail;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.response.NewsDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -31,7 +33,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class NewsDetailActivity extends AppCompatActivity implements Html.ImageGetter{
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
+
+public class NewsDetailActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private ImageView featurephoto;
     private TextView tvtitle, tvname, tvdate, tvabout;
@@ -42,13 +46,12 @@ public class NewsDetailActivity extends AppCompatActivity implements Html.ImageG
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-
         initActivity();
     }
 
     private void initActivity() {
 
-        featurephoto= findViewById(R.id.featurephoto);
+        featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
         tvdate = findViewById(R.id.tvtime);
@@ -56,56 +59,56 @@ public class NewsDetailActivity extends AppCompatActivity implements Html.ImageG
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("newsId");
-        Log.e("newsId",String.valueOf(id));
-
+        Log.e("newsId", String.valueOf(id));
         getNewsDetail();
     }
 
     private void getNewsDetail() {
-        Log.e("getNewsDetail","success");
+        Log.e("getNewsDetail", "success");
         RetrofitService.getApiEnd().getNewDetail(id).enqueue(new Callback<NewsDetailResponse>() {
             @Override
             public void onResponse(Call<NewsDetailResponse> call, Response<NewsDetailResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-
+                if (response.isSuccessful()) {
+                    Log.e("response", "success");
                     NewsDetail newsDetail = response.body().newsDetail;
-                    tvtitle.setText(newsDetail.title);
-                    String categoryName = newsDetail.categoryName.get(0);
-                    for(int i=1;i<newsDetail.categoryName.size();i++){
-                        categoryName+=","+ newsDetail.categoryName.get(i);}
-                    tvname.setText(categoryName);
-
-                    Spanned spanned = Html.fromHtml(newsDetail.content, NewsDetailActivity.this, null);
-                    tvabout.setText(spanned);
-
-                    tvdate.setText(newsDetail.date);
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + response.body().newsDetail.featurePhoto).into(featurephoto);
-
-//                        Log.e("title", response.body().newsDetail.title);
-//                        Log.e("category_name", response.body().newsDetail.categoryName);
-//                        Log.e("content", response.body().newsDetail.content);
-//                        Log.e("date", response.body().newsDetail.date);
-//                        Log.e("feature_photo", response.body().newsDetail.featurePhoto);
+                    String categoryName = newsDetail.categoryName.get(0);
+                    for (int i = 1; i < newsDetail.categoryName.size(); i++) {
+                        categoryName += "," + newsDetail.categoryName.get(i);
                     }
-                else{
-                    Log.e("response","fail");
+                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
+                    Spanned spanned = Html.fromHtml(newsDetail.content, NewsDetailActivity.this, null);
+
+                    if (userFont.equals("z")) {
+                        tvtitle.setText(rabbit.uni2zg(newsDetail.title));
+                        tvname.setText(rabbit.uni2zg(categoryName));
+                        tvdate.setText(rabbit.uni2zg(newsDetail.date));
+                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                    } else {
+                        tvtitle.setText(rabbit.zg2uni(newsDetail.title));
+                        tvname.setText(rabbit.zg2uni(categoryName));
+                        tvdate.setText(rabbit.zg2uni(newsDetail.date));
+                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                    }
+
+                } else {
+                    Log.e("response", "fail");
                 }
             }
 
             @Override
             public void onFailure(Call<NewsDetailResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
+                Log.e("failure", t.toString());
             }
         });
     }
 
     @Override
-    public Drawable getDrawable(String source){
+    public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
         Drawable empty = getResources().getDrawable(R.drawable.defaultimage);
-        d.addLevel(0,0, empty);
-        d.setBounds(0,0, empty.getIntrinsicWidth() , empty.getIntrinsicHeight());
+        d.addLevel(0, 0, empty);
+        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 
         new LoadImage().execute(source, d);
 

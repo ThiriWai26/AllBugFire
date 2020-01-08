@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,14 +33,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
+
 public class CSGODetailActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private ImageView featurephoto;
     private TextView tvtitle, tvname, tvtime, tvabout;
     private int id = -1;
     private final static String TAG = "TestImageGetter";
-    private String unicode = "";
-    private String zawgyi = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
 
     private void initActivity() {
 
-        featurephoto= findViewById(R.id.featurephoto);
+        featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
         tvtime = findViewById(R.id.tvtime);
@@ -59,40 +60,44 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("categoryId",String.valueOf(id));
-
-        zawgyi = bundle.getString("Zawgyi");
-        Log.e("zawgyi", zawgyi);
+        Log.e("categoryId", String.valueOf(id));
 
         getCSGODetail();
     }
 
     private void getCSGODetail() {
         Log.e("getCSGODetail", "success");
-
         RetrofitService.getApiEnd().getArticleDetail(id).enqueue(new Callback<ArticleDetailResponse>() {
             @Override
             public void onResponse(Call<ArticleDetailResponse> call, Response<ArticleDetailResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-
+                if (response.isSuccessful()) {
+                    Log.e("response", "success");
                     ArticleDetail articleDetail = response.body().articleDetail;
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
-                    tvtitle.setText(articleDetail.title);
                     String name = articleDetail.categoryName.get(0);
-                    for(int i=1;i<articleDetail.categoryName.size();i++){
-                        name+=","+articleDetail.categoryName.get(i);}
-                    tvname.setText(name);
-                    tvtime.setText(articleDetail.date);
+                    for (int i = 1; i < articleDetail.categoryName.size(); i++) {
+                        name += "," + articleDetail.categoryName.get(i);
+                    }
                     Spanned spanned = Html.fromHtml(articleDetail.content, CSGODetailActivity.this, null);
-                    tvabout.setText(spanned);
+                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
 
-                }
-                else{
-                    Log.e("response",response.body().errorMessage);
+                    if (userFont.equals("z")) {
+                        Log.e("font", "z");
+                        tvtitle.setText(rabbit.uni2zg(articleDetail.title));
+                        tvname.setText(rabbit.uni2zg(name));
+                        tvtime.setText(rabbit.uni2zg(articleDetail.date));
+                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                    } else {
+                        Log.e("font","u");
+                        tvtitle.setText(rabbit.zg2uni(articleDetail.title));
+                        tvname.setText(rabbit.zg2uni(name));
+                        tvtitle.setText(rabbit.zg2uni(articleDetail.date));
+                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                    }
+                } else {
+                    Log.e("response", response.body().errorMessage);
                 }
             }
-
             @Override
             public void onFailure(Call<ArticleDetailResponse> call, Throwable t) {
                 Log.e("failure", t.toString());
@@ -112,42 +117,42 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
         return d;
     }
 
-        class LoadImage extends AsyncTask<Object, Void, Bitmap> {
+    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
 
-            private LevelListDrawable mDrawable;
+        private LevelListDrawable mDrawable;
 
-            @Override
-            protected Bitmap doInBackground(Object... params) {
-                String source = (String) params[0];
-                mDrawable = (LevelListDrawable) params[1];
-                Log.d(TAG, "doInBackground " + source);
-                try {
-                    InputStream is = new URL(source).openStream();
-                    return BitmapFactory.decodeStream(is);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
+        @Override
+        protected Bitmap doInBackground(Object... params) {
+            String source = (String) params[0];
+            mDrawable = (LevelListDrawable) params[1];
+            Log.d(TAG, "doInBackground " + source);
+            try {
+                InputStream is = new URL(source).openStream();
+                return BitmapFactory.decodeStream(is);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            return null;
+        }
 
-            @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                Log.d(TAG, "onPostExecute drawable " + mDrawable);
-                Log.d(TAG, "onPostExecute bitmap " + bitmap);
-                if (bitmap != null) {
-                    BitmapDrawable d = new BitmapDrawable(bitmap);
-                    mDrawable.addLevel(1, 1, d);
-                    mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                    mDrawable.setLevel(1);
-                    // i don't know yet a better way to refresh TextView
-                    // mTv.invalidate() doesn't work as expected
-                    CharSequence t = tvabout.getText();
-                    tvabout.setText(t);
-                }
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            Log.d(TAG, "onPostExecute drawable " + mDrawable);
+            Log.d(TAG, "onPostExecute bitmap " + bitmap);
+            if (bitmap != null) {
+                BitmapDrawable d = new BitmapDrawable(bitmap);
+                mDrawable.addLevel(1, 1, d);
+                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
+                mDrawable.setLevel(1);
+                // i don't know yet a better way to refresh TextView
+                // mTv.invalidate() doesn't work as expected
+                CharSequence t = tvabout.getText();
+                tvabout.setText(t);
             }
         }
     }
+}

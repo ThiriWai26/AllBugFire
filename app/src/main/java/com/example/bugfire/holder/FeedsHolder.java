@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.Feeds;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class FeedsHolder extends RecyclerView.ViewHolder {
 
@@ -40,9 +43,17 @@ public class FeedsHolder extends RecyclerView.ViewHolder {
 
     public void BindData(Feeds feeds) {
 
-        txName.setText(feeds.name);
-        txTime.setText(feeds.date);
-        txabout.setText(feeds.content);
+        if (userFont.equals("z")) {
+            Log.e("font", "z");
+            txName.setText(rabbit.uni2zg(feeds.name));
+            txTime.setText(rabbit.uni2zg(feeds.date));
+            txabout.setText(rabbit.uni2zg(feeds.content));
+        } else {
+            Log.e("font","u");
+            txName.setText(rabbit.zg2uni(feeds.name));
+            txTime.setText(rabbit.zg2uni(feeds.date));
+            txabout.setText(rabbit.zg2uni(feeds.content));
+        }
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.categoryPhoto).into(profile);
 

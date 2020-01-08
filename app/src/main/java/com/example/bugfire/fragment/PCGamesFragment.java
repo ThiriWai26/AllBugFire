@@ -68,6 +68,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
         RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
             @Override
             public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
+
                 if(response.isSuccessful()) {
                     Log.e("response", "success");
                     gamesLists = response.body().gamesList;

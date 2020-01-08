@@ -17,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bugfire.R;
 import com.example.bugfire.activity.PlayerDetailActivity;
 import com.example.bugfire.model.PlayerList;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class PlayerHolder extends RecyclerView.ViewHolder  {
 
@@ -47,8 +50,14 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
     public void bindData(final PlayerList playerList) {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + playerList.photo).into(imageView1);
-        playername1.setText(playerList.name);
-        playerteam1.setText(playerList.teamName);
+        if (userFont.equals("z")) {
+            Log.e("font", "z");
+            playername1.setText(rabbit.uni2zg(playerList.name));
+            playerteam1.setText(rabbit.uni2zg(playerList.teamName));
+        } else {
+            Log.e("font", "u");
+            playername1.setText(rabbit.zg2uni(playerList.name));
+            playerteam1.setText(rabbit.zg2uni(playerList.teamName));        }
 
         layoutplayer1.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")

@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.ArticleDetail;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.response.ArticleDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -34,6 +35,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
+
 public class DotaDetailActivity extends AppCompatActivity implements Html.ImageGetter {
 
     private ImageView featurephoto;
@@ -41,19 +44,15 @@ public class DotaDetailActivity extends AppCompatActivity implements Html.ImageG
     private int id = -1;
     private final static String TAG = "TestImageGetter";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dota_detail);
-
         initActitity();
     }
 
-
     private void initActitity() {
-
-        featurephoto= findViewById(R.id.featurephoto);
+        featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
         tvtime = findViewById(R.id.tvtime);
@@ -61,7 +60,7 @@ public class DotaDetailActivity extends AppCompatActivity implements Html.ImageG
 
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("categoryId",String.valueOf(id));
+        Log.e("categoryId", String.valueOf(id));
 
         getDotaDetail();
 
@@ -72,25 +71,31 @@ public class DotaDetailActivity extends AppCompatActivity implements Html.ImageG
         RetrofitService.getApiEnd().getArticleDetail(id).enqueue(new Callback<ArticleDetailResponse>() {
             @Override
             public void onResponse(Call<ArticleDetailResponse> call, Response<ArticleDetailResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-
+                if (response.isSuccessful()) {
+                    Log.e("response", "success");
                     ArticleDetail articleDetail = response.body().articleDetail;
-//                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
-                    tvtitle.setText(articleDetail.title);
-                    String name=articleDetail.categoryName.get(0);
-                    for(int i=1;i<articleDetail.categoryName.size();i++){
-                        name+=","+articleDetail.categoryName.get(i);
+                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
+                    String name = articleDetail.categoryName.get(0);
+                    for (int i = 1; i < articleDetail.categoryName.size(); i++) {
+                        name += "," + articleDetail.categoryName.get(i);
                     }
-                    tvname.setText(name);
-                    tvtime.setText(articleDetail.date);
-
-//                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
+                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
                     Spanned spanned = Html.fromHtml(articleDetail.content, DotaDetailActivity.this, null);
-                    tvabout.setText(spanned);
-                }
-                else{
-                    Log.e("response",response.body().errorMessage);
+
+                    if (userFont.equals("z")) {
+                        tvtitle.setText(rabbit.uni2zg(articleDetail.title));
+                        tvname.setText(rabbit.uni2zg(name));
+                        tvtime.setText(rabbit.uni2zg(articleDetail.date));
+                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                    } else {
+                        tvtitle.setText(rabbit.zg2uni(articleDetail.title));
+                        tvname.setText(rabbit.zg2uni(name));
+                        tvtime.setText(rabbit.zg2uni(articleDetail.date));
+                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                    }
+
+                } else {
+                    Log.e("response", response.body().errorMessage);
                 }
             }
 
@@ -102,11 +107,11 @@ public class DotaDetailActivity extends AppCompatActivity implements Html.ImageG
     }
 
     @Override
-    public Drawable getDrawable(String source){
+    public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
         Drawable empty = getResources().getDrawable(R.drawable.defaultimage);
-        d.addLevel(0,0, empty);
-        d.setBounds(0,0, empty.getIntrinsicWidth() , empty.getIntrinsicHeight());
+        d.addLevel(0, 0, empty);
+        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
 
         new LoadImage().execute(source, d);
 
@@ -142,7 +147,7 @@ public class DotaDetailActivity extends AppCompatActivity implements Html.ImageG
             if (bitmap != null) {
                 BitmapDrawable d = new BitmapDrawable(bitmap);
                 mDrawable.addLevel(1, 1, d);
-                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight() );
+                mDrawable.setBounds(0, 0, bitmap.getWidth(), bitmap.getHeight());
                 mDrawable.setLevel(1);
                 // i don't know yet a better way to refresh TextView
                 // mTv.invalidate() doesn't work as expected

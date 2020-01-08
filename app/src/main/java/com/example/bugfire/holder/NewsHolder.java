@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.News;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class NewsHolder extends RecyclerView.ViewHolder {
 
@@ -41,13 +44,15 @@ public class NewsHolder extends RecyclerView.ViewHolder {
     public void bindData(final News news) {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + news.featurePhoto).into(featurephoto);
-        tvtitle.setText(news.title);
-        tvabout.setText(news.preview);
-
-        Log.e("id", String.valueOf(news.id));
-        Log.e("featurePhoto", news.featurePhoto);
-        Log.e("title", news.title);
-        Log.e("preview", news.preview);
+        if (userFont.equals("z")) {
+            Log.e("font", "z");
+            tvtitle.setText(rabbit.uni2zg(news.title));
+            tvabout.setText(rabbit.uni2zg(news.preview));
+        } else {
+            Log.e("font","u");
+            tvtitle.setText(rabbit.zg2uni(news.title));
+            tvabout.setText(rabbit.zg2uni(news.preview));
+        }
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override

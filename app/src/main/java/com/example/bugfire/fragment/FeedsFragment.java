@@ -2,6 +2,7 @@ package com.example.bugfire.fragment;
 
 
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +39,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     List<Feeds> feeds = new ArrayList<>();
     private int page = 1;
     private int totalPage;
-    private boolean isLoading = true;
-
-    private int firstVisibleItem, visibleItemCount, totalItemCount;
 
     public FeedsFragment() {
         // Required empty public constructor

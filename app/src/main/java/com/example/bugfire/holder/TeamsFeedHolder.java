@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.FeedsTopicList;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class TeamsFeedHolder extends RecyclerView.ViewHolder {
 
@@ -39,19 +42,20 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindData(FeedsTopicList feedsTopicList) {
-        txName.setText(feedsTopicList.name);
-        txTime.setText(feedsTopicList.date);
-        txabout.setText(feedsTopicList.content);
+
+        if (userFont.equals("z")) {
+            txName.setText(rabbit.uni2zg(feedsTopicList.name));
+            txTime.setText(rabbit.uni2zg(feedsTopicList.date));
+            txabout.setText(rabbit.uni2zg(feedsTopicList.content));
+        } else {
+            txName.setText(rabbit.zg2uni(feedsTopicList.name));
+            txTime.setText(rabbit.zg2uni(feedsTopicList.date));
+            txabout.setText(rabbit.zg2uni(feedsTopicList.content));
+        }
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto).into(profile);
-
-        Log.e("category_name", feedsTopicList.name);
-        Log.e("date", feedsTopicList.date);
-        Log.e("content", feedsTopicList.content);
-        Log.e("source_logo", feedsTopicList.sourceLogo);
-        Log.e("category_photo", feedsTopicList.categoryPhoto);
     }
 
     public interface OnTeamsFeedClickListener {

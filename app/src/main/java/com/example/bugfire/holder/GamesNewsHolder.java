@@ -15,19 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bugfire.R;
 import com.example.bugfire.activity.GamesNewsDetailActivity;
 import com.example.bugfire.model.NewsTopicList;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class GamesNewsHolder extends RecyclerView.ViewHolder {
 
     private OnGamesNewsItemClickListener listener;
     private TextView txName, txabout, tvId;
-    private ImageView  featurephoto;
+    private ImageView featurephoto;
     private RelativeLayout layout;
 
     public GamesNewsHolder(@NonNull View itemView, GamesNewsHolder.OnGamesNewsItemClickListener listener) {
         super(itemView);
-        this.listener =  listener;
+        this.listener = listener;
 
         tvId = itemView.findViewById(R.id.tvId);
         txName = itemView.findViewById(R.id.tvtitle);
@@ -43,9 +46,13 @@ public class GamesNewsHolder extends RecyclerView.ViewHolder {
 
     public void bindData(final NewsTopicList newsTopicList) {
 
-        txName.setText(newsTopicList.title);
-        txabout.setText(newsTopicList.preview);
-
+        if (userFont.equals("z")) {
+            txName.setText(rabbit.uni2zg(newsTopicList.title));
+            txabout.setText(rabbit.uni2zg(newsTopicList.preview));
+        } else {
+            txName.setText(rabbit.zg2uni(newsTopicList.title));
+            txabout.setText(rabbit.zg2uni(newsTopicList.preview));
+        }
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsTopicList.featurephoto).into(featurephoto);
 
         layout.setOnClickListener(new View.OnClickListener() {
@@ -54,12 +61,6 @@ public class GamesNewsHolder extends RecyclerView.ViewHolder {
                 listener.onGamesNewsClick(newsTopicList.id);
             }
         });
-
-        Log.e("id", String.valueOf(newsTopicList.id));
-        Log.e("title", newsTopicList.title);
-        Log.e("preview", newsTopicList.preview);
-        Log.e("featurePhoto", newsTopicList.featurephoto);
-
     }
 
     public interface OnGamesNewsItemClickListener {

@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bugfire.R;
 import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.model.NewsTopicList;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class PlayersNewHolder extends RecyclerView.ViewHolder {
 
@@ -42,13 +45,14 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(final NewsTopicList feedsTopicList) {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.featurephoto).into(profile);
-        txName.setText(feedsTopicList.title);
-        txabout.setText(feedsTopicList.preview);
 
-//        Log.e("id", String.valueOf(feedsTopicList.id));
-//        Log.e("featurePhoto", feedsTopicList.featurephoto);
-//        Log.e("title", feedsTopicList.title);
-//        Log.e("preview", feedsTopicList.preview);
+        if (userFont.equals("z")) {
+            txName.setText(rabbit.uni2zg(feedsTopicList.title));
+            txabout.setText(rabbit.uni2zg(feedsTopicList.preview));
+        } else {
+            txName.setText(rabbit.zg2uni(feedsTopicList.title));
+            txabout.setText(rabbit.zg2uni(feedsTopicList.preview));
+        }
 
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,11 +60,6 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
                 listener.onPlayersNewClick(feedsTopicList.id);
             }
         });
-
-        Log.e("id", String.valueOf(feedsTopicList.id));
-        Log.e("title", feedsTopicList.title);
-        Log.e("Preview", feedsTopicList.preview);
-        Log.e("featurePhoto", feedsTopicList.featurephoto);
     }
 
     public interface OnPlayersNewClickListener {

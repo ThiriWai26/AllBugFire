@@ -16,8 +16,11 @@ import com.example.bugfire.R;
 import com.example.bugfire.activity.TeamsDetailActivity;
 import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
 import com.example.bugfire.model.Teams;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class TeamHolder extends RecyclerView.ViewHolder {
 
@@ -43,7 +46,14 @@ public class TeamHolder extends RecyclerView.ViewHolder {
 
     public void bindData(final Teams teams) {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + teams.photo).into(imageView);
-        teamname.setText(teams.name);
+        if (userFont.equals("z")) {
+            Log.e("font", "z");
+            teamname.setText(rabbit.uni2zg(teams.name));
+        } else {
+            Log.e("font", "u");
+            teamname.setText(rabbit.zg2uni(teams.name));
+        }
+
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

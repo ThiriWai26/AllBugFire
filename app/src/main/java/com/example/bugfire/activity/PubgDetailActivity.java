@@ -12,12 +12,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.ArticleDetail;
+import com.example.bugfire.rabbitconverter.rabbit;
 import com.example.bugfire.response.ArticleDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -31,6 +33,8 @@ import java.net.URL;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
 public class PubgDetailActivity extends AppCompatActivity implements Html.ImageGetter {
 
@@ -46,25 +50,19 @@ public class PubgDetailActivity extends AppCompatActivity implements Html.ImageG
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pubg_detail);
-
         initActivity();
     }
 
     private void initActivity() {
-
-        featurephoto= findViewById(R.id.featurephoto);
+        featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
         tvtime = findViewById(R.id.tvtime);
         tvabout = findViewById(R.id.tvabout);
 
-        //asset typeface
-//        Typeface tf = Typeface.createFromAsset(getAssets(),  "fonts/mm3.ttf");
-//        tvtitle.setTypeface(tf);
-
         Bundle bundle = getIntent().getExtras();
         id = bundle.getInt("categoryId");
-        Log.e("categoryId",String.valueOf(id));
+        Log.e("categoryId", String.valueOf(id));
 
         getPubgDetail();
     }
@@ -76,18 +74,26 @@ public class PubgDetailActivity extends AppCompatActivity implements Html.ImageG
             public void onResponse(Call<ArticleDetailResponse> call, Response<ArticleDetailResponse> response) {
                 if (response.isSuccessful()) {
                     Log.e("response", "success");
-
                     ArticleDetail articleDetail = response.body().articleDetail;
                     Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
-                    tvtitle.setText(articleDetail.title);
                     String name = articleDetail.categoryName.get(0);
-                    for(int i=1;i<articleDetail.categoryName.size();i++){
-                        name+=","+articleDetail.categoryName.get(i);}
-                    tvname.setText(name);
-                    tvtime.setText(articleDetail.date);
-
+                    for (int i = 1; i < articleDetail.categoryName.size(); i++) {
+                        name += "," + articleDetail.categoryName.get(i);
+                    }
+                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
                     Spanned spanned = Html.fromHtml(articleDetail.content, PubgDetailActivity.this, null);
-                    tvabout.setText(spanned);
+
+                    if (userFont.equals("z")) {
+                        tvtitle.setText(rabbit.uni2zg(articleDetail.title));
+                        tvname.setText(rabbit.uni2zg(name));
+                        tvtime.setText(rabbit.uni2zg(articleDetail.date));
+                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                    } else {
+                        tvtitle.setText(rabbit.zg2uni(articleDetail.title));
+                        tvname.setText(rabbit.zg2uni(name));
+                        tvtime.setText(rabbit.zg2uni(articleDetail.date));
+                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                    }
                 } else {
                     Log.e("response", response.body().errorMessage);
                 }
@@ -98,7 +104,7 @@ public class PubgDetailActivity extends AppCompatActivity implements Html.ImageG
                 Log.e("failure", t.toString());
             }
         });
-      }
+    }
 
     @Override
     public Drawable getDrawable(String source) {
