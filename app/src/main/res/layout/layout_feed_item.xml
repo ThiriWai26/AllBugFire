@@ -36,8 +36,7 @@
                     android:layout_height="52dp"
                     android:layout_margin="@dimen/margin_md"
                     android:maxHeight="48dp"
-                    android:tag="image_tag"
-                    android:src="@drawable/profile" />
+                    android:tag="image_tag" />
 
                 <LinearLayout
                     android:id="@+id/linearName"
@@ -51,14 +50,14 @@
                         android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dendi"
+                        android:text=""
                         style="@style/TitleInputLayout" />
 
                     <TextView
                         android:id="@+id/tvTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="11:20AM, October25, 2019"
+                        android:text=""
                         style="@style/NormalTextInputLayout" />
 
                 </LinearLayout>
@@ -70,9 +69,7 @@
                     android:layout_marginTop="@dimen/margin_lg"
                     android:layout_marginRight="@dimen/margin_md"
                     android:layout_alignParentRight="true"
-                    android:scaleType="fitXY"
-                    />
-<!--                    android:background="@drawable/twitter" />-->
+                    android:scaleType="fitXY" />
 
             </RelativeLayout>
 
@@ -80,9 +77,9 @@
                 android:id="@+id/tvabout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_lg"
-                android:layout_marginRight="@dimen/margin_lg"
-                android:text="We parted way with @GamingElements and disbanded as a team, want to thank EPG for everything they did for us in last 8month. I am free agent now and I am looking for a team, willing to relocate and and play any region."
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text=""
                 style="@style/NormalTextInputLayout"
                 android:layout_marginBottom="@dimen/margin_lg"
                 android:justificationMode="inter_word"

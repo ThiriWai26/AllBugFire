@@ -1,6 +1,5 @@
 package com.example.bugfire.holder;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.News;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -45,13 +44,11 @@ public class NewsHolder extends RecyclerView.ViewHolder {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + news.featurePhoto).into(featurephoto);
         if (userFont.equals("z")) {
-            Log.e("font", "z");
-            tvtitle.setText(rabbit.uni2zg(news.title));
-            tvabout.setText(rabbit.uni2zg(news.preview));
+            tvtitle.setText(Rabbit.uni2zg(news.title));
+            tvabout.setText(Rabbit.uni2zg(news.preview));
         } else {
-            Log.e("font","u");
-            tvtitle.setText(rabbit.zg2uni(news.title));
-            tvabout.setText(rabbit.zg2uni(news.preview));
+            tvtitle.setText(Rabbit.zg2uni(news.title));
+            tvabout.setText(Rabbit.zg2uni(news.preview));
         }
 
         layout.setOnClickListener(new View.OnClickListener() {

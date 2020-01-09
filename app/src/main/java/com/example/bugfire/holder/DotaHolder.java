@@ -1,6 +1,5 @@
 package com.example.bugfire.holder;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.Article;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -47,11 +46,11 @@ public class DotaHolder extends RecyclerView.ViewHolder {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + article.featurePhoto).into(featurephoto);
         if (userFont.equals("z")) {
-            tvtitle.setText(rabbit.uni2zg(article.title));
-            tvabout.setText(rabbit.uni2zg(article.preview));
+            tvtitle.setText(Rabbit.uni2zg(article.title));
+            tvabout.setText(Rabbit.uni2zg(article.preview));
         } else {
-            tvtitle.setText(rabbit.zg2uni(article.title));
-            tvabout.setText(rabbit.zg2uni(article.preview));
+            tvtitle.setText(Rabbit.zg2uni(article.title));
+            tvabout.setText(Rabbit.zg2uni(article.preview));
         }
 
         layout.setOnClickListener(new View.OnClickListener() {

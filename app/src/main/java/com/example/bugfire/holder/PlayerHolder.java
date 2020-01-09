@@ -1,8 +1,6 @@
 package com.example.bugfire.holder;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
-import com.example.bugfire.activity.PlayerDetailActivity;
 import com.example.bugfire.model.PlayerList;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
-public class PlayerHolder extends RecyclerView.ViewHolder  {
+public class PlayerHolder extends RecyclerView.ViewHolder {
 
     private OnPlayerItemClickListener listener;
     private LinearLayout layoutplayer1;
@@ -51,13 +48,12 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + playerList.photo).into(imageView1);
         if (userFont.equals("z")) {
-            Log.e("font", "z");
-            playername1.setText(rabbit.uni2zg(playerList.name));
-            playerteam1.setText(rabbit.uni2zg(playerList.teamName));
+            playername1.setText(Rabbit.uni2zg(playerList.name));
+            playerteam1.setText(Rabbit.uni2zg(playerList.teamName));
         } else {
-            Log.e("font", "u");
-            playername1.setText(rabbit.zg2uni(playerList.name));
-            playerteam1.setText(rabbit.zg2uni(playerList.teamName));        }
+            playername1.setText(Rabbit.zg2uni(playerList.name));
+            playerteam1.setText(Rabbit.zg2uni(playerList.teamName));
+        }
 
         layoutplayer1.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("NewApi")
@@ -68,9 +64,9 @@ public class PlayerHolder extends RecyclerView.ViewHolder  {
         });
 
         Log.e("id", String.valueOf(playerList.id));
-        Log.e("name",playerList.name);
-        Log.e("photo",playerList.photo);
-        Log.e("team_name",playerList.teamName);
+        Log.e("name", playerList.name);
+        Log.e("photo", playerList.photo);
+        Log.e("team_name", playerList.teamName);
 
     }
 

@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class rabbit {
+public class Rabbit {
 
     public static String uni2zg(String input) {
 

@@ -2,11 +2,11 @@ package com.example.bugfire.fragment;
 
 
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -39,6 +39,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     List<Feeds> feeds = new ArrayList<>();
     private int page = 1;
     private int totalPage;
+    private ProgressBar progressBar;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -73,11 +74,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                     Log.e("pageNumber", String.valueOf(page));
                     getFeedsList(++page);
                 }
-
-//                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
-//                if (lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter().getItemCount() -1);
-//                Log.e("LastvisibleItemPosition", String.valueOf(lastVisibleItemPosition));
-
             }
         });
 

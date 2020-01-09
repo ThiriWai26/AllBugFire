@@ -1,7 +1,5 @@
 package com.example.bugfire.holder;
 
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
-import com.example.bugfire.activity.TeamsDetailActivity;
-import com.example.bugfire.fragment.TeamsDetailFeedsFragment;
 import com.example.bugfire.model.Teams;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -47,11 +43,9 @@ public class TeamHolder extends RecyclerView.ViewHolder {
     public void bindData(final Teams teams) {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + teams.photo).into(imageView);
         if (userFont.equals("z")) {
-            Log.e("font", "z");
-            teamname.setText(rabbit.uni2zg(teams.name));
+            teamname.setText(Rabbit.uni2zg(teams.name));
         } else {
-            Log.e("font", "u");
-            teamname.setText(rabbit.zg2uni(teams.name));
+            teamname.setText(Rabbit.zg2uni(teams.name));
         }
 
         layout.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.model.NewsDetail;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.response.NewsDetailResponse;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
@@ -76,21 +76,21 @@ public class NewsDetailActivity extends AppCompatActivity implements Html.ImageG
                     for (int i = 1; i < newsDetail.categoryName.size(); i++) {
                         categoryName += "," + newsDetail.categoryName.get(i);
                     }
+                    Spanned spanned = Html.fromHtml(Rabbit.uni2zg(newsDetail.content), NewsDetailActivity.this, null);
+                    Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(newsDetail.content), NewsDetailActivity.this, null);
                     tvabout.setMovementMethod(LinkMovementMethod.getInstance());
-                    Spanned spanned = Html.fromHtml(newsDetail.content, NewsDetailActivity.this, null);
 
                     if (userFont.equals("z")) {
-                        tvtitle.setText(rabbit.uni2zg(newsDetail.title));
-                        tvname.setText(rabbit.uni2zg(categoryName));
-                        tvdate.setText(rabbit.uni2zg(newsDetail.date));
-                        tvabout.setText(rabbit.uni2zg(String.valueOf(spanned)));
+                        tvtitle.setText(Rabbit.uni2zg(newsDetail.title));
+                        tvname.setText(Rabbit.uni2zg(categoryName));
+                        tvdate.setText(Rabbit.uni2zg(newsDetail.date));
+                        tvabout.setText(spanned);
                     } else {
-                        tvtitle.setText(rabbit.zg2uni(newsDetail.title));
-                        tvname.setText(rabbit.zg2uni(categoryName));
-                        tvdate.setText(rabbit.zg2uni(newsDetail.date));
-                        tvabout.setText(rabbit.zg2uni(String.valueOf(spanned)));
+                        tvtitle.setText(Rabbit.zg2uni(newsDetail.title));
+                        tvname.setText(Rabbit.zg2uni(categoryName));
+                        tvdate.setText(Rabbit.zg2uni(newsDetail.date));
+                        tvabout.setText(spanned1);
                     }
-
                 } else {
                     Log.e("response", "fail");
                 }

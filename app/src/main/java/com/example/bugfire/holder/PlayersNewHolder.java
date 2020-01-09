@@ -1,6 +1,5 @@
 package com.example.bugfire.holder;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
-import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.model.NewsTopicList;
-import com.example.bugfire.rabbitconverter.rabbit;
+import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -47,11 +45,11 @@ public class PlayersNewHolder extends RecyclerView.ViewHolder {
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.featurephoto).into(profile);
 
         if (userFont.equals("z")) {
-            txName.setText(rabbit.uni2zg(feedsTopicList.title));
-            txabout.setText(rabbit.uni2zg(feedsTopicList.preview));
+            txName.setText(Rabbit.uni2zg(feedsTopicList.title));
+            txabout.setText(Rabbit.uni2zg(feedsTopicList.preview));
         } else {
-            txName.setText(rabbit.zg2uni(feedsTopicList.title));
-            txabout.setText(rabbit.zg2uni(feedsTopicList.preview));
+            txName.setText(Rabbit.zg2uni(feedsTopicList.title));
+            txabout.setText(Rabbit.zg2uni(feedsTopicList.preview));
         }
 
         layout.setOnClickListener(new View.OnClickListener() {
