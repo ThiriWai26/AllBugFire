@@ -25,20 +25,23 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class NotificationsFragment extends Fragment  implements View.OnClickListener{
 
     private TapNofificationPagerAdapter tapNofificationPagerAdapter;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private CompositeDisposable compositeDisposable;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_notifications, container, false);
+        compositeDisposable = new CompositeDisposable();
         tabLayout = view.findViewById(R.id.tabLayout);
         viewPager = view.findViewById(R.id.viewPager);
         tapNofificationPagerAdapter = new TapNofificationPagerAdapter(getFragmentManager());
@@ -49,50 +52,55 @@ public class NotificationsFragment extends Fragment  implements View.OnClickList
 
     private void getTopicCategories() {
         Log.e("getTopicCategories","success");
-        RetrofitService.getApiEnd().getTopicCategories().enqueue(new Callback<TopicCategoriesResponse>() {
-            @Override
-            public void onResponse(Call<TopicCategoriesResponse> call, Response<TopicCategoriesResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
 
-                    viewPager.setAdapter(tapNofificationPagerAdapter);
-                    tabLayout.setupWithViewPager(viewPager);
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicCategories()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-                    Log.e("id", String.valueOf(response.body().topicCategories.get(0).id));
-                    Log.e("category_name", response.body().topicCategories.get(0).name);
-                    Log.e("type", response.body().topicCategories.get(0).type);
+        compositeDisposable.add(subscribe);
 
-                    Log.e("id", String.valueOf(response.body().topicCategories.get(1).id));
-                    Log.e("category_name", response.body().topicCategories.get(1).name);
-                    Log.e("type", response.body().topicCategories.get(1).type);
+    }
 
-                    Log.e("id", String.valueOf(response.body().topicCategories.get(2).id));
-                    Log.e("category_name", response.body().topicCategories.get(2).name);
-                    Log.e("type", response.body().topicCategories.get(2).type);
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
 
-                    Log.e("id", String.valueOf(response.body().topicCategories.get(3).id));
-                    Log.e("category_name", response.body().topicCategories.get(3).name);
-                    Log.e("type", response.body().topicCategories.get(3).type);
+    private void handleResult(TopicCategoriesResponse topicCategoriesResponse) {
+        Log.e("response","success");
 
-                    tapNofificationPagerAdapter.addItem(response.body().topicCategories);
-                    Log.e("size", String.valueOf(response.body().topicCategories.size()));
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        viewPager.setAdapter(tapNofificationPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-            @Override
-            public void onFailure(Call<TopicCategoriesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+        Log.e("id", String.valueOf(topicCategoriesResponse.topicCategories.get(0).id));
+        Log.e("category_name", topicCategoriesResponse.topicCategories.get(0).name);
+        Log.e("type", topicCategoriesResponse.topicCategories.get(0).type);
 
+        Log.e("id", String.valueOf(topicCategoriesResponse.topicCategories.get(1).id));
+        Log.e("category_name", topicCategoriesResponse.topicCategories.get(1).name);
+        Log.e("type", topicCategoriesResponse.topicCategories.get(1).type);
 
+        Log.e("id", String.valueOf(topicCategoriesResponse.topicCategories.get(2).id));
+        Log.e("category_name",topicCategoriesResponse.topicCategories.get(2).name);
+        Log.e("type", topicCategoriesResponse.topicCategories.get(2).type);
 
+        Log.e("id", String.valueOf(topicCategoriesResponse.topicCategories.get(3).id));
+        Log.e("category_name", topicCategoriesResponse.topicCategories.get(3).name);
+        Log.e("type", topicCategoriesResponse.topicCategories.get(3).type);
+
+        tapNofificationPagerAdapter.addItem(topicCategoriesResponse.topicCategories);
+        Log.e("size", String.valueOf(topicCategoriesResponse.topicCategories.size()));
     }
 
     @Override
     public void onClick(View v) {
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
+    }
+
 }

@@ -29,9 +29,11 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
@@ -41,6 +43,7 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
     private TextView tvtitle, tvname, tvdate, tvabout;
     private int id;
     private final static String TAG = "TestImageGetter";
+    private CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
 
     private void initActivity() {
 
+        compositeDisposable = new CompositeDisposable();
         featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
@@ -65,44 +69,42 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
 
     private void getgamesNewsDetail() {
         Log.e("getNewsDetail", "success");
-        RetrofitService.getApiEnd().getNewDetail(id).enqueue(new Callback<NewsDetailResponse>() {
-            @Override
-            public void onResponse(Call<NewsDetailResponse> call, Response<NewsDetailResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.e("response", "success");
-                    NewsDetail newsDetail = response.body().newsDetail;
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsDetail.featurePhoto).into(featurephoto);
-                    String categoryName = newsDetail.categoryName.get(0);
-                    for (int i = 1; i < newsDetail.categoryName.size(); i++) {
-                        categoryName += "," + newsDetail.categoryName.get(i);
-                    }
-                    Spanned spanned = Html.fromHtml(Rabbit.uni2zg(newsDetail.content), GamesNewsDetailActivity.this, null);
-                    Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(newsDetail.content), GamesNewsDetailActivity.this, null);
-                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
 
-                    if (userFont.equals("z")) {
-                        tvtitle.setText(Rabbit.uni2zg(newsDetail.title));
-                        tvname.setText(Rabbit.uni2zg(categoryName));
-                        tvdate.setText(Rabbit.uni2zg(newsDetail.date));
-                        tvabout.setText(spanned);
-                    } else {
-                        tvtitle.setText(Rabbit.zg2uni(newsDetail.title));
-                        tvname.setText(Rabbit.zg2uni(categoryName));
-                        tvtitle.setText(Rabbit.zg2uni(newsDetail.date));
-                        tvabout.setText(spanned1);
-                    }
+        Disposable subscribe = RetrofitService.getApiEnd().getNewDetail(id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
+        compositeDisposable.add(subscribe);
+    }
 
-                } else {
-                    Log.e("response", response.body().errorMessage);
-                }
-            }
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
 
-            @Override
-            public void onFailure(Call<NewsDetailResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+    private void handleResult(NewsDetailResponse newsDetailResponse) {
+        Log.e("response", "success");
+        NewsDetail newsDetail = newsDetailResponse.newsDetail;
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + newsDetail.featurePhoto).into(featurephoto);
+        String categoryName = newsDetail.categoryName.get(0);
+        for (int i = 1; i < newsDetail.categoryName.size(); i++) {
+            categoryName += "," + newsDetail.categoryName.get(i);
+        }
+        Spanned spanned = Html.fromHtml(Rabbit.uni2zg(newsDetail.content), GamesNewsDetailActivity.this, null);
+        Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(newsDetail.content), GamesNewsDetailActivity.this, null);
+        tvabout.setMovementMethod(LinkMovementMethod.getInstance());
+
+        if (userFont.equals("z")) {
+            tvtitle.setText(Rabbit.uni2zg(newsDetail.title));
+            tvname.setText(Rabbit.uni2zg(categoryName));
+            tvdate.setText(Rabbit.uni2zg(newsDetail.date));
+            tvabout.setText(spanned);
+        } else {
+            tvtitle.setText(Rabbit.zg2uni(newsDetail.title));
+            tvname.setText(Rabbit.zg2uni(categoryName));
+            tvtitle.setText(Rabbit.zg2uni(newsDetail.date));
+            tvabout.setText(spanned1);
+        }
     }
 
     @Override
@@ -154,5 +156,12 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
                 tvabout.setText(t);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        compositeDisposable.clear();
     }
 }

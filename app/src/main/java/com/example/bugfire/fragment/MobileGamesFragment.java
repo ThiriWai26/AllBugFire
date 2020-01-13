@@ -28,9 +28,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +44,7 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
 
     private int categoryId = -1;
     List<GamesList> gamesList = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public MobileGamesFragment() {
         // Required empty public constructor
@@ -54,6 +57,7 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_mobile_games, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.mobileRecyclerView);
         adapter = new MobileGamesAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -70,25 +74,26 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
     private void getGamesList() {
         Log.e("getGamesList","success");
 
-        RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
-            @Override
-            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
-                if(response.isSuccessful()) {
-                    Log.e("response", "success");
-                    gamesList = response.body().gamesList;
-                    adapter.addItem(response.body().gamesList);
-                    Log.e("Games_Size", String.valueOf(gamesList.size()));
-                    adapter.notifyDataSetChanged();
-                }else {
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getGamesList(categoryId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<GamesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+       compositeDisposable.add(subscribe);
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(GamesResponse gamesResponse) {
+        Log.e("response", "success");
+        gamesList = gamesResponse.gamesList;
+        adapter.addItem(gamesResponse.gamesList);
+        Log.e("Games_Size", String.valueOf(gamesList.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -99,5 +104,12 @@ public class MobileGamesFragment extends Fragment implements MobileGamesHolder.O
         intent.putExtra("team_name", gamesList.category);
         intent.putExtra("photo", gamesList.photo);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

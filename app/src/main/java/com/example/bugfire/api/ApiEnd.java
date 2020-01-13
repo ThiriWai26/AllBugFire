@@ -13,56 +13,55 @@ import com.example.bugfire.response.NewsResponse;
 import com.example.bugfire.response.TopicFeedsResponse;
 import com.example.bugfire.response.TopicNewsResponse;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiEnd {
 
     @GET("/api/feed_stories")
-    Call<FeedsResponse> getFeedList(@Query("page") int page);
+    Observable<FeedsResponse> getFeedList(@Query("page") int page);
 
     @GET("/api/news_stories")
-    Call<NewsResponse> getNewList();
+    Observable<NewsResponse> getNewList();
 
     @FormUrlEncoded
     @POST("/api/news_details")
-    Call<NewsDetailResponse> getNewDetail(@Field("id") int id);
+    Observable<NewsDetailResponse> getNewDetail(@Field("id") int id);
 
     @GET("/api/topic_categories")
-    Call<TopicCategoriesResponse> getTopicCategories();
+    Observable<TopicCategoriesResponse> getTopicCategories();
 
     @FormUrlEncoded
     @POST("/api/sub_categories/games")
-    Call<GamesResponse> getGamesList(@Field("category_id") int id);
+    Observable<GamesResponse> getGamesList(@Field("category_id") int id);
 
     @GET("/api/sub_categories/players")
-    Call<PlayerResponse> getPlayerList();
+    Observable<PlayerResponse> getPlayerList();
 
     @GET("/api/sub_categories/teams")
-    Call<TeamsResponse> getTeamsList();
+    Observable<TeamsResponse> getTeamsList();
 
     @GET("/api/article_categories")
-    Call<ArticleCategoriesResponse> getArticleCategories();
+    Observable<ArticleCategoriesResponse> getArticleCategories();
 
     @FormUrlEncoded
     @POST("/api/articles")
-    Call<ArticlesResponse> getArticleList(@Field("category_id") int id);
+    Observable<ArticlesResponse> getArticleList(@Field("category_id") int id);
 
     @FormUrlEncoded
     @POST("/api/article_details")
-    Call<ArticleDetailResponse> getArticleDetail(@Field("id") int id);
+    Observable<ArticleDetailResponse> getArticleDetail(@Field("id") int id);
 
     @FormUrlEncoded
     @POST("/api/feed_topic")
-    Call<TopicFeedsResponse> getTopicFeeds(@Field("type") String type, @Field("id") int id);
+    Observable<TopicFeedsResponse> getTopicFeeds(@Field("type") String type, @Field("id") int id);
 
     @FormUrlEncoded
     @POST("/api/news_topic")
-    Call<TopicNewsResponse> getTopicNews(@Field("type") String type, @Field("id") int id);
+    Observable<TopicNewsResponse> getTopicNews(@Field("type") String type, @Field("id") int id);
 
 }

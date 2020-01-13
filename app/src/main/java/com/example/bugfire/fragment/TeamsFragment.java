@@ -23,10 +23,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,6 +35,7 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
     private RecyclerView recyclerView;
     private TeamAdapter adapter;
     List<Teams> teamsList = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public TeamsFragment() {
         // Required empty public constructor
@@ -47,6 +48,7 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_teams, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.teamRecyclerView);
         adapter = new TeamAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -59,26 +61,25 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
     private void getTeamsList() {
         Log.e("getTeamsList","success");
 
-        RetrofitService.getApiEnd().getTeamsList().enqueue(new Callback<TeamsResponse>() {
-            @Override
-            public void onResponse(Call<TeamsResponse> call, Response<TeamsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    teamsList = response.body().team;
-                    adapter.addItem(response.body().team);
-                    Log.e("TeamsDataSize", String.valueOf(teamsList.size()));
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getTeamsList()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<TeamsResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+        compositeDisposable.add(subscribe);
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TeamsResponse teamsResponse) {
+        Log.e("response","success");
+        teamsList = teamsResponse.team;
+        adapter.addItem(teamsResponse.team);
+        Log.e("TeamsDataSize", String.valueOf(teamsList.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -89,5 +90,12 @@ public class TeamsFragment extends Fragment implements TeamHolder.OnTeamsItemCli
         intent.putExtra("team_name", teams.category);
         intent.putExtra("photo", teams.photo);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

@@ -24,9 +24,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +40,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     List<Article> articleLists = new ArrayList<>();
     private int categoryId = -1;
     private String type = "GAME";
+    private CompositeDisposable compositeDisposable;
 
     public DotaFragment() {
         // Required empty public constructor
@@ -51,6 +53,7 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dota2, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.dotaRecyclerView);
         adapter = new DotaAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -67,27 +70,32 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private void getDotaList() {
         Log.e("getDotaList","success");
 
-        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
-            @Override
-            public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    articleLists = response.body().articlesList.data;
-                    adapter.addItem(response.body().articlesList.data);
-                    Log.e("Dota_Size", String.valueOf(articleLists.size()));
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(categoryId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<ArticlesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+        compositeDisposable.add(subscribe);
 
+    }
+
+    private void handleResult(ArticlesResponse articlesResponse) {
+        Log.e("response","success");
+        articleLists = articlesResponse.articlesList.data;
+        adapter.addItem(articlesResponse.articlesList.data);
+        Log.e("Dota_Size", String.valueOf(articleLists.size()));
+        adapter.notifyDataSetChanged();
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("FeedsFailure", throwable.toString());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 
     @Override

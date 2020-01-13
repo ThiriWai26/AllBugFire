@@ -24,9 +24,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +37,7 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
     private RecyclerView recyclerView;
     private PlayerAdapter adapter;
     List<PlayerList> playerList = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public PlayersFragment() {
         // Required empty public constructor
@@ -48,6 +50,7 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_players, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.playerRecyclerView);
         adapter = new PlayerAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -60,27 +63,26 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
 
     private void getPlayerList() {
         Log.e("getPlayerList","success");
-        RetrofitService.getApiEnd().getPlayerList().enqueue(new Callback<PlayerResponse>() {
-            @Override
-            public void onResponse(Call<PlayerResponse> call, Response<PlayerResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    playerList= response.body().playerList;
-                    adapter.addItem(response.body().playerList);
-                    Log.e("player_Size", String.valueOf(playerList.size()));
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<PlayerResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+        Disposable subscribe = RetrofitService.getApiEnd().getPlayerList()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
+        compositeDisposable.add(subscribe);
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(PlayerResponse playerResponse) {
+        Log.e("response","success");
+        playerList= playerResponse.playerList;
+        adapter.addItem(playerResponse.playerList);
+        Log.e("player_Size", String.valueOf(playerList.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +94,13 @@ public class PlayersFragment extends Fragment implements PlayerHolder.OnPlayerIt
         intent.putExtra("team_name",playerList.teamName);
         intent.putExtra("photo",playerList.photo);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 
 }

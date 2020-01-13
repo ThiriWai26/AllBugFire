@@ -16,9 +16,11 @@ import com.example.bugfire.service.RetrofitService;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
@@ -37,6 +39,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     private TextView tvname, tvabout;
     private ImageView profile;
+    private CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class PlayerDetailActivity extends AppCompatActivity {
 
     private void init() {
 
+        compositeDisposable = new CompositeDisposable();
         tvname = findViewById(R.id.tvName);
         tvabout = findViewById(R.id.tvabout);
         profile = findViewById(R.id.profile);
@@ -68,29 +72,35 @@ public class PlayerDetailActivity extends AppCompatActivity {
         Log.e("Photo", photo);
 
         Log.e("getPlayerTitle","success");
-        RetrofitService.getApiEnd().getPlayerList().enqueue(new Callback<PlayerResponse>() {
-            @Override
-            public void onResponse(Call<PlayerResponse> call, Response<PlayerResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    if (userFont.equals("z")) {
-                        tvname.setText(Rabbit.uni2zg(name));
-                        tvabout.setText(Rabbit.uni2zg(teamName));
-                    } else {
-                        tvname.setText(Rabbit.zg2uni(name));
-                        tvabout.setText(Rabbit.zg2uni(teamName));
-                    }
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<PlayerResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+        Disposable subscribe = RetrofitService.getApiEnd().getPlayerList()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
+
+        compositeDisposable.add(subscribe);
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(PlayerResponse playerResponse) {
+        Log.e("response","success");
+        if (userFont.equals("z")) {
+            tvname.setText(Rabbit.uni2zg(name));
+            tvabout.setText(Rabbit.uni2zg(teamName));
+        } else {
+            tvname.setText(Rabbit.zg2uni(name));
+            tvabout.setText(Rabbit.zg2uni(teamName));
+        }
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        compositeDisposable.clear();
     }
 }

@@ -24,9 +24,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
 
     private int categoryId = -1;
     List<GamesList> gamesLists = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public PCGamesFragment() {
         // Required empty public constructor
@@ -50,6 +53,7 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pcgames, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.pcRecyclerView);
         adapter = new PCGamesAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -65,26 +69,27 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
 
     private void getGamesList() {
         Log.e("getGamesList","success");
-        RetrofitService.getApiEnd().getGamesList(categoryId).enqueue(new Callback<GamesResponse>() {
-            @Override
-            public void onResponse(Call<GamesResponse> call, Response<GamesResponse> response) {
 
-                if(response.isSuccessful()) {
-                    Log.e("response", "success");
-                    gamesLists = response.body().gamesList;
-                    adapter.addItem(response.body().gamesList);
-                    Log.e("Games_Size", String.valueOf(gamesLists.size()));
-                    adapter.notifyDataSetChanged();
-                }else {
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getGamesList(categoryId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<GamesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+        compositeDisposable.add(subscribe);
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(GamesResponse gamesResponse) {
+        Log.e("response", "success");
+        gamesLists = gamesResponse.gamesList;
+        adapter.addItem(gamesResponse.gamesList);
+        Log.e("Games_Size", String.valueOf(gamesLists.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -96,5 +101,12 @@ public class PCGamesFragment extends Fragment implements PCGamesHolder.OnPCItemC
         intent.putExtra("photo", gamesList.photo);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

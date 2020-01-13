@@ -27,9 +27,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +44,7 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
     private String type = "teams";
     private int id = -1;
     List<TopicFeedsList> topicFeedsList = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public TeamsDetailFeedsFragment() {
         // Required empty public constructor
@@ -54,6 +57,7 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_teams_feeds, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.teamsdetailnewsRecyclerView);
         adapter = new TeamsFeedAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -69,25 +73,32 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
 
     private void getteamsdetailfeeds() {
         Log.e("getteamsdetailfeeds","success");
-        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
-            @Override
-            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
 
-                    adapter.addItem(response.body().topicFeedsList.data);
-                    Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type, id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });   }
+        compositeDisposable.add(subscribe);
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TopicFeedsResponse topicFeedsResponse) {
+        Log.e("response","success");
+
+        adapter.addItem(topicFeedsResponse.topicFeedsList.data);
+        Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.example.bugfire.fragment;
 
 
 import android.os.Bundle;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +39,9 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     List<Feeds> feeds = new ArrayList<>();
     private int page = 1;
     private int totalPage;
-    private ProgressBar progressBar;
+    private String nextPage;
+    private int lastVisibleItemPosition=0;
+    private CompositeDisposable compositeDisposable;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -52,9 +54,11 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
 
         final View view = inflater.inflate(R.layout.fragment_feeds, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.feedRecyclerView);
         adapter = new FeedsAdapter(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -70,46 +74,60 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
             @Override
             public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (page <= totalPage) {
-                    Log.e("pageNumber", String.valueOf(page));
+//                if (page <= totalPage) {
+//                    Log.e("pageNumber", String.valueOf(page));
+//                    if(nextPage!=null && lastVisibleItemPosition==19 )
+//                    getFeedsList(++page);
+
+//                }
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+                if(nextPage!=null && lastVisibleItemPosition==19 )
                     getFeedsList(++page);
-                }
             }
         });
-
         return view;
     }
 
     private void getFeedsList(int page) {
-        Log.e("getFeedsList","success");
-        RetrofitService.getApiEnd().getFeedList(page).enqueue(new Callback<FeedsResponse>() {
-            @Override
-            public void onResponse(Call<FeedsResponse> call, Response<FeedsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    totalPage = response.body().feedsList.lastPageNumber;
-                    Log.e("totalPage",String.valueOf(totalPage));
-                    feeds = response.body().feedsList.data;
-                    adapter.addItem(response.body().feedsList.data);
-                    Log.e("Feeds_Size", String.valueOf(feeds.size()));
 
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+         Disposable subscribe = RetrofitService.getApiEnd().getFeedList(page)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult , this::handleError);
 
-            @Override
-            public void onFailure(Call<FeedsResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+         compositeDisposable.add(subscribe);
 
+    }
 
+    private void handleError(Throwable throwable) {
+        Log.e("FeedsFailure", throwable.toString());
+    }
+
+    private void handleResult(FeedsResponse feedsResponse) {
+        Log.e("response", "success");
+        totalPage = feedsResponse.feedsList.lastPageNumber;
+        Log.e("totalPage", String.valueOf(totalPage));
+        feeds = feedsResponse.feedsList.data;
+        adapter.addItem(feedsResponse.feedsList.data);
+        Log.e("Feeds_Size", String.valueOf(feeds.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPCFeeds(int i) {
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

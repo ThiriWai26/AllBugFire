@@ -24,9 +24,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +37,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
     private RecyclerView recyclerView;
     private NewsAdapter adapter;
     List<News> news = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -47,6 +49,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.newsRecyclerView);
         adapter = new NewsAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -57,29 +60,27 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
     }
 
     private void getNewsList() {
-        Log.e("getNewsList","success");
 
-        RetrofitService.getApiEnd().getNewList().enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    news = response.body().newsList.data;
-                    adapter.addItem(response.body().newsList.data);
-                    Log.e("NewsList_size", String.valueOf(news.size()));
+        Disposable subscribe = RetrofitService.getApiEnd().getNewList()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-                    adapter.notifyDataSetChanged();
-                }
-                else{
-                    Log.e("response","fail");
-                }
-            }
+        compositeDisposable.add(subscribe);
 
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
-                Log.e("NewsFailure",t.toString());
-            }
-        });
+    }
+
+    private void handleResult(NewsResponse newsResponse) {
+        Log.e("response","success");
+        news = newsResponse.newsList.data;
+        adapter.addItem(newsResponse.newsList.data);
+        Log.e("NewsList_size", String.valueOf(news.size()));
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("NewsFailure",throwable.toString());
     }
 
     @Override
@@ -88,5 +89,12 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
         intent.putExtra("newsId",id);
         Log.e("news_Id", String.valueOf(id));
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

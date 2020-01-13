@@ -23,9 +23,10 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +39,7 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
     private String type = "players";
     private int id = -1;
     List<TopicFeedsList> topicFeedsList = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public PlayersFeedsFragment() {
         // Required empty public constructor
@@ -50,6 +52,7 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_players_feeds, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.playersfeedRecyclerView);
         adapter = new PlayersFeedAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -66,29 +69,34 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
     private void getplayersFeeds() {
         Log.e("getplayersFeeds","success");
 
-        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
-            @Override
-            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type,id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-                    adapter.addItem(response.body().topicFeedsList.data);
-                    Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        compositeDisposable.add(subscribe);
+    }
 
-            @Override
-            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TopicFeedsResponse topicFeedsResponse) {
+        Log.e("response","success");
+
+        adapter.addItem(topicFeedsResponse.topicFeedsList.data);
+        Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
     }
 
     @Override
     public void onPlayersFeedClick() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

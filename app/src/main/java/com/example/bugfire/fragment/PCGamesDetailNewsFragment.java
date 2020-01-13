@@ -27,9 +27,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,6 +44,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
     private String type = "games";
     private int id = -1;
     List<NewsTopicList> newsTopicLists = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public PCGamesDetailNewsFragment() {
         // Required empty public constructor
@@ -53,6 +56,7 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pcgames_detail_news, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.newsRecyclerView);
         adapter = new GamesNewsAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -68,24 +72,23 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
 
     private void getPCgamesNews() {
         Log.e("getpcgamesnews", "success");
-        RetrofitService.getApiEnd().getTopicNews(type,id).enqueue(new Callback<TopicNewsResponse>() {
-            @Override
-            public void onResponse(Call<TopicNewsResponse> call, Response<TopicNewsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    adapter.addItem(response.body().topicNewsList.data);
-                    Log.e("pcgamesnewsDataSize" , String.valueOf(newsTopicLists.size()));
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<TopicNewsResponse> call, Throwable t) {
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicNews(type, id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            }
-        });
+        compositeDisposable.add(subscribe);
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TopicNewsResponse topicNewsResponse) {
+        Log.e("response","success");
+        adapter.addItem(topicNewsResponse.topicNewsList.data);
+        Log.e("pcgamesnewsDataSize" , String.valueOf(newsTopicLists.size()));
     }
 
     @Override
@@ -94,5 +97,12 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
         intent.putExtra("gamesNewsId",id);
         Log.e("gamesNewsId", String.valueOf(id));
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
     }
 }

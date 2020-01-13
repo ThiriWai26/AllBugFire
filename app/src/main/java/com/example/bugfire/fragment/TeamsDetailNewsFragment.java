@@ -25,9 +25,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +42,7 @@ public class TeamsDetailNewsFragment extends Fragment implements TeamsNewHolder.
     private String type = "teams";
     private int id = -1;
     List<TopicNewsList> topicNewsLists = new ArrayList<>();
+    private CompositeDisposable compositeDisposable;
 
     public TeamsDetailNewsFragment() {
         // Required empty public constructor
@@ -52,6 +55,7 @@ public class TeamsDetailNewsFragment extends Fragment implements TeamsNewHolder.
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_teams_news, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.playersnewsRecyclerView);
         adapter = new TeamsNewAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -67,21 +71,22 @@ public class TeamsDetailNewsFragment extends Fragment implements TeamsNewHolder.
     }
 
     private void getteamNewsList() {
-        RetrofitService.getApiEnd().getTopicNews(type,id).enqueue(new Callback<TopicNewsResponse>() {
-            @Override
-            public void onResponse(Call<TopicNewsResponse> call, Response<TopicNewsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    adapter.addItem(response.body().topicNewsList.data);
-                    adapter.notifyDataSetChanged();
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicNews(type,id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<TopicNewsResponse> call, Throwable t) {
+        compositeDisposable.add(subscribe);
+    }
 
-            }
-        });
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TopicNewsResponse topicNewsResponse) {
+        Log.e("response","success");
+        adapter.addItem(topicNewsResponse.topicNewsList.data);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -91,4 +96,13 @@ public class TeamsDetailNewsFragment extends Fragment implements TeamsNewHolder.
         Log.e("id", String.valueOf(id));
         startActivity(intent);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
+    }
+
+
 }

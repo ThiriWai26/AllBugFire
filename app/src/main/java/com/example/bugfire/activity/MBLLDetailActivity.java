@@ -29,9 +29,11 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
@@ -41,6 +43,7 @@ public class MBLLDetailActivity extends AppCompatActivity implements Html.ImageG
     private TextView tvtitle, tvname, tvtime, tvabout;
     private int id = -1;
     private final static String TAG = "TestImageGetter";
+    private CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class MBLLDetailActivity extends AppCompatActivity implements Html.ImageG
 
     private void initActivity() {
 
+        compositeDisposable = new CompositeDisposable();
         featurephoto = findViewById(R.id.featurephoto);
         tvtitle = findViewById(R.id.tvtitle);
         tvname = findViewById(R.id.tvname);
@@ -65,42 +69,43 @@ public class MBLLDetailActivity extends AppCompatActivity implements Html.ImageG
 
     private void getMBLLdetail() {
         Log.e("getMBLLDetail", "success");
-        RetrofitService.getApiEnd().getArticleDetail(id).enqueue(new Callback<ArticleDetailResponse>() {
-            @Override
-            public void onResponse(Call<ArticleDetailResponse> call, Response<ArticleDetailResponse> response) {
-                if (response.isSuccessful()) {
-                    Log.e("response", "success");
-                    ArticleDetail articleDetail = response.body().articleDetail;
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
-                    String name = articleDetail.categoryName.get(0);
-                    for (int i = 1; i < articleDetail.categoryName.size(); i++) {
-                        name += "," + articleDetail.categoryName.get(i);
-                    }
-                    Spanned spanned = Html.fromHtml(Rabbit.uni2zg(articleDetail.content), MBLLDetailActivity.this, null);
-                    Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(articleDetail.content), MBLLDetailActivity.this, null);
-                    tvabout.setMovementMethod(LinkMovementMethod.getInstance());
 
-                    if (userFont.equals("z")) {
-                        tvtitle.setText(Rabbit.uni2zg(articleDetail.title));
-                        tvname.setText(Rabbit.uni2zg(name));
-                        tvtime.setText(Rabbit.uni2zg(articleDetail.date));
-                        tvabout.setText(spanned);
-                    } else {
-                        tvtitle.setText(Rabbit.zg2uni(articleDetail.title));
-                        tvname.setText(Rabbit.zg2uni(name));
-                        tvtime.setText(Rabbit.zg2uni(articleDetail.date));
-                        tvabout.setText(spanned1);
-                    }
-                } else {
-                    Log.e("response", response.body().errorMessage);
-                }
-            }
+        Disposable subscribe = RetrofitService.getApiEnd().getArticleDetail(id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-            @Override
-            public void onFailure(Call<ArticleDetailResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+        compositeDisposable.add(subscribe);
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(ArticleDetailResponse articleDetailResponse) {
+        Log.e("response", "success");
+        ArticleDetail articleDetail = articleDetailResponse.articleDetail;
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + articleDetail.featurePhoto).into(featurephoto);
+        String name = articleDetail.categoryName.get(0);
+        for (int i = 1; i < articleDetail.categoryName.size(); i++) {
+            name += "," + articleDetail.categoryName.get(i);
+        }
+        Spanned spanned = Html.fromHtml(Rabbit.uni2zg(articleDetail.content), MBLLDetailActivity.this, null);
+        Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(articleDetail.content), MBLLDetailActivity.this, null);
+        tvabout.setMovementMethod(LinkMovementMethod.getInstance());
+
+        if (userFont.equals("z")) {
+            tvtitle.setText(Rabbit.uni2zg(articleDetail.title));
+            tvname.setText(Rabbit.uni2zg(name));
+            tvtime.setText(Rabbit.uni2zg(articleDetail.date));
+            tvabout.setText(spanned);
+        } else {
+            tvtitle.setText(Rabbit.zg2uni(articleDetail.title));
+            tvname.setText(Rabbit.zg2uni(name));
+            tvtime.setText(Rabbit.zg2uni(articleDetail.date));
+            tvabout.setText(spanned1);
+        }
     }
 
     @Override
@@ -152,6 +157,13 @@ public class MBLLDetailActivity extends AppCompatActivity implements Html.ImageG
                 tvabout.setText(t);
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        compositeDisposable.clear();
     }
 }
 

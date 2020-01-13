@@ -24,9 +24,11 @@ import com.example.bugfire.service.RetrofitService;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,7 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
 
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
+    private CompositeDisposable compositeDisposable;
 
     public PubgFragment() {
         // Required empty public constructor
@@ -50,6 +53,7 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pubg, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.pubgRecyclerView);
         adapter = new PubgAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -65,26 +69,27 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
 
     private void getPubgList() {
         Log.e("getPubgList","success");
-        RetrofitService.getApiEnd().getArticleList(categoryId).enqueue(new Callback<ArticlesResponse>() {
-            @Override
-            public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
-                    articleList = response.body().articlesList.data;
-                    adapter.addItem(response.body().articlesList.data);
-                    Log.e("Pubg_Size", String.valueOf(articleList.size()));
-                    adapter.notifyDataSetChanged();
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ArticlesResponse> call, Throwable t) {
-                Log.e("failure",t.toString());
-            }
-        });
+        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(categoryId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
+
+       compositeDisposable.add(subscribe);
+
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(ArticlesResponse articlesResponse) {
+        Log.e("response","success");
+        articleList = articlesResponse.articlesList.data;
+        adapter.addItem(articlesResponse.articlesList.data);
+        Log.e("Pubg_Size", String.valueOf(articleList.size()));
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -94,4 +99,12 @@ public class PubgFragment extends Fragment implements PubgHolder.OnPubgItemClick
         Log.e("categoryId", String.valueOf(id));
         startActivity(intent);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        compositeDisposable.clear();
+    }
+
 }

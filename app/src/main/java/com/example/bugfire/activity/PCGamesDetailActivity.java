@@ -15,9 +15,11 @@ import com.example.bugfire.service.RetrofitService;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class PCGamesDetailActivity extends AppCompatActivity {
 
@@ -34,6 +36,8 @@ public class PCGamesDetailActivity extends AppCompatActivity {
     private ImageView profile;
     private TextView txname, txabout;
 
+    private CompositeDisposable compositeDisposable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,7 @@ public class PCGamesDetailActivity extends AppCompatActivity {
 
     private void init() {
 
+        compositeDisposable = new CompositeDisposable();
         profile = findViewById(R.id.profile);
         txname = findViewById(R.id.tvName);
         txabout = findViewById(R.id.tvabout);
@@ -64,26 +69,32 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         Log.e("Photo", photo);
 
         Log.e("getGameTitle","success");
-        RetrofitService.getApiEnd().getTopicFeeds(type,id).enqueue(new Callback<TopicFeedsResponse>() {
-            @Override
-            public void onResponse(Call<TopicFeedsResponse> call, Response<TopicFeedsResponse> response) {
-                if(response.isSuccessful()){
-                    Log.e("response","success");
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type, id)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::handleResult, this::handleError);
 
-                    txname.setText(name);
-                    txabout.setText(teamName);
-                    Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
-                }
-                else {
-                    Log.e("response","fail");
-                }
-            }
+        compositeDisposable.add(subscribe);
 
-            @Override
-            public void onFailure(Call<TopicFeedsResponse> call, Throwable t) {
-                Log.e("failure", t.toString());
-            }
-        });
+    }
+
+    private void handleError(Throwable throwable) {
+        Log.e("failure", throwable.toString());
+    }
+
+    private void handleResult(TopicFeedsResponse topicFeedsResponse) {
+        Log.e("response","success");
+
+        txname.setText(name);
+        txabout.setText(teamName);
+        Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(profile);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        compositeDisposable.clear();
     }
 
 }
