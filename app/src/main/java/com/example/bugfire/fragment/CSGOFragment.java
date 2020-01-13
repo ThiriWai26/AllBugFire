@@ -53,6 +53,7 @@ public class CSGOFragment extends Fragment implements CSGOHolder.OnCSGOItemClick
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_csgo, container, false);
 
+        compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.csgoRecyclerView);
         adapter = new CSGOAdapter(this);
         recyclerView.setAdapter(adapter);
