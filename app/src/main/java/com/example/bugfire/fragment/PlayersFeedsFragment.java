@@ -3,6 +3,7 @@ package com.example.bugfire.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,6 +41,9 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
     private int id = -1;
     List<TopicFeedsList> topicFeedsList = new ArrayList<>();
     private CompositeDisposable compositeDisposable;
+    private String nextPage, previousPage, firstPage, lastPage;
+    private int lastVisibleItemPosition = 0;
+    private int page = 1;
 
     public PlayersFeedsFragment() {
         // Required empty public constructor
@@ -56,20 +60,47 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
         recyclerView = view.findViewById(R.id.playersfeedRecyclerView);
         adapter = new PlayersFeedAdapter(this);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle bundle = getActivity().getIntent().getExtras();
         id = bundle.getInt("id");
         Log.e("id",String.valueOf(id));
 
-        getplayersFeeds();
+        getplayersFeeds(page);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+                if(nextPage!=null && lastVisibleItemPosition==19 ){
+                    getplayersFeeds(++page);
+                }
+
+
+            }
+        });
         return view;
     }
 
-    private void getplayersFeeds() {
+    private void getplayersFeeds(int page) {
         Log.e("getplayersFeeds","success");
 
-        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type,id)
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(page,type,id)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
@@ -83,9 +114,12 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
 
     private void handleResult(TopicFeedsResponse topicFeedsResponse) {
         Log.e("response","success");
-
         adapter.addItem(topicFeedsResponse.topicFeedsList.data);
-        Log.e("pcFeedsDataSize", String.valueOf(topicFeedsList.size()));
+        nextPage = topicFeedsResponse.topicFeedsList.nextPage;
+        previousPage = topicFeedsResponse.topicFeedsList.previousPage;
+        firstPage = topicFeedsResponse.topicFeedsList.firstPage;
+        lastPage = topicFeedsResponse.topicFeedsList.lastPage;
+        Log.e("playerFeedsDataSize", String.valueOf(topicFeedsList.size()));
     }
 
     @Override

@@ -39,7 +39,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     List<Feeds> feeds = new ArrayList<>();
     private int page = 1;
     private int totalPage;
-    private String nextPage;
+    private String nextPage, previousPage, firstPage, lastPage;
     private int lastVisibleItemPosition=0;
     private CompositeDisposable compositeDisposable;
 
@@ -59,7 +59,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
         adapter = new FeedsAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         getFeedsList(page);
@@ -74,12 +74,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
             @Override
             public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-//                if (page <= totalPage) {
-//                    Log.e("pageNumber", String.valueOf(page));
-//                    if(nextPage!=null && lastVisibleItemPosition==19 )
-//                    getFeedsList(++page);
 
-//                }
                 int totalItemCount = linearLayoutManager.getItemCount();
                 int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
                 lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
@@ -87,8 +82,9 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                 Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
                 Log.i("totalItemCount",String.valueOf(totalItemCount));
 
-                if(nextPage!=null && lastVisibleItemPosition==19 )
-                    getFeedsList(++page);
+                    if(nextPage!=null && lastVisibleItemPosition==19 ){
+                        getFeedsList(++page);
+                    }
             }
         });
         return view;
@@ -115,6 +111,10 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
         Log.e("totalPage", String.valueOf(totalPage));
         feeds = feedsResponse.feedsList.data;
         adapter.addItem(feedsResponse.feedsList.data);
+        nextPage = feedsResponse.feedsList.nextPage;
+        previousPage = feedsResponse.feedsList.previousPage;
+        firstPage = feedsResponse.feedsList.firstPage;
+        lastPage = feedsResponse.feedsList.lastPage;
         Log.e("Feeds_Size", String.valueOf(feeds.size()));
 
         adapter.notifyDataSetChanged();

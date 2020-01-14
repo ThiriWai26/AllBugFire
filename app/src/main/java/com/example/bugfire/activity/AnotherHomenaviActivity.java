@@ -88,15 +88,7 @@ public class AnotherHomenaviActivity extends AppCompatActivity implements Naviga
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
 
     @Override

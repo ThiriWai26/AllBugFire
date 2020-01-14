@@ -14,20 +14,22 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RetrofitService {
 
-    public static final String BASE_URL="http://192.168.100.8:8000";
+    public static final String BASE_URL = "http://192.168.100.8:8000";
 
     private static ApiEnd apiEnd;
     private static RetrofitService retrofitService;
 
-    public RetrofitService(){ }
+    public RetrofitService() {
+    }
 
-    public static RetrofitService getInstance(){
-        if(retrofitService == null){
+    public static RetrofitService getInstance() {
+        if (retrofitService == null) {
             retrofitService = new RetrofitService();
         }
 
@@ -35,33 +37,33 @@ public class RetrofitService {
         return retrofitService;
     }
 
-    public static ApiEnd getApiEnd(){
+    public static ApiEnd getApiEnd() {
 
-        OkHttpClient.Builder clientBuilder=new OkHttpClient.Builder()
+        OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
 
-                        Request originalRequest=chain.request();
+                        Request originalRequest = chain.request();
 
-                        Request newRequest=originalRequest.newBuilder()
-                                .header("Authorization","Bearer "+ Token.token)
+                        Request newRequest = originalRequest.newBuilder()
+                                .header("Authorization", "Bearer " + Token.token)
                                 .build();
                         return chain.proceed(newRequest);
                     }
                 });
 
-        OkHttpClient client=clientBuilder.build();
+        OkHttpClient client = clientBuilder.build();
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
         Retrofit service = new Retrofit.Builder().baseUrl(BASE_URL)
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
 
-        if(apiEnd == null) {
+        if (apiEnd == null) {
 
             apiEnd = service.create(ApiEnd.class);
         }

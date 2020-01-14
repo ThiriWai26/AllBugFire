@@ -39,6 +39,7 @@ public class MobileGamesDetailActivity extends AppCompatActivity  {
     private String teamName;
     private String photo;
     private CompositeDisposable compositeDisposable;
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class MobileGamesDetailActivity extends AppCompatActivity  {
         Log.e("Photo", photo);
 
         Log.e("getGameTitle", "success");
-        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type, id)
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(page,type, id)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);

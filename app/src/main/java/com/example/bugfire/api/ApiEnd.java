@@ -26,7 +26,7 @@ public interface ApiEnd {
     Observable<FeedsResponse> getFeedList(@Query("page") int page);
 
     @GET("/api/news_stories")
-    Observable<NewsResponse> getNewList();
+    Observable<NewsResponse> getNewList(@Query("page") int page);
 
     @FormUrlEncoded
     @POST("/api/news_details")
@@ -58,10 +58,10 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/feed_topic")
-    Observable<TopicFeedsResponse> getTopicFeeds(@Field("type") String type, @Field("id") int id);
+    Observable<TopicFeedsResponse> getTopicFeeds(@Query("page") int page, @Field("type") String type, @Field("id") int id);
 
     @FormUrlEncoded
     @POST("/api/news_topic")
-    Observable<TopicNewsResponse> getTopicNews(@Field("type") String type, @Field("id") int id);
+    Observable<TopicNewsResponse> getTopicNews(@Query("page") int page, @Field("type") String type, @Field("id") int id);
 
 }

@@ -3,6 +3,7 @@ package com.example.bugfire.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bugfire.R;
-import com.example.bugfire.adapter.FeedsAdapter;
 import com.example.bugfire.adapter.GamesAdapter;
-import com.example.bugfire.holder.FeedsHolder;
 import com.example.bugfire.holder.GamesHolder;
 import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.response.TopicFeedsResponse;
@@ -41,6 +40,9 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
     private int id = -1;
     List<FeedsTopicList> feedsTopicLists = new ArrayList<>();
     private CompositeDisposable compositeDisposable;
+    private String nextPage, previousPage, firstPage, lastPage;
+    private int lastVisibleItemPosition = 0;
+    private int page = 1;
 
     public PCGamesDetailFeedsFragment() {
         // Required empty public constructor
@@ -57,20 +59,46 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
         recyclerView = view.findViewById(R.id.pcgamesdetailnewsRecyclerView);
         adapter = new GamesAdapter(this);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle b = getActivity().getIntent().getExtras();
         id = b.getInt("id");
         Log.e("ID", String.valueOf(id));
 
-        getPCGamesFeeds();
+        getPCGamesFeeds(page);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+                if(nextPage!=null && lastVisibleItemPosition==19 ){
+                    getPCGamesFeeds(++page);
+                }
+
+            }
+        });
+
         return view;
     }
 
-    private void getPCGamesFeeds() {
+    private void getPCGamesFeeds(int i) {
         Log.e("getPCGamesFeeds","success");
 
-        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type,id)
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(page,type,id)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
@@ -86,6 +114,12 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
         Log.e("response","success");
         adapter.addItem(topicFeedsResponse.topicFeedsList.data);
         adapter.notifyDataSetChanged();
+        nextPage = topicFeedsResponse.topicFeedsList.nextPage;
+        previousPage = topicFeedsResponse.topicFeedsList.previousPage;
+        firstPage = topicFeedsResponse.topicFeedsList.firstPage;
+        lastPage = topicFeedsResponse.topicFeedsList.lastPage;
+        Log.e("gameFeeds_Size", String.valueOf(feedsTopicLists.size()));
+
     }
 
     @Override

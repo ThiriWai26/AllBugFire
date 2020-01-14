@@ -4,6 +4,7 @@ package com.example.bugfire.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,11 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
     List<News> news = new ArrayList<>();
     private CompositeDisposable compositeDisposable;
 
+    private int page = 1;
+    private int totalPage;
+    private String nextPage, previousPage, firstPage, lastPage;
+    private int lastVisibleItemPosition=0;
+
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -54,14 +60,46 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
         adapter = new NewsAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        getNewsList();
+        getNewsList(page);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+//                if (page <= totalPage) {
+//                    Log.e("pageNumber", String.valueOf(page));
+//                    if(nextPage!=null && lastVisibleItemPosition==19 )
+//                        getNewsList(++page);
+//
+//                }
+
+                if(nextPage!=null && lastVisibleItemPosition==19)
+                    getNewsList(++page);
+            }
+        });
+
+
         return view;
     }
 
-    private void getNewsList() {
+    private void getNewsList(int page) {
 
-        Disposable subscribe = RetrofitService.getApiEnd().getNewList()
+        Disposable subscribe = RetrofitService.getApiEnd().getNewList(page)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
@@ -74,6 +112,10 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
         Log.e("response","success");
         news = newsResponse.newsList.data;
         adapter.addItem(newsResponse.newsList.data);
+        nextPage = newsResponse.newsList.nextPage;
+        previousPage=newsResponse.newsList.previousPage;
+        firstPage=newsResponse.newsList.firstPage;
+        lastPage=newsResponse.newsList.lastPage;
         Log.e("NewsList_size", String.valueOf(news.size()));
 
         adapter.notifyDataSetChanged();

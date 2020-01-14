@@ -35,8 +35,8 @@ public class PCGamesDetailActivity extends AppCompatActivity {
 
     private ImageView profile;
     private TextView txname, txabout;
-
     private CompositeDisposable compositeDisposable;
+    private int page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class PCGamesDetailActivity extends AppCompatActivity {
         Log.e("Photo", photo);
 
         Log.e("getGameTitle","success");
-        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(type, id)
+        Disposable subscribe = RetrofitService.getApiEnd().getTopicFeeds(page,type, id)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
