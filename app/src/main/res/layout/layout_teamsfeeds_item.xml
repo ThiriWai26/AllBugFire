@@ -80,24 +80,10 @@
                 android:justificationMode="inter_word"
                 />
 
-            <TextView
-                android:id="@+id/tvabout1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_lg"
-                android:layout_marginRight="@dimen/margin_lg"
-                android:layout_marginTop="@dimen/margin_md"
-                android:text=""
-                android:justificationMode="inter_word"
-                android:layout_marginBottom="@dimen/margin_bottom"
-                style="@style/NormalTextInputLayout"
-                />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 tools:listitem="@layout/layout_imagegrid_feeditem" />
 
         </LinearLayout>
