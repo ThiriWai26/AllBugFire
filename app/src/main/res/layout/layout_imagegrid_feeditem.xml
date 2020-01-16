@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_playerItems"
     android:orientation="vertical"
-    android:layout_width="170dp"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorBackground"
     tools:ignore="InvalidId">
 
     <TextView

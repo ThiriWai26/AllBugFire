@@ -44,7 +44,6 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
     private final static String TAG = "TestImageGetter";
     private RecyclerView recyclerView1;
     private FeedsImageGridAdapter feedsImageGridAdapter;
-    List<String> photo = new ArrayList<>();
 
     public FeedsHolder(@NonNull View itemView, OnFeedClickListener listener) {
         super(itemView);

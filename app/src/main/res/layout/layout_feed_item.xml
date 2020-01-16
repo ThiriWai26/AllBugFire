@@ -87,14 +87,15 @@
                 android:justificationMode="inter_word"
                 />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                tools:listitem="@layout/layout_imagegrid_feeditem" />
+
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="92dp"
-            tools:listitem="@layout/layout_imagegrid_feeditem" />
 
     </androidx.cardview.widget.CardView>
 

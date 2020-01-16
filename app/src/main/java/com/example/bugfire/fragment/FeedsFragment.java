@@ -66,11 +66,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-//        recyclerView1 = view.findViewById(R.id.recyclerView);
-//        feedsImageGridAdapter = new FeedsImageGridAdapter(this);
-//        recyclerView1.setAdapter(feedsImageGridAdapter);
-//        recyclerView1.setLayoutManager(new GridLayoutManager(getContext(),2));
-
         getFeedsList(page);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -16,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.FeedsImageGridAdapter;
 import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
@@ -38,6 +40,8 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder  implements Html.Im
     private TextView txName, txTime, txabout;
     private ImageView profile, logo;
     private final static String TAG = "TestImageGetter";
+    private RecyclerView recyclerView1;
+    private FeedsImageGridAdapter feedsImageGridAdapter;
 
     public TeamsFeedHolder(@NonNull View itemView, OnTeamsFeedClickListener listener) {
         super(itemView);
@@ -48,6 +52,7 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder  implements Html.Im
         txabout = itemView.findViewById(R.id.tvabout);
         profile = itemView.findViewById(R.id.profile);
         logo = itemView.findViewById(R.id.logo);
+        recyclerView1 = itemView.findViewById(R.id.recyclerView);
 
     }
 
@@ -57,6 +62,15 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder  implements Html.Im
     }
 
     public void bindData(FeedsTopicList feedsTopicList) {
+
+        if (feedsTopicList.photo != null) {
+            Log.e("photo", "null");
+            feedsImageGridAdapter = new FeedsImageGridAdapter();
+            recyclerView1.setAdapter(feedsImageGridAdapter);
+            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
+
+            feedsImageGridAdapter.addItem(feedsTopicList.photo);
+        }
 
         if (userFont.equals("z")) {
             txName.setText(Rabbit.uni2zg(feedsTopicList.name));
