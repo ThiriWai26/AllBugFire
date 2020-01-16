@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bugfire.fragment.FeedsFragment;
 import com.example.bugfire.holder.FeedsImageGridHolder;
 
 import java.util.ArrayList;
@@ -14,11 +13,7 @@ import java.util.List;
 
 public class FeedsImageGridAdapter extends RecyclerView.Adapter<FeedsImageGridHolder> {
 
-    List<String> photos;
-
-    public FeedsImageGridAdapter(FeedsFragment feedsImageGridFragment) {
-        photos = new ArrayList<>();
-    }
+    List<String> photo = new ArrayList<>();
 
     @NonNull
     @Override
@@ -29,17 +24,17 @@ public class FeedsImageGridAdapter extends RecyclerView.Adapter<FeedsImageGridHo
 
     @Override
     public void onBindViewHolder(@NonNull FeedsImageGridHolder holder, int position) {
-        holder.bindData(photos.get(position));
+        holder.bindData(photo.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return photos.size();
+        return photo.size();
     }
 
     public void addItem(List<String> photos){
-        this.photos.clear();
-        this.photos.addAll(photos);
+        this.photo.clear();
+        this.photo.addAll(photos);
         notifyDataSetChanged();
 
     }

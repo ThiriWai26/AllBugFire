@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.model.Feeds;
 import com.example.bugfire.service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
@@ -25,7 +27,7 @@ public class FeedsImageGridHolder extends RecyclerView.ViewHolder {
 
 
     public static FeedsImageGridHolder create(LayoutInflater inflater, ViewGroup viewGroup) {
-        View view = inflater.inflate(R.layout.layout_imagegrid_feeditem, viewGroup);
+        View view = inflater.inflate(R.layout.layout_imagegrid_feeditem, viewGroup,false);
         return new FeedsImageGridHolder(view);
     }
 
@@ -33,5 +35,6 @@ public class FeedsImageGridHolder extends RecyclerView.ViewHolder {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(imageView);
 
+        Log.e("photo", String.valueOf(photo));
     }
 }

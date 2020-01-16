@@ -58,18 +58,19 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
 
         final View view = inflater.inflate(R.layout.fragment_feeds, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.feedRecyclerView);
         adapter = new FeedsAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView1 = view.findViewById(R.id.recyclerView);
-        feedsImageGridAdapter = new FeedsImageGridAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+//        recyclerView1 = view.findViewById(R.id.recyclerView);
+//        feedsImageGridAdapter = new FeedsImageGridAdapter(this);
+//        recyclerView1.setAdapter(feedsImageGridAdapter);
+//        recyclerView1.setLayoutManager(new GridLayoutManager(getContext(),2));
+
         getFeedsList(page);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

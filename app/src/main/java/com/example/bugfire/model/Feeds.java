@@ -33,6 +33,6 @@ public class Feeds {
     @SerializedName("updated_at")
     public String updatedAt;
 
-    @SerializedName("photo")
+    @SerializedName("photos")
     public List<String> photo;
 }

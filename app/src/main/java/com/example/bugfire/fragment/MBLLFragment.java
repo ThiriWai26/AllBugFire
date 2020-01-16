@@ -4,6 +4,7 @@ package com.example.bugfire.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,8 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
     List<Article> articleList = new ArrayList<>();
     private int categoryId = -1;
     private CompositeDisposable compositeDisposable;
+    private int page = 1;
+    private String nextPage, previousPage, firstPage, lastPage;
 
     public MBLLFragment() {
         // Required empty public constructor
@@ -57,20 +60,44 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
         recyclerView = view.findViewById(R.id.mbllRecyclerView);
         adapter = new MBLLAdapter(this);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle bundle = getArguments();
         categoryId = bundle.getInt("mbll_categoryId");
         Log.e("mbllId",String.valueOf(categoryId));
 
-        getMBLLList();
+        getMBLLList(page);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                int childCount = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(childCount));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+                if(nextPage!=null && (firstVisibleItem+childCount>=totalItemCount)){
+                    getMBLLList(++page);
+                }
+            }
+        });
         return view;
     }
 
-    private void getMBLLList() {
+    private void getMBLLList(int page) {
         Log.e("getMBLLList","success");
 
-        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(categoryId)
+        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(page,categoryId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
@@ -87,6 +114,10 @@ public class MBLLFragment extends Fragment implements MBLLHolder.OnMBLLItemClick
         Log.e("response","success");
         articleList = articlesResponse.articlesList.data;
         adapter.addItem(articlesResponse.articlesList.data);
+        nextPage = articlesResponse.articlesList.nextPage;
+        previousPage = articlesResponse.articlesList.previousPage;
+        firstPage = articlesResponse.articlesList.firstPage;
+        lastPage = articlesResponse.articlesList.lastPage;
         Log.e("Dota_Size", String.valueOf(articleList.size()));
 
         adapter.notifyDataSetChanged();

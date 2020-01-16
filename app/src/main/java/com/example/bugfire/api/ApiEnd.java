@@ -50,7 +50,7 @@ public interface ApiEnd {
 
     @FormUrlEncoded
     @POST("/api/articles")
-    Observable<ArticlesResponse> getArticleList(@Field("category_id") int id);
+    Observable<ArticlesResponse> getArticleList(@Field("page") int page, @Field("category_id") int id);
 
     @FormUrlEncoded
     @POST("/api/article_details")

@@ -16,9 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
+import com.example.bugfire.adapter.FeedsImageGridAdapter;
 import com.example.bugfire.model.Feeds;
 import com.example.bugfire.rabbitconverter.Rabbit;
 import com.example.bugfire.service.RetrofitService;
@@ -29,15 +31,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
-public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGetter{
+public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGetter {
 
     private OnFeedClickListener listener;
     private TextView txName, txTime, txabout;
-    private ImageView profile,logo;
+    private ImageView profile, logo;
     private final static String TAG = "TestImageGetter";
+    private RecyclerView recyclerView1;
+    private FeedsImageGridAdapter feedsImageGridAdapter;
+    List<String> photo = new ArrayList<>();
 
     public FeedsHolder(@NonNull View itemView, OnFeedClickListener listener) {
         super(itemView);
@@ -48,6 +55,7 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
         txabout = itemView.findViewById(R.id.tvabout);
         profile = itemView.findViewById(R.id.profile);
         logo = itemView.findViewById(R.id.logo);
+        recyclerView1 = itemView.findViewById(R.id.recyclerView);
 
     }
 
@@ -57,10 +65,21 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
     }
 
     public void BindData(Feeds feeds) {
+
+        if (feeds.photo != null) {
+            Log.e("photo", "null");
+            feedsImageGridAdapter = new FeedsImageGridAdapter();
+            recyclerView1.setAdapter(feedsImageGridAdapter);
+            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
+
+            feedsImageGridAdapter.addItem(feeds.photo);
+        }
         if (userFont.equals("z")) {
             txName.setText(Rabbit.uni2zg(feeds.name));
             txTime.setText(Rabbit.uni2zg(feeds.date));
             txabout.setText(Rabbit.uni2zg(feeds.content));
+
+
         } else {
             txName.setText(Rabbit.zg2uni(feeds.name));
             txTime.setText(Rabbit.zg2uni(feeds.date));
@@ -70,6 +89,8 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.categoryPhoto).into(profile);
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.sourceLogo).into(logo);
+
+
     }
 
     public interface OnFeedClickListener {

@@ -42,7 +42,6 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
     List<TopicFeedsList> topicFeedsList = new ArrayList<>();
     private CompositeDisposable compositeDisposable;
     private String nextPage, previousPage, firstPage, lastPage;
-    private int lastVisibleItemPosition = 0;
     private int page = 1;
 
     public PlayersFeedsFragment() {
@@ -81,13 +80,13 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
                 super.onScrolled(recyclerView, dx, dy);
 
                 int totalItemCount = linearLayoutManager.getItemCount();
-                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
-                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                int childCount = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(childCount));
                 Log.i("totalItemCount",String.valueOf(totalItemCount));
 
-                if(nextPage!=null && lastVisibleItemPosition==19 ){
+                if(nextPage!=null && (firstVisibleItem+childCount >= totalItemCount) ){
                     getplayersFeeds(++page);
                 }
 

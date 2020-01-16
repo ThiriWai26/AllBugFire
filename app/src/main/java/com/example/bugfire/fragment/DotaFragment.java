@@ -4,6 +4,7 @@ package com.example.bugfire.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +42,8 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
     private int categoryId = -1;
     private String type = "GAME";
     private CompositeDisposable compositeDisposable;
+    private int page = 1;
+    private String nextPage, previousPage, firstPage, lastPage;
 
     public DotaFragment() {
         // Required empty public constructor
@@ -57,20 +60,45 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
         recyclerView = view.findViewById(R.id.dotaRecyclerView);
         adapter = new DotaAdapter(this);
         recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         Bundle bundle = getArguments();
         categoryId = bundle.getInt("dota_categoryId");
         Log.e("dotaId",String.valueOf(categoryId));
 
-        getDotaList();
+        getDotaList(page);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int totalItemCount = linearLayoutManager.getItemCount();
+                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                int childCount = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(childCount));
+                Log.i("totalItemCount",String.valueOf(totalItemCount));
+
+                if(nextPage!=null && (firstVisibleItem+childCount>=totalItemCount)){
+                    getDotaList(++page);
+                }
+            }
+        });
         return view;
     }
 
-    private void getDotaList() {
+    private void getDotaList(int page) {
         Log.e("getDotaList","success");
 
-        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(categoryId)
+        Disposable subscribe = RetrofitService.getApiEnd().getArticleList(page,categoryId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleResult, this::handleError);
@@ -83,6 +111,10 @@ public class DotaFragment extends Fragment implements DotaHolder.OnDotaItemClick
         Log.e("response","success");
         articleLists = articlesResponse.articlesList.data;
         adapter.addItem(articlesResponse.articlesList.data);
+        nextPage = articlesResponse.articlesList.nextPage;
+        previousPage = articlesResponse.articlesList.previousPage;
+        firstPage = articlesResponse.articlesList.firstPage;
+        lastPage = articlesResponse.articlesList.lastPage;
         Log.e("Dota_Size", String.valueOf(articleLists.size()));
         adapter.notifyDataSetChanged();
     }
