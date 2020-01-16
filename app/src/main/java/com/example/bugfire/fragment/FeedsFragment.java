@@ -11,11 +11,13 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.FeedsAdapter;
+import com.example.bugfire.adapter.FeedsImageGridAdapter;
 import com.example.bugfire.holder.FeedsHolder;
 import com.example.bugfire.model.Feeds;
 import com.example.bugfire.response.FeedsResponse;
@@ -40,8 +42,10 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private int page = 1;
     private int totalPage;
     private String nextPage, previousPage, firstPage, lastPage;
-    private int lastVisibleItemPosition=0;
     private CompositeDisposable compositeDisposable;
+
+    private RecyclerView recyclerView1;
+    private FeedsImageGridAdapter feedsImageGridAdapter;
 
     public FeedsFragment() {
         // Required empty public constructor
@@ -62,6 +66,10 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        recyclerView1 = view.findViewById(R.id.recyclerView);
+        feedsImageGridAdapter = new FeedsImageGridAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         getFeedsList(page);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -76,15 +84,15 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
                 super.onScrolled(recyclerView, dx, dy);
 
                 int totalItemCount = linearLayoutManager.getItemCount();
-                int FirstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-                Log.i("firstvisibleItem", String.valueOf(FirstVisibleItem));
-                Log.i("lastVisibleItem", String.valueOf(lastVisibleItemPosition));
+                int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+                int childCount = linearLayoutManager.findLastVisibleItemPosition();
+                Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
+                Log.i("lastVisibleItem", String.valueOf(childCount));
                 Log.i("totalItemCount",String.valueOf(totalItemCount));
 
-                    if(nextPage!=null && lastVisibleItemPosition==19 ){
-                        getFeedsList(++page);
-                    }
+                if(nextPage!=null && (firstVisibleItem+childCount>=totalItemCount)){
+                    getFeedsList(++page);
+                }
             }
         });
         return view;

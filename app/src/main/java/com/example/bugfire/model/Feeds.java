@@ -2,6 +2,8 @@ package com.example.bugfire.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Feeds {
 
     @SerializedName("category_name")
@@ -31,4 +33,6 @@ public class Feeds {
     @SerializedName("updated_at")
     public String updatedAt;
 
+    @SerializedName("photo")
+    public List<String> photo;
 }
