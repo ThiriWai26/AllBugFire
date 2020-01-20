@@ -17,7 +17,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.FeedsImageGridAdapter;
@@ -69,7 +71,8 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
             Log.e("photo", "null");
             feedsImageGridAdapter = new FeedsImageGridAdapter();
             recyclerView1.setAdapter(feedsImageGridAdapter);
-            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
+//            recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(4,LinearLayoutManager.VERTICAL));
+            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(), 2));
 
             feedsImageGridAdapter.addItem(feeds.photo);
         }
@@ -77,7 +80,6 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
             txName.setText(Rabbit.uni2zg(feeds.name));
             txTime.setText(Rabbit.uni2zg(feeds.date));
             txabout.setText(Rabbit.uni2zg(feeds.content));
-
 
         } else {
             txName.setText(Rabbit.zg2uni(feeds.name));

@@ -100,7 +100,7 @@ public class TeamsNewsDetailActivity extends AppCompatActivity implements Html.I
         } else {
             tvtitle.setText(Rabbit.zg2uni(newsDetail.title));
             tvname.setText(Rabbit.zg2uni(categoryName));
-            tvtitle.setText(Rabbit.zg2uni(newsDetail.date));
+            tvdate.setText(Rabbit.zg2uni(newsDetail.date));
             tvabout.setText(spanned1);
         }
     }

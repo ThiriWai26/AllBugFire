@@ -107,7 +107,7 @@ public class CSGODetailActivity extends AppCompatActivity implements Html.ImageG
             Log.e("font","u");
             tvtitle.setText(Rabbit.zg2uni(articleDetail.title));
             tvname.setText(Rabbit.zg2uni(name));
-            tvtitle.setText(Rabbit.zg2uni(articleDetail.date));
+            tvtime.setText(Rabbit.zg2uni(articleDetail.date));
             tvabout.setText(spanned1);
         }
     }

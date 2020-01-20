@@ -37,7 +37,7 @@
                     android:id="@+id/tvname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/NormalTextInputLayout"
+                    style="@style/CategoryNameInputLayout"
                     android:text="" />
 
                 <TextView
@@ -53,7 +53,7 @@
                     android:id="@+id/tvtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/NormalTextInputLayout"
+                    style="@style/SubsmallInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
                     android:text=""
                     android:justificationMode="inter_word"/>
