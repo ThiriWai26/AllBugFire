@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.bugfire.R;
+import com.example.bugfire.activity.DotaDetailActivity;
 import com.example.bugfire.adapter.FeedsImageGridAdapter;
 import com.example.bugfire.model.Feeds;
 import com.example.bugfire.rabbitconverter.Rabbit;
@@ -76,15 +78,20 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
 
             feedsImageGridAdapter.addItem(feeds.photo);
         }
+
+        Spanned spanned = Html.fromHtml(Rabbit.uni2zg(feeds.content), this::getDrawable, null);
+        Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(feeds.content), this::getDrawable, null);
+        txabout.setMovementMethod(LinkMovementMethod.getInstance());
+
         if (userFont.equals("z")) {
             txName.setText(Rabbit.uni2zg(feeds.name));
             txTime.setText(Rabbit.uni2zg(feeds.date));
-            txabout.setText(Rabbit.uni2zg(feeds.content));
+            txabout.setText(spanned);
 
         } else {
             txName.setText(Rabbit.zg2uni(feeds.name));
             txTime.setText(Rabbit.zg2uni(feeds.date));
-            txabout.setText(Rabbit.zg2uni(feeds.content));
+            txabout.setText(spanned1);
         }
 
         txabout.setMovementMethod(LinkMovementMethod.getInstance());

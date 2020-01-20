@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
 import android.os.AsyncTask;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,14 +73,18 @@ public class TeamsFeedHolder extends RecyclerView.ViewHolder  implements Html.Im
             feedsImageGridAdapter.addItem(feedsTopicList.photo);
         }
 
+        Spanned spanned = Html.fromHtml(Rabbit.uni2zg(feedsTopicList.content), this::getDrawable, null);
+        Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(feedsTopicList.content), this::getDrawable, null);
+        txabout.setMovementMethod(LinkMovementMethod.getInstance());
+
         if (userFont.equals("z")) {
             txName.setText(Rabbit.uni2zg(feedsTopicList.name));
             txTime.setText(Rabbit.uni2zg(feedsTopicList.date));
-            txabout.setText(Rabbit.uni2zg(feedsTopicList.content));
+            txabout.setText(spanned);
         } else {
             txName.setText(Rabbit.zg2uni(feedsTopicList.name));
             txTime.setText(Rabbit.zg2uni(feedsTopicList.date));
-            txabout.setText(Rabbit.zg2uni(feedsTopicList.content));
+            txabout.setText(spanned1);
         }
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);

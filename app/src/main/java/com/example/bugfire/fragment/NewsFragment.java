@@ -43,6 +43,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
     private int page = 1;
     private int totalPage;
     private String nextPage, previousPage, firstPage, lastPage;
+    private int childCount = 0;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -75,7 +76,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
 
                 int totalItemCount = linearLayoutManager.getItemCount();
                 int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                int childCount = linearLayoutManager.findLastVisibleItemPosition();
+                childCount = linearLayoutManager.findLastVisibleItemPosition();
                 Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
                 Log.i("lastVisibleItem", String.valueOf(childCount));
                 Log.i("totalItemCount",String.valueOf(totalItemCount));

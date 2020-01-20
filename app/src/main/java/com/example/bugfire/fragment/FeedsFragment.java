@@ -44,8 +44,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private String nextPage, previousPage, firstPage, lastPage;
     private CompositeDisposable compositeDisposable;
 
-    private RecyclerView recyclerView1;
-    private FeedsImageGridAdapter feedsImageGridAdapter;
 
     public FeedsFragment() {
         // Required empty public constructor

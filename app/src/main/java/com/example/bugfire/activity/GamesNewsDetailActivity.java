@@ -148,7 +148,7 @@ public class GamesNewsDetailActivity extends AppCompatActivity implements Html.I
             if (bitmap != null) {
                 BitmapDrawable d = new BitmapDrawable(bitmap);
                 mDrawable.addLevel(1, 1, d);
-                mDrawable.setBounds(0, 0,1000, 700);
+                mDrawable.setBounds(0, 0,700, 500);
                 mDrawable.setLevel(1);
                 // i don't know yet a better way to refresh TextView
                 // mTv.invalidate() doesn't work as expected
