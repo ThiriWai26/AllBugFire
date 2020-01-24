@@ -66,11 +66,11 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder implements Html.I
 
         if (feedsTopicList.photo != null) {
             Log.e("photo", "null");
-            feedsImageGridAdapter = new FeedsImageGridAdapter();
-            recyclerView1.setAdapter(feedsImageGridAdapter);
-            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
-
-            feedsImageGridAdapter.addItem(feedsTopicList.photo);
+//            feedsImageGridAdapter = new FeedsImageGridAdapter();
+//            recyclerView1.setAdapter(feedsImageGridAdapter);
+//            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
+//
+//            feedsImageGridAdapter.addItem(feedsTopicList.photo);
         }
 
         Spanned spanned = Html.fromHtml(Rabbit.uni2zg(feedsTopicList.content), this::getDrawable, null);

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.example.bugfire.R;
 import com.example.bugfire.adapter.FeedsAdapter;
 import com.example.bugfire.adapter.FeedsImageGridAdapter;
 import com.example.bugfire.holder.FeedsHolder;
+import com.example.bugfire.holder.FeedsImageGridHolder;
 import com.example.bugfire.model.Feeds;
 import com.example.bugfire.response.FeedsResponse;
 import com.example.bugfire.service.RetrofitService;
@@ -32,9 +34,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ *
  * A simple {@link Fragment} subclass.
  */
-public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickListener {
+public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickListener, FeedsImageGridHolder.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private FeedsAdapter adapter;
@@ -131,5 +134,10 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
         super.onDestroyView();
 
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void onItemClickListener(ImageView imageView) {
+
     }
 }

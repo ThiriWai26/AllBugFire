@@ -1,10 +1,13 @@
 package com.example.bugfire.holder;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.text.Html;
 import android.text.Spanned;
@@ -13,7 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +45,7 @@ import java.util.List;
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
-public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGetter {
+public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGetter, FeedsImageGridHolder.OnItemClickListener {
 
     private OnFeedClickListener listener;
     private TextView txName, txTime, txabout;
@@ -71,7 +76,7 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
 
         if (feeds.photo != null) {
             Log.e("photo", "null");
-            feedsImageGridAdapter = new FeedsImageGridAdapter();
+            feedsImageGridAdapter = new FeedsImageGridAdapter(this);
             recyclerView1.setAdapter(feedsImageGridAdapter);
 //            recyclerView1.setLayoutManager(new StaggeredGridLayoutManager(4,LinearLayoutManager.VERTICAL));
             recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(), 2));
@@ -97,8 +102,10 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.categoryPhoto).into(profile);
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feeds.sourceLogo).into(logo);
+    }
 
-
+    @Override
+    public void onItemClickListener(ImageView imageView) {
     }
 
     public interface OnFeedClickListener {
