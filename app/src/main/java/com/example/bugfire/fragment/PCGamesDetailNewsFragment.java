@@ -56,12 +56,13 @@ public class PCGamesDetailNewsFragment extends Fragment implements GamesNewsHold
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pcgames_detail_news, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.newsRecyclerView);
         adapter = new GamesNewsAdapter(this);
         recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Bundle b = getActivity().getIntent().getExtras();
         id = b.getInt("id");

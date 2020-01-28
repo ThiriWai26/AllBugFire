@@ -47,7 +47,6 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private String nextPage, previousPage, firstPage, lastPage;
     private CompositeDisposable compositeDisposable;
 
-
     public FeedsFragment() {
         // Required empty public constructor
     }
@@ -113,7 +112,7 @@ public class FeedsFragment extends Fragment implements FeedsHolder.OnFeedClickLi
     private void handleResult(FeedsResponse feedsResponse) {
         Log.e("response", "success");
         totalPage = feedsResponse.feedsList.lastPageNumber;
-        Log.e("totalPage", String.valueOf(totalPage));
+        Log.e("feedstotalPage", String.valueOf(totalPage));
         feeds = feedsResponse.feedsList.data;
         adapter.addItem(feedsResponse.feedsList.data);
         nextPage = feedsResponse.feedsList.nextPage;

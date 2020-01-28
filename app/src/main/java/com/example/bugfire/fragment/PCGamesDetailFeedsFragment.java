@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.GamesAdapter;
+import com.example.bugfire.holder.FeedsImageGridHolder;
 import com.example.bugfire.holder.GamesHolder;
 import com.example.bugfire.model.FeedsTopicList;
 import com.example.bugfire.response.TopicFeedsResponse;
@@ -31,7 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.OnGamesItemClickListener {
+public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.OnGamesItemClickListener, FeedsImageGridHolder.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private GamesAdapter adapter;
@@ -54,12 +56,13 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_pcgames_detail_feeds, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.pcgamesdetailnewsRecyclerView);
         adapter = new GamesAdapter(this);
         recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Bundle b = getActivity().getIntent().getExtras();
         id = b.getInt("id");
@@ -129,4 +132,8 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
     }
 
 
+    @Override
+    public void onItemClickListener(ImageView img1) {
+
+    }
 }

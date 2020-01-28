@@ -61,12 +61,13 @@ public class PlayersNewsFragment extends Fragment implements PlayersNewHolder.On
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_players_news, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.playersnewsRecyclerView);
         adapter = new PlayersNewAdapter(this);
         recyclerView.setAdapter(adapter);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         id = bundle.getInt("id");

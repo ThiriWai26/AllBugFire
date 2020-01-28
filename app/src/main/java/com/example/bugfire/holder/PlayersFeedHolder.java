@@ -35,7 +35,7 @@ import java.net.URL;
 
 import static com.example.bugfire.activity.FontStatusActivity.userFont;
 
-public class PlayersFeedHolder extends RecyclerView.ViewHolder implements Html.ImageGetter {
+public class PlayersFeedHolder extends RecyclerView.ViewHolder implements Html.ImageGetter, FeedsImageGridHolder.OnItemClickListener {
 
     private OnPlayersFeedClickListener listener;
     private TextView txName, txTime, txabout;
@@ -66,11 +66,11 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder implements Html.I
 
         if (feedsTopicList.photo != null) {
             Log.e("photo", "null");
-//            feedsImageGridAdapter = new FeedsImageGridAdapter();
-//            recyclerView1.setAdapter(feedsImageGridAdapter);
-//            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
-//
-//            feedsImageGridAdapter.addItem(feedsTopicList.photo);
+            feedsImageGridAdapter = new FeedsImageGridAdapter(this);
+            recyclerView1.setAdapter(feedsImageGridAdapter);
+            recyclerView1.setLayoutManager(new GridLayoutManager(itemView.getContext(),2));
+
+            feedsImageGridAdapter.addItem(feedsTopicList.photo);
         }
 
         Spanned spanned = Html.fromHtml(Rabbit.uni2zg(feedsTopicList.content), this::getDrawable, null);
@@ -89,6 +89,11 @@ public class PlayersFeedHolder extends RecyclerView.ViewHolder implements Html.I
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.sourceLogo).into(logo);
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + feedsTopicList.categoryPhoto).into(profile);
+    }
+
+    @Override
+    public void onItemClickListener(ImageView img1) {
+
     }
 
     public interface OnPlayersFeedClickListener {

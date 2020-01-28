@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.PlayersFeedAdapter;
 import com.example.bugfire.holder.FeedsHolder;
+import com.example.bugfire.holder.FeedsImageGridHolder;
 import com.example.bugfire.holder.PlayersFeedHolder;
 import com.example.bugfire.model.TopicFeedsList;
 import com.example.bugfire.response.TopicFeedsResponse;
@@ -32,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.OnPlayersFeedClickListener {
+public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.OnPlayersFeedClickListener, FeedsImageGridHolder.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private PlayersFeedAdapter adapter;
@@ -59,8 +61,9 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
         recyclerView = view.findViewById(R.id.playersfeedRecyclerView);
         adapter = new PlayersFeedAdapter(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Bundle bundle = getActivity().getIntent().getExtras();
         id = bundle.getInt("id");
@@ -131,5 +134,10 @@ public class PlayersFeedsFragment extends Fragment implements PlayersFeedHolder.
         super.onDestroyView();
 
         compositeDisposable.clear();
+    }
+
+    @Override
+    public void onItemClickListener(ImageView img1) {
+
     }
 }

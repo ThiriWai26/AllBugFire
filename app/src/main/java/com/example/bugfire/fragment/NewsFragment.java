@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.bugfire.R;
 import com.example.bugfire.activity.NewsDetailActivity;
@@ -43,7 +44,6 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
     private int page = 1;
     private int totalPage;
     private String nextPage, previousPage, firstPage, lastPage;
-    private int childCount = 0;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -55,45 +55,44 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_news, container, false);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         compositeDisposable = new CompositeDisposable();
         recyclerView = view.findViewById(R.id.newsRecyclerView);
         adapter = new NewsAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         getNewsList(page);
 
+//         if (page <= totalPage) {
+//              Log.e("pageNumber", String.valueOf(page));
+//               if(nextPage!=null && lastVisibleItemPosition==19 )
+//                 getNewsList(++page);
+//                }
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
             }
 
             @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull final RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int totalItemCount = linearLayoutManager.getItemCount();
                 int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
-                childCount = linearLayoutManager.findLastVisibleItemPosition();
+                int childCount = linearLayoutManager.findLastVisibleItemPosition();
                 Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
                 Log.i("lastVisibleItem", String.valueOf(childCount));
                 Log.i("totalItemCount",String.valueOf(totalItemCount));
 
-//                if (page <= totalPage) {
-//                    Log.e("pageNumber", String.valueOf(page));
-//                    if(nextPage!=null && lastVisibleItemPosition==19 )
-//                        getNewsList(++page);
-//
-//                }
-
-                if(nextPage!=null && (firstVisibleItem+childCount >= totalItemCount))
+                if(nextPage!=null && (firstVisibleItem+childCount>=totalItemCount)){
                     getNewsList(++page);
+                }
             }
         });
-
-
         return view;
     }
 
@@ -110,6 +109,8 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
 
     private void handleResult(NewsResponse newsResponse) {
         Log.e("response","success");
+        totalPage = newsResponse.newsList.lastPageNumber;
+        Log.e("newstotalPage", String.valueOf(totalPage));
         news = newsResponse.newsList.data;
         adapter.addItem(newsResponse.newsList.data);
         nextPage = newsResponse.newsList.nextPage;

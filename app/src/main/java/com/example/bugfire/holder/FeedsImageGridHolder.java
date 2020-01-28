@@ -64,17 +64,12 @@ public class FeedsImageGridHolder extends RecyclerView.ViewHolder {
                 Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(dialogimg);
                 Log.e("dialogimg", String.valueOf(dialogimg));
                 dialog.show();
+
+                Dialog dialog1 = new Dialog(itemView.getContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+                dialogimg = dialog.findViewById(R.id.dialog_imageview);
+                Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(dialogimg);
             }
         });
-
-//        layout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listener.onItemClickListener(img);
-//                Dialog dialog = new Dialog(itemView.getContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
-//                dialog.setContentView(R.layout.layout_fullscreen_image);
-//            }
-//        });
     }
 
     public interface OnItemClickListener {

@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.bugfire.R;
 import com.example.bugfire.adapter.TeamAdapter;
 import com.example.bugfire.adapter.TeamsFeedAdapter;
+import com.example.bugfire.holder.FeedsImageGridHolder;
 import com.example.bugfire.holder.TeamHolder;
 import com.example.bugfire.holder.TeamsFeedHolder;
 import com.example.bugfire.model.FeedsTopicList;
@@ -37,7 +39,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener {
+public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolder.OnTeamsFeedClickListener, FeedsImageGridHolder.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private TeamsFeedAdapter adapter;
@@ -64,8 +66,9 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
         recyclerView = view.findViewById(R.id.teamsdetailnewsRecyclerView);
         adapter = new TeamsFeedAdapter(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Bundle b = getActivity().getIntent().getExtras();
         id = b.getInt("id");
@@ -135,4 +138,8 @@ public class TeamsDetailFeedsFragment extends Fragment implements TeamsFeedHolde
     }
 
 
+    @Override
+    public void onItemClickListener(ImageView img1) {
+
+    }
 }
