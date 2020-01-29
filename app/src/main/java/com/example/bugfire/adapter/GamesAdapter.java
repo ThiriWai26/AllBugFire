@@ -45,8 +45,10 @@ public class GamesAdapter extends RecyclerView.Adapter<GamesHolder> {
 
     public void addItem(List<FeedsTopicList> feedsTopicLists){
 
-        this.feedsTopicList.clear();
-        this.feedsTopicList.addAll(feedsTopicLists);
+        if (feedsTopicList.isEmpty()) {
+            this.feedsTopicList = feedsTopicLists;
+        } else
+            this.feedsTopicList.addAll(feedsTopicLists);
         notifyDataSetChanged();
 
     }

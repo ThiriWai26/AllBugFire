@@ -53,7 +53,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-
                         style="@style/TitleInputLayout" />
 
                     <TextView
@@ -85,8 +84,7 @@
                 android:text=""
                 style="@style/NormalTextInputLayout"
                 android:layout_marginBottom="@dimen/margin_lg"
-                android:justificationMode="inter_word"
-                />
+                android:justificationMode="inter_word" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

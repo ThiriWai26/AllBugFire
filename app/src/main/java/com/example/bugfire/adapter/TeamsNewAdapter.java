@@ -42,9 +42,12 @@ public class TeamsNewAdapter extends RecyclerView.Adapter<TeamsNewHolder> {
     }
 
     public void addItem(List<NewsTopicList> newsTopicList) {
-        this.newsTopicLists.clear();
-        this.newsTopicLists.addAll(newsTopicList);
+        if (newsTopicLists.isEmpty()) {
+            this.newsTopicLists = newsTopicList;
+        } else
+            this.newsTopicLists.addAll(newsTopicList);
         notifyDataSetChanged();
+
     }
 
 }

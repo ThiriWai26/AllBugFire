@@ -29,6 +29,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +45,7 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
     private CompositeDisposable compositeDisposable;
     private String nextPage, previousPage, firstPage, lastPage;
     private int page = 1;
+    private int totalPage;
 
     public PCGamesDetailFeedsFragment() {
         // Required empty public constructor
@@ -72,25 +74,19 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
                 int totalItemCount = linearLayoutManager.getItemCount();
                 int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
                 int childCount = linearLayoutManager.findLastVisibleItemPosition();
-                Log.i("firstvisibleItem", String.valueOf(firstVisibleItem));
-                Log.i("lastVisibleItem", String.valueOf(childCount));
-                Log.i("totalItemCount",String.valueOf(totalItemCount));
+                Log.e("firstvisibleItem", String.valueOf(firstVisibleItem));
+                Log.e("totalItemCount", String.valueOf(totalItemCount));
+                Log.e("childCount", String.valueOf(childCount));
 
-                if(nextPage!=null && (firstVisibleItem+childCount >= totalItemCount) ){
+                if(nextPage!=null && (firstVisibleItem+childCount>=totalItemCount)){
                     getPCGamesFeeds(++page);
                 }
-
             }
         });
 
@@ -114,13 +110,16 @@ public class PCGamesDetailFeedsFragment extends Fragment implements GamesHolder.
 
     private void handleResult(TopicFeedsResponse topicFeedsResponse) {
         Log.e("response","success");
+        totalPage = topicFeedsResponse.topicFeedsList.lastPageNumber;
+        Log.e("topicfeedtotalPage", String.valueOf(totalPage));
+        feedsTopicLists = topicFeedsResponse.topicFeedsList.data;
         adapter.addItem(topicFeedsResponse.topicFeedsList.data);
-        adapter.notifyDataSetChanged();
         nextPage = topicFeedsResponse.topicFeedsList.nextPage;
         previousPage = topicFeedsResponse.topicFeedsList.previousPage;
         firstPage = topicFeedsResponse.topicFeedsList.firstPage;
         lastPage = topicFeedsResponse.topicFeedsList.lastPage;
         Log.e("gameFeeds_Size", String.valueOf(feedsTopicLists.size()));
+        adapter.notifyDataSetChanged();
 
     }
 

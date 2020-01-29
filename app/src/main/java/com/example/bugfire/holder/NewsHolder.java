@@ -1,5 +1,6 @@
 package com.example.bugfire.holder;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class NewsHolder extends RecyclerView.ViewHolder {
     public void bindData(final News news) {
 
         Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + news.featurePhoto).into(featurephoto);
-        if (userFont.equals("z")) {
+        if (userFont.equals('z')) {
             tvtitle.setText(Rabbit.uni2zg(news.title));
             tvabout.setText(Rabbit.uni2zg(news.preview));
         } else {

@@ -44,9 +44,12 @@ public class TeamsFeedAdapter extends RecyclerView.Adapter<TeamsFeedHolder> {
     }
     public
     void addItem(List<FeedsTopicList> feedsTopicList) {
-        this.feedsTopicLists.clear();
-        this.feedsTopicLists.addAll(feedsTopicList);
+        if (feedsTopicLists.isEmpty()) {
+            this.feedsTopicLists = feedsTopicList;
+        } else
+            this.feedsTopicLists.addAll(feedsTopicList);
         notifyDataSetChanged();
+
 
     }
 

@@ -77,7 +77,7 @@ public class GamesHolder extends RecyclerView.ViewHolder implements Html.ImageGe
         Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(feedsTopicList.content), this::getDrawable, null);
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (userFont.equals("z")) {
+        if (userFont.equals('z')) {
             txName.setText(Rabbit.uni2zg(feedsTopicList.name));
             txTime.setText(Rabbit.uni2zg(feedsTopicList.date));
             txabout.setText(spanned);

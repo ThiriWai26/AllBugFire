@@ -58,16 +58,12 @@ public class FeedsImageGridHolder extends RecyclerView.ViewHolder {
                 Log.e("image","click");
                 listener.onItemClickListener(img);
                 Log.e("photo",photo);
-                Dialog dialog = new Dialog(itemView.getContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
+                Dialog dialog = new Dialog(itemView.getContext(), android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
                 dialog.setContentView(R.layout.layout_fullscreen_image);
                 dialogimg = dialog.findViewById(R.id.dialog_imageview);
                 Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(dialogimg);
                 Log.e("dialogimg", String.valueOf(dialogimg));
                 dialog.show();
-
-                Dialog dialog1 = new Dialog(itemView.getContext(), android.R.style.Theme_DeviceDefault_Light_NoActionBar_Fullscreen);
-                dialogimg = dialog.findViewById(R.id.dialog_imageview);
-                Picasso.get().load(RetrofitService.BASE_URL + "/api/download_image/" + photo).into(dialogimg);
             }
         });
     }

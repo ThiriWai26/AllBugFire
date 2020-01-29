@@ -43,7 +43,7 @@ public class GamesNewsHolder extends RecyclerView.ViewHolder {
 
     public void bindData(final NewsTopicList newsTopicList) {
 
-        if (userFont.equals("z")) {
+        if (userFont == String.valueOf('z')) {
             txName.setText(Rabbit.uni2zg(newsTopicList.title));
             txabout.setText(Rabbit.uni2zg(newsTopicList.preview));
         } else {

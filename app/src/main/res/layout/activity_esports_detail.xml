@@ -46,8 +46,7 @@
                     android:layout_height="wrap_content"
                     style="@style/TitleInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text=""
-                    android:justificationMode="inter_word"/>
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvtime"
@@ -55,8 +54,7 @@
                     android:layout_height="wrap_content"
                     style="@style/SubsmallInputLayout"
                     android:layout_marginTop="@dimen/margin_md"
-                    android:text=""
-                    android:justificationMode="inter_word"/>
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/tvabout"

@@ -41,8 +41,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsHolder> {
 
     public void addItem(List<News> news){
 
-        this.newsList.clear();
-        this.newsList.addAll(news);
+        if (newsList.isEmpty()) {
+            this.newsList = news;
+        } else
+            this.newsList.addAll(news);
         notifyDataSetChanged();
 
     }

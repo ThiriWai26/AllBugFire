@@ -88,7 +88,7 @@ public class FeedsHolder extends RecyclerView.ViewHolder implements Html.ImageGe
         Spanned spanned1 = Html.fromHtml(Rabbit.zg2uni(feeds.content), this::getDrawable, null);
         txabout.setMovementMethod(LinkMovementMethod.getInstance());
 
-        if (userFont.equals("z")) {
+        if (userFont.equals('z')) {
             txName.setText(Rabbit.uni2zg(feeds.name));
             txTime.setText(Rabbit.uni2zg(feeds.date));
             txabout.setText(spanned);

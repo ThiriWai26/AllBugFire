@@ -70,6 +70,7 @@ public class NewsFragment extends Fragment implements NewsHolder.OnNewsClickList
 //               if(nextPage!=null && lastVisibleItemPosition==19 )
 //                 getNewsList(++page);
 //                }
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {

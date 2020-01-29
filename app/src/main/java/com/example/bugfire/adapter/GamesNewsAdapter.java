@@ -42,8 +42,10 @@ public class GamesNewsAdapter extends RecyclerView.Adapter<GamesNewsHolder> {
 
     public void addItem(List<NewsTopicList> newsTopicLists){
 
-        this.newsTopicList.clear();
-        this.newsTopicList.addAll(newsTopicLists);
+        if(newsTopicList.isEmpty()) {
+            this.newsTopicList = newsTopicLists;
+        }else
+            this.newsTopicList.addAll(newsTopicLists);
         notifyDataSetChanged();
 
     }
