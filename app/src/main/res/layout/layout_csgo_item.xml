@@ -33,36 +33,19 @@
                 android:layout_height="180dp"
                 android:layout_margin="@dimen/margin_md"
                 android:scaleType="fitXY" />
-<!--                android:background="@drawable/img_csgo"/>-->
 
             <TextView
-                tools:ignore="MissingPrefix"
                 android:id="@+id/tvtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:justificationMode="inter_word"
                 android:text=" "
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
-<!--            android:text="Alexei “Solo” Berezin ပြောတဲ့ Virtus.Pro ရဲ့ကစားသမားအသစ် ွေးချယ်မှုတွေအကြောင်း "-->
+                style="@style/ArticleTitleTextInputLayout"/>
 
 
             <TextView
                 android:id="@+id/tvabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginLeft="@dimen/margin_md"
-                android:layout_marginRight="@dimen/margin_md"
-                android:layout_marginBottom="@dimen/margin_bottom"
                 android:justificationMode="inter_word"
                 android:text=" "
-                style="@style/NormalTextInputLayout" />
-<!--            android:text="Ti 9 အပြီးမှာပဲ အသင်းတွေတော်တော်များများ ခွာပြဲကုန်ကြတဲ့ သတင်းတွေကို ကြားလိုက်ရတာပါ ။ Virtus.Pro အသင်းပရိတ်သတ်တွေအနေနဲ့ VP အသင်းကြားထဲက ပြဿနာတွေကို စိတ်ဝင်စားနေကြမှာပါ ။ ဒါကြောင့် Virtus.Pro ရဲ့ ပဲ့ကိုင်ရှင်တစ်ဦးဖြစ်တဲ့ Solo နဲ့ အင်တာဗျူး အကြောင်းကို ဖော်ပြလိုက်ရပါတယ် ။"-->
+                style="@style/ArticleNormalTextInputLayout" />
 
 
         </LinearLayout>

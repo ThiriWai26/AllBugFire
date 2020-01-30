@@ -26,6 +26,7 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubeThumbnailView;
 
 
 public class WeekelyNewsActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {

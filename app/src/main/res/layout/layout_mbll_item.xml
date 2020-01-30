@@ -35,32 +35,17 @@
                 android:scaleType="fitXY" />
 
             <TextView
-                tools:ignore="MissingPrefix"
                 android:id="@+id/tvtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:justificationMode="inter_word"
-                android:textColor="@color/white"
                 android:text=" "
-                android:textStyle="bold"
-                android:textSize="14sp"/>
-<!--            android:text="Mobile MOBA လောကကို ကြီးစိုးဖို့ရောက်လာမှာလား"-->
+                style="@style/ArticleTitleTextInputLayout"/>
 
             <TextView
                 android:id="@+id/tvabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginLeft="@dimen/margin_md"
-                android:layout_marginRight="@dimen/margin_md"
                 android:text=" "
                 android:justificationMode="inter_word"
                 android:layout_marginBottom="@dimen/margin_bottom"
-                style="@style/NormalTextInputLayout" />
-<!--            android:text="League of Legend ဟာဆိုရင် ကမ္ဘာပေါ်မှာဆော့ကစားသူပေါင်း သန်းထောင်ချီ ရှိတဲ့ Top Ten စာရင်းဝင် Game တစ်ခုပါ ။ Champion (သာမန်လူအခေါ် Hero LOLမှာတော့ Champion လို့ပဲခေါ်ပါတယ် ) ပေါင်း 100 ကျော်နဲ့ Skin ပေါင်း ထောင်ဂဏန်းနီးပါးရှိပါတယ်။ ဒီလို Game မျိုးကို အနည်းငယ် မတူညီတဲ့ ပုံစံနဲ့ Mobile မှာ ကစားနိုင်တော့မယ်လို့ Riot ကပြောလိုက်ပါပြီ ။"-->
+                style="@style/ArticleNormalTextInputLayout" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

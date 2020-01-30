@@ -35,34 +35,16 @@
                 android:scaleType="fitXY" />
 
             <TextView
-                tools:ignore="MissingPrefix,RtlCompat"
                 android:id="@+id/tvtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:text=" "
                 android:justificationMode="inter_word"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="14sp"/>
-<!--            android:text="စကောလားရှစ်တွေစပေးနေပြီဖစ်တဲ့-->
-<!--            University of Staffordshire"-->
+                style="@style/ArticleTitleTextInputLayout"/>
 
             <TextView
                 android:id="@+id/tvabout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_md"
-                android:layout_marginLeft="@dimen/margin_md"
-                android:layout_marginRight="@dimen/margin_md"
                 android:justificationMode="inter_word"
-                android:layout_marginBottom="@dimen/margin_bottom"
                 android:text=" "
-                style="@style/NormalTextInputLayout" />
-<!--            android:text="ကောလိပ် တွေမှာ အီလက်ထရောနစ် အားကစား ဘွဲ့ ဒီဂရီ တွေပေးတော့မယ်-->
-<!--            U.K ရဲ့ တက္ကသိုလ်တွေထဲက တစ်ခုဖြစ်တဲ့ University of Staffordshire က အလျင်အမြန်တိုးတက်နေတဲ့ Esports industry ရဲ့ ကျွမ်းကျင်ပညာရှင် လိုအပ်မှု ကို ရည်ရွယ်ပြီး လုပ်ဆောင်သွားတာလည်း ဖြစ်ပါတယ် ။ (University of Staffordshire ရဲ့ Esport Hub ကတော့ မြင်တဲ့ အတိုင်းပါပဲ )"-->
+                style="@style/ArticleNormalTextInputLayout" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
