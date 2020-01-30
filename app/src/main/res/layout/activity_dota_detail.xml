@@ -35,36 +35,25 @@
 
                     <TextView
                         android:id="@+id/tvname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/CategoryNameInputLayout"
-                        android:text="" />
+                        android:text=""
+                        style="@style/ArticleDetailNameInputLayout"/>
 
                     <TextView
                         android:id="@+id/tvtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_md"
                         android:text=""
-                        style="@style/TitleInputLayout" />
+                        style="@style/ArticleDetailTitleInputLayout" />
 
                     <TextView
                         android:id="@+id/tvtime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/SubsmallInputLayout"
-                        android:layout_marginTop="@dimen/margin_md"
-                        android:text="" />
+                        android:text=""
+                        style="@style/ArticleDetailTimeInputLayout" />
 
                     <TextView
                         android:id="@+id/tvabout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/NormalTextInputLayout"
-                        android:layout_marginTop="@dimen/margin_md"
-                        android:lineSpacingExtra="@dimen/margin_md"
                         android:text=""
-                        android:justificationMode="inter_word" />
+                        android:justificationMode="inter_word"
+                        android:lineSpacingExtra="@dimen/margin_md"
+                        style="@style/ArticleDetailContentInputLayout" />
 
                 </LinearLayout>
         </LinearLayout>
